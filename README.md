@@ -30,7 +30,7 @@ No build step — GitHub Pages serves `main` from the repo root.
 8. Wind-Down Decision — Exhibit M
 9. Key Takeaways — Exhibits N (Source Log), O (Doc Gaps), P (Discussion Questions)
 
-Skeleton policy: placeholder prose for unverified narrative; Exhibits B/C/F filled from Vinay Q1–Q3 (V1→V2 evolution, keccak256 rate sampling). Peak TVL $5M remains asterisked (DefiLlama API max ≈ $635K — no DefiLlama link on site).
+Hashstack case study published (Pass 1): product narrative + asterisked operator metrics. No peak TVL claimed; DefiLlama linked for public TVL tracking. Parashar remains Coming soon.
 
 ## Theme
 
