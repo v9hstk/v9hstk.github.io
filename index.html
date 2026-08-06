@@ -11,156 +11,213 @@
   <meta property="og:image" content="https://v9hstk.github.io/og.png">
   <meta property="og:type" content="website">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <script>!function(){var s=sessionStorage.getItem("theme");s||(s=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",s)}();</script>
   <script src="js/theme.js" defer></script>
 </head>
 <body>
+  <div class="atmosphere" aria-hidden="true"></div>
+
   <header class="site-header">
-    <span aria-hidden="true"></span>
-    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
-      <span class="icon-sun" aria-hidden="true">☀</span>
-      <span class="icon-moon" aria-hidden="true">☾</span>
-    </button>
+    <a class="mark" href="#top">VD</a>
+    <nav class="nav-rail" aria-label="Primary">
+      <a href="#cases">Cases</a>
+      <a href="#proof">Proof</a>
+      <a href="#resumes">Resumes</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn-ghost" href="https://cal.com/vinaydkumar/15min" target="_blank" rel="noopener noreferrer">Book 15m</a>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="icon-sun" aria-hidden="true">☀</span>
+        <span class="icon-moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <h1>Vinay Degavath</h1>
-      <p class="tagline">Head of Product | DeFi · CeFi · Protocol Design</p>
-      <p class="credentials">IIT Kharagpur · Token 2049 Speaker</p>
-
-      <nav class="contact-links" aria-label="Contact links">
-        <a href="mailto:2vinaykumard@gmail.com">Email</a>
-        <a href="https://linkedin.com/in/vinaydkumar" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://github.com/v9hstk" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://x.com/v9hstk" target="_blank" rel="noopener noreferrer">Twitter</a>
-        <a href="https://t.me/v9hstk" target="_blank" rel="noopener noreferrer">Telegram</a>
-        <a href="https://cal.com/vinaydkumar/15min" class="btn-primary" target="_blank" rel="noopener noreferrer">Schedule a Call</a>
-      </nav>
-
-      <p class="one-liner">Product leader with 13+ years across DeFi, fintech, and protocol design. Founded Hashstack. Head of Product at Finin (acquired). Authored EIP-5299.</p>
+  <main id="top">
+    <section class="hero" aria-labelledby="name">
+      <div class="hero-copy">
+        <p class="eyebrow">Head of Product · DeFi · CeFi · Protocol Design</p>
+        <h1 id="name">Vinay<br>Degavath</h1>
+        <p class="thesis">I build products where <em>risk is the interface</em> — lending systems, fintech platforms, and protocol mechanics that have to work under adversarial conditions.</p>
+        <p class="credentials">IIT Kharagpur · Founded Hashstack · Head of Product, Finin (acquired) · EIP-5299 · Token 2049</p>
+        <div class="hero-cta">
+          <a class="btn-primary" href="https://cal.com/vinaydkumar/15min" target="_blank" rel="noopener noreferrer">Schedule a call</a>
+          <a class="btn-text" href="#cases">Read the work →</a>
+        </div>
+      </div>
+      <aside class="hero-signal" aria-label="Selected signal">
+        <p class="signal-label">Selected signal</p>
+        <ol class="signal-list">
+          <li>
+            <span class="signal-k">01</span>
+            <div>
+              <strong>Under-collateralized lending</strong>
+              <span>Autonomous risk constraints on Starknet — not credit committees.</span>
+            </div>
+          </li>
+          <li>
+            <span class="signal-k">02</span>
+            <div>
+              <strong>Interest as product</strong>
+              <span>DIAL → production kinked utilization model, shipped and documented.</span>
+            </div>
+          </li>
+          <li>
+            <span class="signal-k">03</span>
+            <div>
+              <strong>Standards + stage</strong>
+              <span>EIP-5299 author · Token 2049 speaker · CertiK-audited protocol.</span>
+            </div>
+          </li>
+        </ol>
+        <nav class="contact-compact" aria-label="Contact">
+          <a href="mailto:2vinaykumard@gmail.com">Email</a>
+          <a href="https://linkedin.com/in/vinaydkumar" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/v9hstk" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="https://x.com/v9hstk" target="_blank" rel="noopener noreferrer">X</a>
+          <a href="https://t.me/v9hstk" target="_blank" rel="noopener noreferrer">Telegram</a>
+        </nav>
+      </aside>
     </section>
 
-    <div class="video-wrap">
-      <iframe
-        src="https://www.youtube-nocookie.com/embed/ex7FCWr4nM0"
-        title="Token 2049 Talk — Vinay Degavath"
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        allowfullscreen></iframe>
-    </div>
-
-    <section aria-labelledby="proof-heading">
-      <h2 id="proof-heading">Work &amp; Verification</h2>
-
-      <h3>Hashstack Finance</h3>
-      <ul class="proof-list">
-        <li>
-          <span class="proof-title">Degen Mode</span>
-          <span class="proof-desc">One-click leveraged strategy execution</span>
-          <a class="proof-link" href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">docs.hashstack.finance/hub/degen-mode</a>
-        </li>
-        <li>
-          <span class="proof-title">DIAL: Interest Rate Algorithm</span>
-          <span class="proof-desc">Custom rate model for term-deposit lending</span>
-          <a class="proof-link" href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">blog.hashstack.finance (Wayback)</a>
-        </li>
-        <li>
-          <span class="proof-title">Interest Rate Model (Production)</span>
-          <span class="proof-desc">Kinked utilization curve — evolved from DIAL</span>
-          <a class="proof-link" href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">docs.hashstack.finance/risk/interest-rate-model</a>
-        </li>
-        <li>
-          <span class="proof-title">CertiK Security Audit</span>
-          <span class="proof-desc">Independent smart contract review</span>
-          <a class="proof-link" href="assets/certik_report.pdf" target="_blank" rel="noopener noreferrer">assets/certik_report.pdf</a>
-          <div class="pdf-embed" aria-label="CertiK audit PDF preview">
-            <object data="assets/certik_report.pdf" type="application/pdf">
-              <iframe src="assets/certik_report.pdf" title="CertiK Security Audit PDF"></iframe>
-            </object>
-            <a class="pdf-download" href="assets/certik_report.pdf" download>Download CertiK report (PDF)</a>
-          </div>
-        </li>
-        <li>
-          <span class="proof-title">Open Protocol Whitepaper</span>
-          <span class="proof-desc">Protocol architecture</span>
-          <a class="proof-link" href="assets/whitepaper.pdf" target="_blank" rel="noopener noreferrer">assets/whitepaper.pdf</a>
-          <div class="pdf-embed" aria-label="Whitepaper PDF preview">
-            <object data="assets/whitepaper.pdf" type="application/pdf">
-              <iframe src="assets/whitepaper.pdf" title="Open Protocol Whitepaper PDF"></iframe>
-            </object>
-            <a class="pdf-download" href="assets/whitepaper.pdf" download>Download whitepaper (PDF)</a>
-          </div>
-        </li>
-        <li>
-          <span class="proof-title">Token (Ethereum)</span>
-          <span class="proof-desc">Uniswap-listed ERC-20 (HSTK)</span>
-          <a class="proof-link" href="https://etherscan.io/token/0xF38774A034F5F533D7F9E2ba6b7f3a7542714fA9" target="_blank" rel="noopener noreferrer">etherscan.io/token/0xF387…4fA9</a>
-        </li>
-        <li>
-          <span class="proof-title">Uniswap V3 Pool (USDT–HSTK)</span>
-          <span class="proof-desc">Primary liquidity pool on Ethereum</span>
-          <a class="proof-link" href="https://etherscan.io/address/0x9738486435f65caaA98A807933591cF6Bb4528e1" target="_blank" rel="noopener noreferrer">etherscan.io/address/0x9738…28e1</a>
-        </li>
-        <li>
-          <span class="proof-title">Token (Starknet)</span>
-          <span class="proof-desc">HSTK on Ekubo</span>
-          <a class="proof-link" href="https://voyager.online/contract/0x02e8f2e80fab8239b234c125ee1a68d522718e1d698c214ac85d1f48407349c9" target="_blank" rel="noopener noreferrer">voyager.online/contract/0x02e8…49c9</a>
-        </li>
-        <li>
-          <span class="proof-title">Ekubo (Starknet)</span>
-          <span class="proof-desc">Listed on Ekubo — pool ID 1005917</span>
-          <a class="proof-link" href="https://hashstack.medium.com/hstk-token-now-available-on-uniswap-and-ekubo-7d95a908bcb3" target="_blank" rel="noopener noreferrer">hashstack.medium.com — Uniswap &amp; Ekubo listing</a>
-        </li>
-        <li>
-          <span class="proof-title">Harmony Grant</span>
-          <span class="proof-desc">Ecosystem grant for under-collateralized lending</span>
-          <a class="proof-link" href="https://talk.harmony.one/t/hashstack-crypto-native-lending-protocol-enabling-under-collateralized-loans/4763/16" target="_blank" rel="noopener noreferrer">talk.harmony.one</a>
-        </li>
-      </ul>
-
-      <h3>Standards &amp; Speaking</h3>
-      <ul class="proof-list">
-        <li>
-          <span class="proof-title">EIP-5299</span>
-          <span class="proof-desc">Proposed Layer3 scaling EIP (GitHub PR)</span>
-          <a class="proof-link" href="https://github.com/ethereum/EIPs/pull/5299" target="_blank" rel="noopener noreferrer">github.com/ethereum/EIPs/pull/5299</a>
-        </li>
-        <li>
-          <span class="proof-title">EIP-5299 Discussion</span>
-          <span class="proof-desc">Ethereum Magicians thread</span>
-          <a class="proof-link" href="https://ethereum-magicians.org/t/eip-5299-layer3-scaling-standard/9039" target="_blank" rel="noopener noreferrer">ethereum-magicians.org</a>
-        </li>
-      </ul>
+    <section class="band talk" aria-labelledby="talk-heading">
+      <div class="band-head">
+        <h2 id="talk-heading">On stage</h2>
+        <p>Token 2049 — product thinking under protocol constraints.</p>
+      </div>
+      <div class="video-wrap">
+        <iframe
+          src="https://www.youtube-nocookie.com/embed/ex7FCWr4nM0"
+          title="Token 2049 Talk — Vinay Degavath"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+      </div>
     </section>
 
-    <section aria-labelledby="cases-heading">
-      <h2 id="cases-heading">Case Studies</h2>
-      <div class="card-grid">
-        <a class="card" href="hashstack.html">
-          <h3>Building an Under-Collateralized Lending Protocol</h3>
-          <p class="card-sub">Protocol design, risk frameworks, interest rate models, and a structured wind-down</p>
+    <section class="band" id="cases" aria-labelledby="cases-heading">
+      <div class="band-head">
+        <h2 id="cases-heading">Case studies</h2>
+        <p>Decisions, tradeoffs, and the receipts — not a feature laundry list.</p>
+      </div>
+      <div class="case-rows">
+        <a class="case-row" href="hashstack.html">
+          <span class="case-index">01</span>
+          <div class="case-body">
+            <h3>Building an under-collateralized lending protocol</h3>
+            <p>Hashstack — protocol design, Degen Mode, DIAL, risk frameworks, and a structured wind-down.</p>
+          </div>
+          <span class="case-go" aria-hidden="true">→</span>
         </a>
-        <a class="card" href="parashar.html">
-          <h3>Building an AI Product from Domain Expertise</h3>
-          <p class="card-sub">Product strategy, AI loop engineering, and translating domain rules into consumer intelligence</p>
+        <a class="case-row" href="parashar.html">
+          <span class="case-index">02</span>
+          <div class="case-body">
+            <h3>Building an AI product from domain expertise</h3>
+            <p>Parashar — product strategy, rule systems, and translating domain judgment into consumer intelligence.</p>
+          </div>
+          <span class="case-go" aria-hidden="true">→</span>
         </a>
       </div>
     </section>
 
-    <section aria-labelledby="resume-heading">
-      <h2 id="resume-heading">Resume Downloads</h2>
-      <div class="btn-row">
-        <a class="btn-secondary" href="assets/resume_crypto.pdf" download>Crypto/DeFi Resume (PDF)</a>
-        <a class="btn-secondary" href="assets/resume_fintech.pdf" download>Fintech Resume (PDF)</a>
+    <section class="band" id="proof" aria-labelledby="proof-heading">
+      <div class="band-head">
+        <h2 id="proof-heading">Verification ledger</h2>
+        <p>Public artifacts only. Keywords reformulated from shipped work — nothing invented.</p>
+      </div>
+
+      <div class="ledger">
+        <h3>Hashstack Finance</h3>
+        <ul class="proof-list">
+          <li>
+            <span class="proof-title">Degen Mode</span>
+            <span class="proof-desc">One-click leveraged strategy execution</span>
+            <a class="proof-link" href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">docs</a>
+          </li>
+          <li>
+            <span class="proof-title">DIAL</span>
+            <span class="proof-desc">Custom rate model for term-deposit lending</span>
+            <a class="proof-link" href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">archive</a>
+          </li>
+          <li>
+            <span class="proof-title">Interest rate model</span>
+            <span class="proof-desc">Production kinked utilization curve</span>
+            <a class="proof-link" href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">docs</a>
+          </li>
+          <li>
+            <span class="proof-title">CertiK audit</span>
+            <span class="proof-desc">Independent smart contract review</span>
+            <a class="proof-link" href="assets/certik_report.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+          </li>
+          <li>
+            <span class="proof-title">Open protocol whitepaper</span>
+            <span class="proof-desc">Protocol architecture</span>
+            <a class="proof-link" href="assets/whitepaper.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
+          </li>
+          <li>
+            <span class="proof-title">HSTK · Ethereum</span>
+            <span class="proof-desc">Uniswap-listed ERC-20</span>
+            <a class="proof-link" href="https://etherscan.io/token/0xF38774A034F5F533D7F9E2ba6b7f3a7542714fA9" target="_blank" rel="noopener noreferrer">etherscan</a>
+          </li>
+          <li>
+            <span class="proof-title">USDT–HSTK pool</span>
+            <span class="proof-desc">Uniswap V3 primary liquidity</span>
+            <a class="proof-link" href="https://etherscan.io/address/0x9738486435f65caaA98A807933591cF6Bb4528e1" target="_blank" rel="noopener noreferrer">etherscan</a>
+          </li>
+          <li>
+            <span class="proof-title">HSTK · Starknet</span>
+            <span class="proof-desc">Ekubo listing</span>
+            <a class="proof-link" href="https://voyager.online/contract/0x02e8f2e80fab8239b234c125ee1a68d522718e1d698c214ac85d1f48407349c9" target="_blank" rel="noopener noreferrer">voyager</a>
+          </li>
+          <li>
+            <span class="proof-title">Harmony grant</span>
+            <span class="proof-desc">Ecosystem grant for under-collateralized lending</span>
+            <a class="proof-link" href="https://talk.harmony.one/t/hashstack-crypto-native-lending-protocol-enabling-under-collateralized-loans/4763/16" target="_blank" rel="noopener noreferrer">forum</a>
+          </li>
+        </ul>
+
+        <h3>Standards &amp; speaking</h3>
+        <ul class="proof-list">
+          <li>
+            <span class="proof-title">EIP-5299</span>
+            <span class="proof-desc">Proposed Layer3 scaling EIP</span>
+            <a class="proof-link" href="https://github.com/ethereum/EIPs/pull/5299" target="_blank" rel="noopener noreferrer">GitHub PR</a>
+          </li>
+          <li>
+            <span class="proof-title">Ethereum Magicians</span>
+            <span class="proof-desc">EIP-5299 discussion thread</span>
+            <a class="proof-link" href="https://ethereum-magicians.org/t/eip-5299-layer3-scaling-standard/9039" target="_blank" rel="noopener noreferrer">thread</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="band resumes" id="resumes" aria-labelledby="resume-heading">
+      <div class="band-head">
+        <h2 id="resume-heading">Resumes</h2>
+        <p>Two cuts of the same career — pick the market you’re hiring for.</p>
+      </div>
+      <div class="resume-grid">
+        <a class="resume-tile" href="assets/resume_crypto.pdf" download>
+          <span class="resume-market">Crypto / DeFi</span>
+          <span class="resume-file">PDF ↓</span>
+        </a>
+        <a class="resume-tile" href="assets/resume_fintech.pdf" download>
+          <span class="resume-market">Fintech / CeFi</span>
+          <span class="resume-file">PDF ↓</span>
+        </a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    Vinay Degavath · 2026
+    <span>Vinay Degavath</span>
+    <span class="footer-sep">·</span>
+    <span>2026</span>
   </footer>
 </body>
 </html>
