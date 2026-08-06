@@ -580,6 +580,13 @@ main {
   text-decoration: underline !important;
 }
 
+.ledger-meta {
+  margin: 1.25rem 0 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: var(--ink-faint);
+}
+
 /* —— Resumes —— */
 
 .resume-grid {
