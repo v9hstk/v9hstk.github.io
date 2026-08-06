@@ -137,8 +137,17 @@ button:focus-visible {
 }
 
 .nav-rail {
+  display: flex;
+  gap: 1rem;
+  flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.nav-rail::-webkit-scrollbar {
   display: none;
-  gap: 1.5rem;
 }
 
 .nav-rail a {
@@ -148,16 +157,21 @@ button:focus-visible {
   text-transform: uppercase;
   color: var(--ink-soft) !important;
   text-decoration: none !important;
+  white-space: nowrap;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--line);
 }
 
 .nav-rail a:hover {
   color: var(--ink) !important;
+  border-color: var(--signal);
 }
 
 .header-actions {
   display: flex;
   align-items: center;
   gap: 0.65rem;
+  flex-shrink: 0;
 }
 
 .btn-ghost {
@@ -210,7 +224,14 @@ button:focus-visible {
 
 @media (min-width: 720px) {
   .nav-rail {
-    display: flex;
+    justify-content: center;
+    overflow: visible;
+    gap: 1.5rem;
+  }
+
+  .nav-rail a {
+    border: none;
+    padding: 0;
   }
 
   .btn-ghost {
