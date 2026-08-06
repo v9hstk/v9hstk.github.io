@@ -1,587 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Vinay Degavath — Head of Product | DeFi · CeFi · Trading Infra" />
-  <title>Vinay Degavath</title>
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://v9hstk.github.io/" />
-  <meta property="og:title" content="Vinay Degavath" />
-  <meta property="og:description" content="Head of Product | DeFi · CeFi · Trading Infra. IIT Kharagpur | EIP-5299 Author | Token 2049 Speaker." />
-  <meta property="og:image" content="https://v9hstk.github.io/og.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Vinay Degavath" />
-  <meta name="twitter:description" content="Head of Product | DeFi · CeFi · Trading Infra." />
-  <meta name="twitter:image" content="https://v9hstk.github.io/og.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <style>
-    /* Dark CDS token subset — from scraped coinbase.css */
-    :root {
-      --cb-fg: rgb(255, 255, 255);
-      --cb-fgMuted: rgb(138, 145, 158);
-      --cb-fgPrimary: rgb(87, 139, 250);
-      --cb-bg: rgb(10, 11, 13);
-      --cb-bgPrimary: rgb(87, 139, 250);
-      --cb-bgSecondary: rgb(40, 43, 49);
-      --cb-bgLine: rgba(138, 145, 158, 0.2);
-      --cb-bgElevation1: rgb(20, 21, 25);
-      --cb-bgElevation2: rgb(30, 32, 37);
-      --cb-space-1: 8px;
-      --cb-space-1_5: 12px;
-      --cb-space-2: 16px;
-      --cb-space-3: 24px;
-      --cb-space-4: 32px;
-      --cb-space-5: 40px;
-      --cb-space-6: 48px;
-      --cb-space-8: 64px;
-      --cb-radius-200: 8px;
-      --cb-radius-300: 12px;
-      --cb-radius-400: 16px;
-      --cb-fontSize-display3: 2.5rem;
-      --cb-fontSize-title1: 1.75rem;
-      --cb-fontSize-title3: 1.25rem;
-      --cb-fontSize-headline: 1rem;
-      --cb-fontSize-body: 1rem;
-      --cb-fontSize-label1: 0.875rem;
-      --cb-fontSize-caption: 0.8125rem;
-      --cb-font-sans: Inter, CoinbaseSans, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      --content-max: 760px;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      background: var(--cb-bg);
-      color: var(--cb-fg);
-      font-family: var(--cb-font-sans);
-      font-size: var(--cb-fontSize-body);
-      line-height: 1.5;
-      font-weight: 400;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a {
-      color: var(--cb-fgPrimary);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    /* Nav — CDS elevation bar */
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: var(--cb-space-1);
-      padding: 0 var(--cb-space-3);
-      height: 56px;
-      background: var(--cb-bgElevation1);
-      border-bottom: 1px solid var(--cb-bgLine);
-    }
-
-    .nav-brand {
-      font-weight: 600;
-      font-size: 15px;
-      color: var(--cb-fg);
-      text-decoration: none;
-      margin-right: var(--cb-space-2);
-    }
-
-    .nav-brand:hover { text-decoration: none; }
-
-    .nav-links {
-      display: flex;
-      gap: 4px;
-      flex: 1;
-      overflow-x: auto;
-    }
-
-    .nav-link {
-      padding: 8px 12px;
-      border-radius: var(--cb-radius-200);
-      color: var(--cb-fgMuted);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-    .nav-link:hover {
-      color: var(--cb-fg);
-      background: var(--cb-bgSecondary);
-      text-decoration: none;
-    }
-
-    .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      padding: 8px 16px;
-      border-radius: var(--cb-radius-200);
-      background: var(--cb-bgPrimary);
-      color: #fff;
-      font-weight: 600;
-      font-size: 13px;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .nav-cta:hover {
-      filter: brightness(1.08);
-      text-decoration: none;
-    }
-
-    main {
-      max-width: var(--content-max);
-      margin: 0 auto;
-      padding: var(--cb-space-6) var(--cb-space-3) var(--cb-space-8);
-    }
-
-    /* Hero */
-    .hero {
-      padding: var(--cb-space-6) 0 var(--cb-space-8);
-    }
-
-    .hero h1 {
-      margin: 0 0 var(--cb-space-2);
-      font-size: clamp(2rem, 6vw, var(--cb-fontSize-display3));
-      font-weight: 600;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-    }
-
-    .tagline {
-      margin: 0 0 var(--cb-space-1);
-      font-size: var(--cb-fontSize-title3);
-      font-weight: 600;
-      color: var(--cb-fg);
-    }
-
-    .subtitle {
-      margin: 0 0 var(--cb-space-4);
-      font-size: var(--cb-fontSize-label1);
-      color: var(--cb-fgMuted);
-    }
-
-    .social {
-      display: flex;
-      flex-wrap: wrap;
-      gap: var(--cb-space-1) var(--cb-space-2);
-      margin-bottom: var(--cb-space-4);
-      list-style: none;
-      padding: 0;
-    }
-
-    .social a {
-      color: var(--cb-fgMuted);
-      font-size: var(--cb-fontSize-label1);
-      font-weight: 600;
-    }
-
-    .social a:hover {
-      color: var(--cb-fg);
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 12px 20px;
-      border-radius: var(--cb-radius-200);
-      background: var(--cb-bgPrimary);
-      color: #fff;
-      font-weight: 600;
-      font-size: var(--cb-fontSize-label1);
-      text-decoration: none;
-      border: none;
-    }
-
-    .btn-primary:hover {
-      filter: brightness(1.08);
-      text-decoration: none;
-    }
-
-    /* Sections */
-    section {
-      padding: var(--cb-space-6) 0;
-      border-top: 1px solid var(--cb-bgLine);
-    }
-
-    .section-label {
-      margin: 0 0 var(--cb-space-3);
-      font-size: var(--cb-fontSize-caption);
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--cb-fgMuted);
-    }
-
-    /* Video */
-    .video-wrap {
-      position: relative;
-      width: 100%;
-      padding-bottom: 56.25%;
-      border-radius: var(--cb-radius-300);
-      overflow: hidden;
-      background: var(--cb-bgElevation1);
-      border: 1px solid var(--cb-bgLine);
-    }
-
-    .video-wrap iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
-
-    /* Work entries */
-    .work-list {
-      display: flex;
-      flex-direction: column;
-      gap: var(--cb-space-2);
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .work-item {
-      padding: var(--cb-space-3);
-      background: var(--cb-bgElevation1);
-      border: 1px solid var(--cb-bgLine);
-      border-radius: var(--cb-radius-300);
-    }
-
-    .work-head {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: var(--cb-space-1);
-      margin-bottom: var(--cb-space-1);
-    }
-
-    .work-company {
-      font-weight: 600;
-      font-size: var(--cb-fontSize-headline);
-    }
-
-    .work-dates {
-      font-size: var(--cb-fontSize-caption);
-      color: var(--cb-fgMuted);
-      font-weight: 600;
-    }
-
-    .work-role {
-      margin: 0 0 var(--cb-space-1);
-      font-size: var(--cb-fontSize-label1);
-      color: var(--cb-fgMuted);
-      font-weight: 600;
-    }
-
-    .work-item p {
-      margin: 0;
-      font-size: var(--cb-fontSize-label1);
-      color: var(--cb-fgMuted);
-      line-height: 1.55;
-    }
-
-    /* Link list / published */
-    .link-list {
-      display: flex;
-      flex-direction: column;
-      gap: var(--cb-space-1);
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .link-list a {
-      display: block;
-      padding: var(--cb-space-2) var(--cb-space-3);
-      background: var(--cb-bgElevation1);
-      border: 1px solid var(--cb-bgLine);
-      border-radius: var(--cb-radius-200);
-      color: var(--cb-fg);
-      font-weight: 600;
-      font-size: var(--cb-fontSize-label1);
-      text-decoration: none;
-      transition: background 0.15s ease;
-    }
-
-    .link-list a:hover {
-      background: var(--cb-bgSecondary);
-      text-decoration: none;
-    }
-
-    .link-list a span {
-      color: var(--cb-fgMuted);
-      font-weight: 400;
-      margin-left: 6px;
-    }
-
-    /* Case study cards */
-    .card-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: var(--cb-space-2);
-    }
-
-    @media (min-width: 560px) {
-      .card-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-    }
-
-    .card {
-      padding: var(--cb-space-3);
-      background: var(--cb-bgElevation1);
-      border: 1px solid var(--cb-bgLine);
-      border-radius: var(--cb-radius-300);
-      min-height: 120px;
-      display: flex;
-      flex-direction: column;
-      gap: var(--cb-space-1);
-    }
-
-    .card h3 {
-      margin: 0;
-      font-size: var(--cb-fontSize-headline);
-      font-weight: 600;
-      line-height: 1.35;
-    }
-
-    .card-meta {
-      font-size: var(--cb-fontSize-caption);
-      color: var(--cb-fgMuted);
-      font-weight: 600;
-    }
-
-    .badge {
-      display: inline-block;
-      align-self: flex-start;
-      margin-top: auto;
-      padding: 4px 10px;
-      border-radius: 1000px;
-      background: var(--cb-bgSecondary);
-      color: var(--cb-fgMuted);
-      font-size: 12px;
-      font-weight: 600;
-    }
-
-    .card-placeholder {
-      opacity: 0.85;
-      pointer-events: none;
-    }
-
-    /* Downloads */
-    .download-list {
-      display: flex;
-      flex-direction: column;
-      gap: var(--cb-space-1);
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .download-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--cb-space-2);
-      padding: var(--cb-space-2) var(--cb-space-3);
-      background: var(--cb-bgElevation1);
-      border: 1px solid var(--cb-bgLine);
-      border-radius: var(--cb-radius-200);
-    }
-
-    .download-item span {
-      font-weight: 600;
-      font-size: var(--cb-fontSize-label1);
-    }
-
-    .download-item .badge {
-      margin-top: 0;
-    }
-
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--cb-bgLine);
-      padding: var(--cb-space-6) var(--cb-space-3) var(--cb-space-8);
-      max-width: var(--content-max);
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    footer .btn-primary {
-      margin-bottom: var(--cb-space-3);
-    }
-
-    .copyright {
-      margin: 0;
-      font-size: var(--cb-fontSize-caption);
-      color: var(--cb-fgMuted);
-    }
-
-    @media (max-width: 560px) {
-      .nav-links { display: none; }
-      .hero { padding-top: var(--cb-space-4); }
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vinay Degavath — Head of Product | DeFi · CeFi · Protocol Design</title>
+  <meta name="description" content="Product leader with 13+ years across DeFi, fintech, and protocol design. Founded Hashstack. Head of Product at Finin (acquired). Authored EIP-5299.">
+  <meta property="og:title" content="Vinay Degavath — Head of Product">
+  <meta property="og:description" content="DeFi · CeFi · Protocol Design. Founded Hashstack. Authored EIP-5299.">
+  <meta property="og:url" content="https://v9hstk.github.io/">
+  <meta property="og:image" content="https://v9hstk.github.io/og.png">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>!function(){var s=sessionStorage.getItem("theme");s||(s=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",s)}();</script>
+  <script src="js/theme.js" defer></script>
 </head>
 <body>
-  <nav class="nav" aria-label="Primary">
-    <a class="nav-brand" href="#top">Vinay Degavath</a>
-    <div class="nav-links">
-      <a class="nav-link" href="#talk">Talk</a>
-      <a class="nav-link" href="#work">Work</a>
-      <a class="nav-link" href="#published">Published</a>
-      <a class="nav-link" href="#case-studies">Case Studies</a>
-      <a class="nav-link" href="#downloads">Downloads</a>
-    </div>
-    <a class="nav-cta" href="https://cal.com/vinaydkumar/15min" target="_blank" rel="noopener noreferrer">Book a call</a>
-  </nav>
+  <header class="site-header">
+    <span aria-hidden="true"></span>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+      <span class="icon-sun" aria-hidden="true">☀</span>
+      <span class="icon-moon" aria-hidden="true">☾</span>
+    </button>
+  </header>
 
-  <main id="top">
-    <header class="hero">
+  <main>
+    <section class="hero">
       <h1>Vinay Degavath</h1>
-      <p class="tagline">Head of Product | DeFi · CeFi · Trading Infra</p>
-      <p class="subtitle">IIT Kharagpur | EIP-5299 Author | Token 2049 Speaker</p>
-      <ul class="social">
-        <li><a href="https://linkedin.com/in/vinaydkumar" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        <li><a href="https://github.com/v9hstk" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-        <li><a href="https://t.me/v9hstk" target="_blank" rel="noopener noreferrer">Telegram</a></li>
-        <li><a href="https://x.com/v9hstk" target="_blank" rel="noopener noreferrer">Twitter</a></li>
-        <li><a href="mailto:2vinaykumard@gmail.com">Email</a></li>
-      </ul>
-      <a class="btn-primary" href="https://cal.com/vinaydkumar/15min" target="_blank" rel="noopener noreferrer">Book a call</a>
-    </header>
+      <p class="tagline">Head of Product | DeFi · CeFi · Protocol Design</p>
+      <p class="credentials">IIT Kharagpur · Token 2049 Speaker</p>
 
-    <section id="talk" aria-labelledby="talk-label">
-      <h2 class="section-label" id="talk-label">Token 2049 Talk</h2>
-      <div class="video-wrap">
-        <iframe
-          src="https://www.youtube-nocookie.com/embed/ex7FCWr4nM0"
-          title="Token 2049 talk — Vinay Degavath"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-          loading="lazy"
-        ></iframe>
-      </div>
+      <nav class="contact-links" aria-label="Contact links">
+        <a href="mailto:2vinaykumard@gmail.com">Email</a>
+        <a href="https://linkedin.com/in/vinaydkumar" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/v9hstk" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://x.com/v9hstk" target="_blank" rel="noopener noreferrer">Twitter</a>
+        <a href="https://t.me/v9hstk" target="_blank" rel="noopener noreferrer">Telegram</a>
+        <a href="https://cal.com/vinaydkumar/15min" class="btn-primary" target="_blank" rel="noopener noreferrer">Schedule a Call</a>
+      </nav>
+
+      <p class="one-liner">Product leader with 13+ years across DeFi, fintech, and protocol design. Founded Hashstack. Head of Product at Finin (acquired). Authored EIP-5299.</p>
     </section>
 
-    <section id="work" aria-labelledby="work-label">
-      <h2 class="section-label" id="work-label">Work</h2>
-      <ul class="work-list">
-        <li class="work-item">
-          <div class="work-head">
-            <span class="work-company">Hashstack Finance</span>
-            <span class="work-dates">2020–Present</span>
-          </div>
-          <p class="work-role">Founder &amp; CEO</p>
-          <p>DeFi lending, Starknet. $2M raised. 180K STRK grants. Token on Uniswap. 16-dev team. 27K Discord. EIP-5299 author. Integrations: Aave, Chainlink, ZKLend, Myswap, Jediswap, Chainstack.</p>
+    <div class="video-wrap">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/ex7FCWr4nM0"
+        title="Token 2049 Talk — Vinay Degavath"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
+
+    <section aria-labelledby="proof-heading">
+      <h2 id="proof-heading">Work &amp; Verification</h2>
+
+      <h3>Hashstack Finance</h3>
+      <ul class="proof-list">
+        <li>
+          <span class="proof-title">Degen Mode</span>
+          <span class="proof-desc">One-click leveraged strategy execution</span>
+          <a class="proof-link" href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">docs.hashstack.finance/hub/degen-mode</a>
         </li>
-        <li class="work-item">
-          <div class="work-head">
-            <span class="work-company">Finin</span>
-            <span class="work-dates">2019–2020</span>
-          </div>
-          <p class="work-role">Head of Product</p>
-          <p>Employee #2. Built eng team 0→16. Core banking product. Acquired by Open Financial Technologies.</p>
+        <li>
+          <span class="proof-title">DIAL: Interest Rate Algorithm</span>
+          <span class="proof-desc">Custom rate model for term-deposit lending</span>
+          <a class="proof-link" href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">blog.hashstack.finance (Wayback)</a>
         </li>
-        <li class="work-item">
-          <div class="work-head">
-            <span class="work-company">Guardrail</span>
-            <span class="work-dates">2016–Present</span>
-          </div>
-          <p class="work-role">Managing Partner</p>
-          <p>Single-family office. Digital assets, precious metals, real estate, frontier tech. Backed Gushwork ($9M seed).</p>
+        <li>
+          <span class="proof-title">Interest Rate Model (Production)</span>
+          <span class="proof-desc">Kinked utilization curve — evolved from DIAL</span>
+          <a class="proof-link" href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">docs.hashstack.finance/risk/interest-rate-model</a>
         </li>
-        <li class="work-item">
-          <div class="work-head">
-            <span class="work-company">Echo</span>
-            <span class="work-dates">2016</span>
+        <li>
+          <span class="proof-title">CertiK Security Audit</span>
+          <span class="proof-desc">Independent smart contract review</span>
+          <a class="proof-link" href="assets/certik_report.pdf" target="_blank" rel="noopener noreferrer">assets/certik_report.pdf</a>
+          <div class="pdf-embed" aria-label="CertiK audit PDF preview">
+            <object data="assets/certik_report.pdf" type="application/pdf">
+              <iframe src="assets/certik_report.pdf" title="CertiK Security Audit PDF"></iframe>
+            </object>
+            <a class="pdf-download" href="assets/certik_report.pdf" download>Download CertiK report (PDF)</a>
           </div>
-          <p class="work-role">Co-founder</p>
-          <p>Facebook FBSTART. SURGE 2016. #13 India Play Store.</p>
         </li>
-        <li class="work-item">
-          <div class="work-head">
-            <span class="work-company">Qulp</span>
-            <span class="work-dates">2013–2015</span>
+        <li>
+          <span class="proof-title">Open Protocol Whitepaper</span>
+          <span class="proof-desc">Protocol architecture</span>
+          <a class="proof-link" href="assets/whitepaper.pdf" target="_blank" rel="noopener noreferrer">assets/whitepaper.pdf</a>
+          <div class="pdf-embed" aria-label="Whitepaper PDF preview">
+            <object data="assets/whitepaper.pdf" type="application/pdf">
+              <iframe src="assets/whitepaper.pdf" title="Open Protocol Whitepaper PDF"></iframe>
+            </object>
+            <a class="pdf-download" href="assets/whitepaper.pdf" download>Download whitepaper (PDF)</a>
           </div>
-          <p class="work-role">Founder</p>
-          <p>Google Launchpad 2014. $60K pre-orders.</p>
+        </li>
+        <li>
+          <span class="proof-title">Token (Ethereum)</span>
+          <span class="proof-desc">Uniswap-listed ERC-20 (HSTK)</span>
+          <a class="proof-link" href="https://etherscan.io/token/0xF38774A034F5F533D7F9E2ba6b7f3a7542714fA9" target="_blank" rel="noopener noreferrer">etherscan.io/token/0xF387…4fA9</a>
+        </li>
+        <li>
+          <span class="proof-title">Uniswap V3 Pool (USDT–HSTK)</span>
+          <span class="proof-desc">Primary liquidity pool on Ethereum</span>
+          <a class="proof-link" href="https://etherscan.io/address/0x9738486435f65caaA98A807933591cF6Bb4528e1" target="_blank" rel="noopener noreferrer">etherscan.io/address/0x9738…28e1</a>
+        </li>
+        <li>
+          <span class="proof-title">Token (Starknet)</span>
+          <span class="proof-desc">HSTK on Ekubo</span>
+          <a class="proof-link" href="https://voyager.online/contract/0x02e8f2e80fab8239b234c125ee1a68d522718e1d698c214ac85d1f48407349c9" target="_blank" rel="noopener noreferrer">voyager.online/contract/0x02e8…49c9</a>
+        </li>
+        <li>
+          <span class="proof-title">Ekubo (Starknet)</span>
+          <span class="proof-desc">Listed on Ekubo — pool ID 1005917</span>
+          <a class="proof-link" href="https://hashstack.medium.com/hstk-token-now-available-on-uniswap-and-ekubo-7d95a908bcb3" target="_blank" rel="noopener noreferrer">hashstack.medium.com — Uniswap &amp; Ekubo listing</a>
+        </li>
+        <li>
+          <span class="proof-title">Harmony Grant</span>
+          <span class="proof-desc">Ecosystem grant for under-collateralized lending</span>
+          <a class="proof-link" href="https://talk.harmony.one/t/hashstack-crypto-native-lending-protocol-enabling-under-collateralized-loans/4763/16" target="_blank" rel="noopener noreferrer">talk.harmony.one</a>
+        </li>
+      </ul>
+
+      <h3>Standards &amp; Speaking</h3>
+      <ul class="proof-list">
+        <li>
+          <span class="proof-title">EIP-5299</span>
+          <span class="proof-desc">Proposed Layer3 scaling EIP (GitHub PR)</span>
+          <a class="proof-link" href="https://github.com/ethereum/EIPs/pull/5299" target="_blank" rel="noopener noreferrer">github.com/ethereum/EIPs/pull/5299</a>
+        </li>
+        <li>
+          <span class="proof-title">EIP-5299 Discussion</span>
+          <span class="proof-desc">Ethereum Magicians thread</span>
+          <a class="proof-link" href="https://ethereum-magicians.org/t/eip-5299-layer3-scaling-standard/9039" target="_blank" rel="noopener noreferrer">ethereum-magicians.org</a>
         </li>
       </ul>
     </section>
 
-    <section id="published" aria-labelledby="published-label">
-      <h2 class="section-label" id="published-label">Published Work</h2>
-      <ul class="link-list">
-        <li>
-          <a href="https://ethereum-magicians.org/t/eip-5299-layer3-scaling-standard/9039" target="_blank" rel="noopener noreferrer">
-            EIP-5299: Layer3 Scaling Standard
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/0xHashstack/whitepaper/blob/main/Open%20protocol/v0.1/Open%20protocol.pdf" target="_blank" rel="noopener noreferrer">
-            Open Protocol Whitepaper
-          </a>
-        </li>
-        <li>
-          <a href="https://github.com/0xHashstack/whitepaper/blob/main/Open%20protocol/v0.1/Legacy_V0.1.pdf" target="_blank" rel="noopener noreferrer">
-            Legacy V0.1 Whitepaper
-          </a>
-        </li>
-      </ul>
-    </section>
-
-    <section id="case-studies" aria-labelledby="case-studies-label">
-      <h2 class="section-label" id="case-studies-label">Case Studies</h2>
+    <section aria-labelledby="cases-heading">
+      <h2 id="cases-heading">Case Studies</h2>
       <div class="card-grid">
-        <div class="card card-placeholder" aria-disabled="true">
-          <h3>Building a 5x Capital Efficiency Lending Protocol</h3>
-          <p class="card-meta">Hashstack</p>
-          <span class="badge">Coming Soon</span>
-        </div>
-        <div class="card card-placeholder" aria-disabled="true">
+        <a class="card" href="hashstack.html">
+          <h3>Building an Under-Collateralized Lending Protocol</h3>
+          <p class="card-sub">Protocol design, risk frameworks, interest rate models, and a structured wind-down</p>
+        </a>
+        <a class="card" href="parashar.html">
           <h3>Designing an AI Product from Domain Expertise</h3>
-          <p class="card-meta">Parashar</p>
-          <span class="badge">Coming Soon</span>
-        </div>
+          <span class="badge">Coming soon</span>
+        </a>
       </div>
     </section>
 
-    <section id="downloads" aria-labelledby="downloads-label">
-      <h2 class="section-label" id="downloads-label">Downloads</h2>
-      <ul class="download-list">
-        <li class="download-item">
-          <span>Resume (Crypto)</span>
-          <span class="badge">Coming Soon</span>
-        </li>
-        <li class="download-item">
-          <span>Resume (Fintech)</span>
-          <span class="badge">Coming Soon</span>
-        </li>
-      </ul>
+    <section aria-labelledby="resume-heading">
+      <h2 id="resume-heading">Resume Downloads</h2>
+      <div class="btn-row">
+        <a class="btn-secondary" href="assets/resume_crypto.pdf" download>Crypto/DeFi Resume (PDF)</a>
+        <a class="btn-secondary" href="assets/resume_fintech.pdf" download>Fintech Resume (PDF)</a>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <a class="btn-primary" href="https://cal.com/vinaydkumar/15min" target="_blank" rel="noopener noreferrer">Book a call</a>
-    <p class="copyright">© 2026 Vinay Degavath</p>
+  <footer class="site-footer">
+    Vinay Degavath · 2026
   </footer>
 </body>
 </html>
