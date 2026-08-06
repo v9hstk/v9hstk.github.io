@@ -4,11 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Parashar Case Study — Vinay Degavath</title>
-  <meta name="robots" content="noindex">
+  <meta name="description" content="Building an AI product from domain expertise: product strategy, AI loop engineering, and progressive disclosure.">
+  <meta property="og:title" content="Parashar Case Study — Vinay Degavath">
+  <meta property="og:description" content="AI consumer product from domain expertise — product strategy, AI loop engineering, UX for complex analysis.">
+  <meta property="og:url" content="https://v9hstk.github.io/parashar.html">
+  <meta property="og:image" content="https://v9hstk.github.io/og.png">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/geist@1.3.1/dist/fonts/geist-sans/style.min.css">
   <link rel="stylesheet" href="css/styles.css">
   <script>!function(){var s=sessionStorage.getItem("theme");s||(s=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",s)}();</script>
   <script src="js/theme.js" defer></script>
@@ -22,9 +24,182 @@
     </button>
   </header>
 
-  <main class="placeholder-page">
-    <h1>Parashar: Designing an AI Product from Domain Expertise</h1>
-    <p>Case study coming soon.</p>
+  <main class="case-study">
+    <header class="case-hero">
+      <h1>Parashar: Building an AI Product from Domain Expertise</h1>
+      <p class="subtitle">Product strategy · AI loop engineering · domain-to-consumer intelligence · 2024–Present</p>
+    </header>
+
+    <section class="case-section" id="executive-summary" aria-labelledby="exec-heading">
+      <h2 id="exec-heading">Executive Summary</h2>
+      <p>Parashar is an AI consumer product that applies predictive analysis to a complex traditional knowledge domain. The system operates on astronomical positional data (Swiss Ephemeris) combined with thousands of interpretive rules — a computation-heavy domain requiring precise inputs and layered reasoning. The product challenge was strategic: which analytical systems to prioritize, how to engineer AI loops that apply interdependent rules correctly, and how to make dense multi-dimensional outputs usable by non-experts. This is a side project born from genuine intellectual interest — and a real-world test of how domain expertise shapes AI product thinking.</p>
+    </section>
+
+    <section class="case-section" id="the-problem" aria-labelledby="problem-heading">
+      <h2 id="problem-heading">1. The Problem</h2>
+      <p>The target domain has three characteristics that make it difficult to serve with software:</p>
+      <p><strong>Rule complexity.</strong> The domain operates on thousands of interdependent variables derived from astronomical positional data (computed via Swiss Ephemeris). A single analysis requires cross-referencing multiple analytical systems, each with its own rules, exceptions, and contextual modifiers. Expert practitioners spend years learning to navigate these interactions.</p>
+      <p><strong>Computation intensity.</strong> Producing a complete analysis manually requires calculating planetary positions to arc-minute precision, then applying layered interpretive rules across dozens of data points. An expert can spend hours on a single reading. The computation is deterministic at the astronomical layer (positions are mathematically derivable) but the interpretive layer requires contextual judgment across competing systems.</p>
+      <p><strong>Expertise gatekeeping.</strong> Access to quality analysis requires finding a skilled practitioner. There’s no standardized certification, quality varies enormously, and the knowledge is traditionally transmitted through apprenticeship. Most consumers can’t distinguish rigorous analysis from superficial work.</p>
+
+      <h3>The Opportunity</h3>
+      <p>If the astronomical data is precise (Swiss Ephemeris provides this) and the rules are codifiable, an AI system can learn to apply them at scale. The product thesis: <strong>democratize access to expert-level analysis by combining precise scientific computation with AI-driven rule application and contextual reasoning.</strong></p>
+    </section>
+
+    <section class="case-section" id="product-strategy" aria-labelledby="strategy-heading">
+      <h2 id="strategy-heading">2. Product Strategy: What to Build</h2>
+      <h3>Scoping the system</h3>
+      <p>The domain has 10+ analytical systems, each covering different dimensions. Including all of them produces comprehensive but overwhelming output. Including too few produces shallow work that an expert would dismiss.</p>
+      <p>The strategic question: <strong>what’s the minimum system coverage that produces a useful, credible analysis?</strong> Classic v1 scoping — the same problem every PM faces when deciding what to include.</p>
+      <p>The approach: rank analytical systems by three criteria:</p>
+      <ol class="case-list">
+        <li><strong>Coverage</strong> — what percentage of user questions does this system address?</li>
+        <li><strong>Computational determinism</strong> — can the rules be encoded reliably, or do they require subjective judgment?</li>
+        <li><strong>Inter-system dependency</strong> — does this system’s output feed into others? (If yes, it’s infrastructure, not optional)</li>
+      </ol>
+      <p>Systems that score high on all three ship first. Systems that require heavy contextual judgment get flagged for future iterations.</p>
+
+      <h3>Deciding what the AI should do vs what it shouldn’t</h3>
+      <p>Not every part of the domain should be automated. The strategic framework:</p>
+
+      <figure class="exhibit" id="exhibit-a" aria-labelledby="exhibit-a-caption">
+        <figcaption id="exhibit-a-caption" class="exhibit-label">Exhibit A — Build vs Defer</figcaption>
+        <div class="exhibit-body exhibit-two-col">
+          <div>
+            <h4 class="exhibit-subhead">AI should do</h4>
+            <ul class="exhibit-list">
+              <li>Astronomical position calculation</li>
+              <li>Deterministic rule application</li>
+              <li>Cross-referencing multiple systems</li>
+              <li>Pattern identification across datasets</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="exhibit-subhead">AI should not do (yet)</h4>
+            <ul class="exhibit-list">
+              <li>Contextual synthesis across ambiguous signals</li>
+              <li>Judgment calls where experts disagree</li>
+              <li>Open-ended interpretive narrative</li>
+              <li>Prescriptive recommendations without confidence bounds</li>
+            </ul>
+          </div>
+        </div>
+        <p class="exhibit-note">Same build-vs-defer discipline every AI product faces — know where the AI adds value and where it creates false confidence.</p>
+      </figure>
+    </section>
+
+    <section class="case-section" id="ai-loop" aria-labelledby="loop-heading">
+      <h2 id="loop-heading">3. AI Loop Engineering</h2>
+      <h3>The core challenge</h3>
+      <p>Standard AI products learn from data patterns. Parashar needs to learn rule systems — thousands of interdependent if-then conditions, hierarchical overrides, and contextual weights. The AI loops are engineered to:</p>
+      <ol class="case-list">
+        <li><strong>Ingest precise astronomical data</strong> — Swiss Ephemeris provides planetary positions, aspects, and timing to arc-minute accuracy.</li>
+        <li><strong>Apply rule cascades</strong> — multiple analytical systems run in sequence; each produces intermediate outputs that feed the next.</li>
+        <li><strong>Resolve conflicts</strong> — when two systems contradict, a weighted resolution framework follows domain conventions.</li>
+        <li><strong>Generate layered output</strong> — primary signal first, supporting analysis second, edge cases and caveats third.</li>
+      </ol>
+
+      <h3>Engineering evaluation criteria</h3>
+      <p>“Correct” here goes beyond statistical accuracy:</p>
+      <ul class="case-list">
+        <li><strong>Positional accuracy</strong> — calculations match Swiss Ephemeris to arc-minute precision</li>
+        <li><strong>Rule fidelity</strong> — each system’s rules applied as a domain expert would apply them</li>
+        <li><strong>System weighting</strong> — conflict resolution matches expert consensus on system hierarchy</li>
+        <li><strong>Completeness</strong> — output covers relevant systems for the query type without omitting dimensions that would change the conclusion</li>
+      </ul>
+      <p>These criteria come from domain expertise, not labeled datasets. The person defining “what correct looks like” needs to be the domain expert — not an ML engineer approximating correctness from training data.</p>
+    </section>
+
+    <section class="case-section" id="ux" aria-labelledby="ux-heading">
+      <h2 id="ux-heading">4. UX: Making Complexity Accessible</h2>
+      <p>The domain produces dense, multi-dimensional outputs. A complete analysis might cover 10+ dimensions simultaneously. Presenting everything at once overwhelms; presenting too little makes the product feel shallow.</p>
+
+      <figure class="exhibit" id="exhibit-b" aria-labelledby="exhibit-b-caption">
+        <figcaption id="exhibit-b-caption" class="exhibit-label">Exhibit B — Progressive Disclosure</figcaption>
+        <div class="exhibit-body">
+          <ol class="exhibit-steps">
+            <li><strong>Level 1 — Headline signal.</strong> The dominant finding, stated clearly. What does the user most need to know?</li>
+            <li><strong>Level 2 — Supporting analysis.</strong> The 3–4 dimensions that reinforce, qualify, or complicate the headline.</li>
+            <li><strong>Level 3 — Full depth.</strong> Every system’s output, cross-references, confidence bounds, edge cases — available, never forced.</li>
+          </ol>
+          <p class="exhibit-note">Product opinion: default to clarity, offer depth. Build for both without compromising either.</p>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="product-thinking" aria-labelledby="thinking-heading">
+      <h2 id="thinking-heading">5. What This Shows About Product Thinking</h2>
+      <h3>Domain expertise as strategic advantage</h3>
+      <p>Most AI products are built by teams who learn enough about a domain to ship. Parashar inverts this — the product strategist is the domain expert. That cuts the translation loss that typically degrades AI products:</p>
+      <ul class="case-list">
+        <li><strong>No spec-to-implementation gap.</strong> The person scoping the product understands edge cases, system interactions, and the quality bar.</li>
+        <li><strong>Evaluation criteria reflect real expertise.</strong> “Correct output” is set by someone who knows what an expert would produce.</li>
+        <li><strong>UX priorities are domain-informed.</strong> What to surface first, how to handle conflict, what progressive disclosure means here — grounded in practice.</li>
+      </ul>
+
+      <h3>Product strategy + AI engineering, not ML engineering</h3>
+      <p>The role spans product vision, AI loop engineering, system architecture, and UX strategy — not model training or infrastructure:</p>
+
+      <figure class="exhibit" id="exhibit-c" aria-labelledby="exhibit-c-caption">
+        <figcaption id="exhibit-c-caption" class="exhibit-label">Exhibit C — Role Boundary</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr>
+                <th scope="col">Product + AI strategy (this role)</th>
+                <th scope="col">ML engineering (different role)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>What should the AI do?</td><td>How does the model learn?</td></tr>
+              <tr><td>What does correct output look like?</td><td>What loss function optimizes for correctness?</td></tr>
+              <tr><td>How should rule conflicts resolve?</td><td>How does the model handle contradictions?</td></tr>
+              <tr><td>Which systems ship in v1?</td><td>What’s the minimum viable accuracy?</td></tr>
+              <tr><td>How should uncertainty be presented?</td><td>How is confidence calibrated?</td></tr>
+            </tbody>
+          </table>
+          <p class="exhibit-note">Both are essential. This case study is about the left column.</p>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="current-status" aria-labelledby="status-heading">
+      <h2 id="status-heading">6. Current Status</h2>
+      <p>Active side project (2024–present). Product vision defined, analytical systems scoped and prioritized, AI loop architecture specified, evaluation criteria established, UX strategy designed. Built from genuine intellectual interest in the domain — a scientifically grounded computation layer plus rule-based interpretation, and a real-world test of AI product strategy.</p>
+    </section>
+
+    <section class="case-section" id="key-takeaways" aria-labelledby="takeaways-heading">
+      <h2 id="takeaways-heading">7. Key Takeaways</h2>
+      <p><strong>On domain-to-product translation:</strong> The hardest part of an AI product isn’t the AI — it’s strategic scoping. Which rules to encode, which systems to defer, where the AI adds value versus creates false confidence. Product decisions, not engineering decisions.</p>
+      <p><strong>On AI loop engineering:</strong> When the AI applies rule systems (not pattern-finding), the challenge shifts from training data to rule fidelity. Evaluation criteria must come from domain expertise, not statistical benchmarks alone.</p>
+      <p><strong>On making complexity accessible:</strong> Progressive disclosure is a product strategy, not only a UX pattern. What you push to Level 2 or 3 decides whether the product empowers or overwhelms.</p>
+
+      <h3>Discussion Questions</h3>
+      <ol class="case-list">
+        <li>When is domain expertise in the product strategist an advantage versus a source of bias?</li>
+        <li>How should an AI product handle the gap between deterministic computation (astronomical data) and contextual interpretation (rule application)?</li>
+        <li>At what point does progressive disclosure become information hiding — and who decides where the line is?</li>
+      </ol>
+
+      <figure class="exhibit" id="exhibit-source" aria-labelledby="exhibit-source-caption">
+        <figcaption id="exhibit-source-caption" class="exhibit-label">Source Log</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">Claim</th><th scope="col">Source</th><th scope="col">Confidence</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Product strategy + AI loop engineering role</td><td>Operator / resume</td><td>HIGH</td></tr>
+              <tr><td>Swiss Ephemeris as data foundation</td><td>Operator</td><td>HIGH</td></tr>
+              <tr><td>Vision, scope, UX, evaluation criteria defined</td><td>Operator</td><td>HIGH</td></tr>
+              <tr><td>Domain expertise is the strategist’s own</td><td>Operator</td><td>HIGH</td></tr>
+              <tr><td>Active side project 2024–present</td><td>Resume</td><td>HIGH</td></tr>
+              <tr><td>Multiple analytical systems with interdependencies</td><td>Operator</td><td>HIGH</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+    </section>
   </main>
 
   <footer class="site-footer">
