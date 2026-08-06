@@ -27,7 +27,7 @@
   --focus-ring: var(--focus);
   --radius: 0;
   --shadow-sm: none;
-  --font-display: "Syne", "Outfit", system-ui, sans-serif;
+  --font-display: "Outfit", system-ui, sans-serif;
   --font-body: "Outfit", system-ui, sans-serif;
   --max: 1120px;
   --pad: clamp(1.25rem, 4vw, 2.5rem);
@@ -291,10 +291,10 @@ main {
 .hero h1 {
   margin: 0 0 1.5rem;
   font-family: var(--font-display);
-  font-size: clamp(3.25rem, 11vw, 6.5rem);
-  font-weight: 800;
-  line-height: 0.92;
-  letter-spacing: -0.045em;
+  font-size: clamp(2.75rem, 8vw, 4.75rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
   color: var(--ink);
 }
 
