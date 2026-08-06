@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hashstack Case Study — Vinay Degavath</title>
+  <meta name="description" content="Building an under-collateralized lending protocol on Starknet. Protocol design, risk frameworks, interest rate models, and a structured wind-down.">
+  <meta property="og:title" content="Hashstack Case Study — Vinay Degavath">
+  <meta property="og:description" content="Under-collateralized lending protocol — protocol design, DIAL, Degen Mode, and structured wind-down.">
+  <meta property="og:url" content="https://v9hstk.github.io/hashstack.html">
+  <meta property="og:image" content="https://v9hstk.github.io/og.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>!function(){var s=sessionStorage.getItem("theme");s||(s=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.setAttribute("data-theme",s)}();</script>
+  <script src="js/theme.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="back-link" href="index.html">← Back to home</a>
+    <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+      <span class="icon-sun" aria-hidden="true">☀</span>
+      <span class="icon-moon" aria-hidden="true">☾</span>
+    </button>
+  </header>
+
+  <main class="case-study">
+    <!-- Section 1: Executive Summary -->
+    <header class="case-hero">
+      <h1>Hashstack: Building an Under-Collateralized Lending Protocol</h1>
+      <p class="subtitle">Founded 2020 · Sunset 2026 · Case study skeleton — prose pending verification</p>
+    </header>
+
+    <section class="case-section" id="executive-summary" aria-labelledby="exec-heading">
+      <h2 id="exec-heading">Executive Summary</h2>
+      <p class="placeholder">Case study content coming soon. Summary will cover protocol positioning, key product decisions, and outcomes after source verification.</p>
+    </section>
+
+    <!-- Section 2: Industry Context -->
+    <section class="case-section" id="industry-context" aria-labelledby="industry-heading">
+      <h2 id="industry-heading">Industry Context</h2>
+      <p class="placeholder">Placeholder — competitive landscape and market gap for under-collateralized lending.</p>
+
+      <figure class="exhibit" id="exhibit-a" aria-labelledby="exhibit-a-caption">
+        <figcaption id="exhibit-a-caption" class="exhibit-label">Exhibit A — Market Map</figcaption>
+        <div class="exhibit-body exhibit-placeholder">
+          <svg class="exhibit-svg" viewBox="0 0 400 300" role="img" aria-label="Illustrative 2×2 market map placeholder">
+            <rect x="0" y="0" width="400" height="300" fill="none" stroke="currentColor" stroke-opacity="0.2"/>
+            <line x1="200" y1="20" x2="200" y2="280" stroke="currentColor" stroke-opacity="0.3"/>
+            <line x1="20" y1="150" x2="380" y2="150" stroke="currentColor" stroke-opacity="0.3"/>
+            <text x="200" y="16" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.5">Permissioned ← → Permissionless</text>
+            <text x="8" y="150" font-size="11" fill="currentColor" opacity="0.5" transform="rotate(-90 8 150)">Over-collateralized</text>
+            <circle cx="80" cy="80" r="24" fill="none" stroke="currentColor" stroke-opacity="0.4"/>
+            <text x="80" y="84" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.6">Aave</text>
+            <circle cx="320" cy="80" r="24" fill="none" stroke="currentColor" stroke-opacity="0.4"/>
+            <text x="320" y="84" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.6">Compound</text>
+            <circle cx="80" cy="220" r="24" fill="none" stroke="currentColor" stroke-opacity="0.4"/>
+            <text x="80" y="224" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.6">Maker</text>
+            <circle cx="320" cy="220" r="28" fill="none" stroke="var(--accent)" stroke-width="2"/>
+            <text x="320" y="224" text-anchor="middle" font-size="10" fill="currentColor">Hashstack</text>
+          </svg>
+          <p class="exhibit-note">Illustrative positioning — not to scale.</p>
+        </div>
+      </figure>
+
+      <figure class="exhibit" id="exhibit-b" aria-labelledby="exhibit-b-caption">
+        <figcaption id="exhibit-b-caption" class="exhibit-label">Exhibit B — Product Evolution (V1 → V2)</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr>
+                <th scope="col">Stage</th>
+                <th scope="col">Max borrow leverage</th>
+                <th scope="col">Withdrawal constraint</th>
+                <th scope="col">Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>V1</td>
+                <td>Up to 3×</td>
+                <td>Up to 70% withdrawal of collateral equivalent</td>
+                <td>Vinay (resolved) — historical</td>
+              </tr>
+              <tr>
+                <td>V2 (final, current docs)</td>
+                <td>Up to 5×</td>
+                <td>Zero withdrawal (fully constrained)</td>
+                <td><a href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">degen-mode docs</a>; overview</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="exhibit-note">Evolution sequence, not concurrent modes. Resume “up to 5×” = V2 final. Degen Mode is the V2 leveraged-strategy surface (docs: $1K supply → $5K fixed borrow).</p>
+        </div>
+      </figure>
+    </section>
+
+    <!-- Section 3: The Thesis -->
+    <section class="case-section" id="the-thesis" aria-labelledby="thesis-heading">
+      <h2 id="thesis-heading">The Thesis</h2>
+      <p class="placeholder">Placeholder — why under-collateralized lending on Starknet, and the core product bet.</p>
+
+      <figure class="exhibit" id="exhibit-d" aria-labelledby="exhibit-d-caption">
+        <figcaption id="exhibit-d-caption" class="exhibit-label">Exhibit D — Thesis &amp; Problem Framing</figcaption>
+        <div class="exhibit-body exhibit-placeholder">
+          <p class="tbd">TBD — problem statement, market gap, and product bet narrative pending case study draft.</p>
+        </div>
+      </figure>
+
+      <figure class="exhibit" id="exhibit-c" aria-labelledby="exhibit-c-caption">
+        <figcaption id="exhibit-c-caption" class="exhibit-label">Exhibit C — Constraint Flow (V2 primary)</figcaption>
+        <div class="exhibit-body">
+          <svg class="exhibit-svg exhibit-flow" viewBox="0 0 520 200" role="img" aria-label="V2 constraint flow: supply, borrow up to 5x, zero withdrawal">
+            <rect x="10" y="70" width="110" height="60" rx="6" fill="none" stroke="currentColor" stroke-opacity="0.5"/>
+            <text x="65" y="105" text-anchor="middle" font-size="11" fill="currentColor">Supply collateral</text>
+            <polygon points="130,100 150,100 150,90 170,100 150,110" fill="currentColor" opacity="0.4"/>
+            <rect x="170" y="70" width="130" height="60" rx="6" fill="none" stroke="currentColor" stroke-opacity="0.5"/>
+            <text x="235" y="98" text-anchor="middle" font-size="11" fill="currentColor">Borrow / execute</text>
+            <text x="235" y="114" text-anchor="middle" font-size="10" fill="currentColor">up to 5× (V2)</text>
+            <polygon points="310,100 330,100 330,90 350,100 330,110" fill="currentColor" opacity="0.4"/>
+            <rect x="350" y="70" width="150" height="60" rx="6" fill="none" stroke="var(--accent)" stroke-width="2"/>
+            <text x="425" y="98" text-anchor="middle" font-size="11" fill="currentColor">Zero withdrawal</text>
+            <text x="425" y="114" text-anchor="middle" font-size="10" fill="currentColor">fully constrained</text>
+          </svg>
+          <p class="exhibit-note">V2 primary path (current docs). V1 history: up to 3× leverage with up to 70% withdrawal of collateral equivalent — superseded, not concurrent.</p>
+        </div>
+      </figure>
+    </section>
+
+    <!-- Section 4: Degen Mode -->
+    <section class="case-section" id="degen-mode" aria-labelledby="degen-heading">
+      <h2 id="degen-heading">Degen Mode</h2>
+      <p class="placeholder">Placeholder — one-click leveraged strategy execution and product rationale.</p>
+      <p><a href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">Degen Mode documentation →</a></p>
+
+      <figure class="exhibit" id="exhibit-e" aria-labelledby="exhibit-e-caption">
+        <figcaption id="exhibit-e-caption" class="exhibit-label">Exhibit E — Degen Mode Flow</figcaption>
+        <div class="exhibit-body exhibit-placeholder">
+          <ol class="exhibit-steps">
+            <li>Degen tab</li>
+            <li>Select strategy</li>
+            <li>Choose collateral</li>
+            <li>Execute</li>
+            <li>Track on Your Borrow</li>
+          </ol>
+          <p class="exhibit-note">5-step UX from docs — parameters to be filled after content extraction.</p>
+        </div>
+      </figure>
+
+      <figure class="exhibit" id="exhibit-i" aria-labelledby="exhibit-i-caption">
+        <figcaption id="exhibit-i-caption" class="exhibit-label">Exhibit I — Design Decision Matrix</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr>
+                <th scope="col">Decision</th>
+                <th scope="col">Option A</th>
+                <th scope="col">Option B</th>
+                <th scope="col">Chosen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="4" class="tbd">TBD — pending case study draft</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+    </section>
+
+    <!-- Section 5: Interest Rate Design -->
+    <section class="case-section" id="interest-rate-design" aria-labelledby="irm-heading">
+      <h2 id="irm-heading">Interest Rate Design (DIAL → Production Kink Model)</h2>
+      <p class="placeholder">Placeholder — evolution from DIAL (pre-production) to production kinked utilization model.</p>
+      <p>
+        <a href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">DIAL article (Wayback) →</a><br>
+        <a href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">Production interest rate model →</a>
+      </p>
+
+      <figure class="exhibit" id="exhibit-f" aria-labelledby="exhibit-f-caption">
+        <figcaption id="exhibit-f-caption" class="exhibit-label">Exhibit F — DIAL vs Aave vs Production Kink Model</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr>
+                <th scope="col">Dimension</th>
+                <th scope="col">DIAL (pre-production)</th>
+                <th scope="col">Aave (reference)</th>
+                <th scope="col">Production kink model</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Rate cap at full utilization</td>
+                <td>Bounded (≤20% borrow cited in blog)</td>
+                <td>Varies by asset</td>
+                <td>100% APR (docs example)</td>
+              </tr>
+              <tr>
+                <td>Kink utilization</td>
+                <td>N/A (banded Up ranges, not kink curve)</td>
+                <td>~80–90% typical</td>
+                <td>90% (docs)</td>
+              </tr>
+              <tr>
+                <td>Randomization / update trigger</td>
+                <td>keccak256 — on-chain pseudo-random rate sampling (mitigate in-block supply/withdraw rate manipulation); blog update window 4–7 days</td>
+                <td>N/A</td>
+                <td>Utilization-driven (continuous); deterministic</td>
+              </tr>
+              <tr>
+                <td>Timeline</td>
+                <td>Pre-production → replaced Jul 2023 testnet</td>
+                <td>—</td>
+                <td>Production (post-DIAL)</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="exhibit-note">DIAL blog named Chainlink for randomization — outdated marketing; shipping mechanism was keccak256. Do not cite Chainlink. Admin-triggered updates: not confirmed in extracts.</p>
+        </div>
+      </figure>
+
+      <figure class="exhibit" id="exhibit-g" aria-labelledby="exhibit-g-caption">
+        <figcaption id="exhibit-g-caption" class="exhibit-label">Exhibit G — Interest Rate Curves (0–100% APR y-axis)</figcaption>
+        <div class="exhibit-body">
+          <svg class="exhibit-svg exhibit-curve" viewBox="0 0 400 260" role="img" aria-label="Interest rate curve placeholder — y-axis 0 to 100 percent APR">
+            <text x="12" y="130" font-size="10" fill="currentColor" opacity="0.5" transform="rotate(-90 12 130)">APR (0–100%)</text>
+            <text x="200" y="252" text-anchor="middle" font-size="10" fill="currentColor" opacity="0.5">Utilization (%)</text>
+            <line x1="50" y1="20" x2="50" y2="220" stroke="currentColor" stroke-opacity="0.3"/>
+            <line x1="50" y1="220" x2="380" y2="220" stroke="currentColor" stroke-opacity="0.3"/>
+            <text x="42" y="224" font-size="9" fill="currentColor" opacity="0.4">0%</text>
+            <text x="38" y="24" font-size="9" fill="currentColor" opacity="0.4">100%</text>
+            <text x="370" y="234" font-size="9" fill="currentColor" opacity="0.4">100%</text>
+            <polyline points="50,200 320,200 365,25" fill="none" stroke="var(--accent)" stroke-width="2" stroke-dasharray="4 3"/>
+            <text x="300" y="195" font-size="10" fill="currentColor" opacity="0.6">Production kink (sketch)</text>
+            <polyline points="50,200 200,180 365,100" fill="none" stroke="currentColor" stroke-opacity="0.4" stroke-width="1.5"/>
+            <text x="200" y="170" font-size="10" fill="currentColor" opacity="0.4">DIAL band (TBD)</text>
+          </svg>
+          <p class="exhibit-note">Production curve uses documented params (base 2%, opt 20%, kink 90%, max 100%). DIAL curve pending Wayback extraction.</p>
+        </div>
+      </figure>
+
+      <figure class="exhibit" id="exhibit-h" aria-labelledby="exhibit-h-caption">
+        <figcaption id="exhibit-h-caption" class="exhibit-label">Exhibit H — Kept vs Removed from DIAL</figcaption>
+        <div class="exhibit-body exhibit-two-col">
+          <div>
+            <h4 class="exhibit-subhead">Kept</h4>
+            <ul class="exhibit-list placeholder-list">
+              <li>TBD — pending case study draft</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="exhibit-subhead">Removed</h4>
+            <ul class="exhibit-list placeholder-list">
+              <li>TBD — pending case study draft</li>
+            </ul>
+          </div>
+        </div>
+      </figure>
+    </section>
+
+    <!-- Section 6: Protocol Metrics -->
+    <section class="case-section" id="protocol-metrics" aria-labelledby="metrics-heading">
+      <h2 id="metrics-heading">Protocol Metrics</h2>
+      <p class="placeholder">Placeholder — growth, utilization, and capital efficiency narrative.</p>
+
+      <figure class="exhibit" id="exhibit-j" aria-labelledby="exhibit-j-caption">
+        <figcaption id="exhibit-j-caption" class="exhibit-label">Exhibit J — Metrics Grid</figcaption>
+        <div class="exhibit-body">
+          <table class="metrics-table exhibit-metrics">
+            <tbody>
+              <tr><th scope="row">Funding raised</th><td>$2M<span class="asterisk" title="Source pending verification">*</span></td></tr>
+              <tr><th scope="row">Users</th><td>36,000<span class="asterisk" title="Source pending verification">*</span></td></tr>
+              <tr><th scope="row">Peak TVL</th><td>$5M<span class="asterisk" title="User-claimed; DefiLlama API historical max ≈ $635K on 2024-10-09 — reconcile pending; no DefiLlama link on site">*</span></td></tr>
+              <tr><th scope="row">Average asset utilization</th><td>61%<span class="asterisk" title="Source pending verification">*</span></td></tr>
+              <tr><th scope="row">First-year revenue</th><td>$56K+<span class="asterisk" title="Source pending verification">*</span></td></tr>
+              <tr><th scope="row">Engineering team</th><td>16 engineers<span class="asterisk" title="Source pending verification">*</span></td></tr>
+              <tr><th scope="row">Protocol integrations</th><td>7<span class="asterisk" title="Source pending verification">*</span></td></tr>
+              <tr><th scope="row">Ecosystem grants</th><td>$230K+<span class="asterisk" title="Source pending verification">*</span></td></tr>
+              <tr><th scope="row">Security audit</th><td>CertiK completed</td></tr>
+              <tr><th scope="row">Standards</th><td>EIP-5299 authored</td></tr>
+            </tbody>
+          </table>
+          <p class="exhibit-footnote"><span class="asterisk">*</span> User-confirmed; independent verification pending. See Source Log (Exhibit N).</p>
+        </div>
+      </figure>
+
+      <figure class="exhibit" id="exhibit-k" aria-labelledby="exhibit-k-caption">
+        <figcaption id="exhibit-k-caption" class="exhibit-label">Exhibit K — Capital Efficiency</figcaption>
+        <div class="exhibit-body exhibit-placeholder">
+          <p class="tbd">TBD — CAC / per-user economics pending confirmation.</p>
+          <p class="exhibit-note">Do not populate $55/user or 2.5× return until sourced.</p>
+        </div>
+      </figure>
+    </section>
+
+    <!-- Section 7: Starknet Platform Bet -->
+    <section class="case-section" id="starknet-bet" aria-labelledby="starknet-heading">
+      <h2 id="starknet-heading">Starknet Platform Bet</h2>
+      <p class="placeholder">Placeholder — why Starknet, Cairo migration, and ecosystem timing.</p>
+
+      <figure class="exhibit" id="exhibit-l" aria-labelledby="exhibit-l-caption">
+        <figcaption id="exhibit-l-caption" class="exhibit-label">Exhibit L — Starknet Timeline</figcaption>
+        <div class="exhibit-body">
+          <ol class="exhibit-timeline">
+            <li><span class="timeline-date">2020</span> Founded</li>
+            <li><span class="timeline-date">2023</span> V1 public testnet (kink model)</li>
+            <li><span class="timeline-date">TBD</span> Mainnet milestones</li>
+            <li><span class="timeline-date">2026</span> Structured wind-down</li>
+          </ol>
+          <p class="exhibit-note">Exact dates pending extraction — illustrative skeleton only.</p>
+        </div>
+      </figure>
+    </section>
+
+    <!-- Section 8: Wind-Down Decision -->
+    <section class="case-section" id="wind-down" aria-labelledby="winddown-heading">
+      <h2 id="winddown-heading">The Wind-Down Decision</h2>
+      <p class="placeholder">Three-part framing (placeholder):</p>
+      <ol class="case-list">
+        <li><strong>External trigger</strong> — Cairo 0 → Cairo 2.0 ecosystem migration imposed re-platforming cost beyond projected ROI.</li>
+        <li><strong>ROI evaluation</strong> — Re-assessed continued investment against adoption curve and migration scope.</li>
+        <li><strong>Structured wind-down</strong> — Led orderly sunset with user fund safety as priority.</li>
+      </ol>
+
+      <figure class="exhibit" id="exhibit-m" aria-labelledby="exhibit-m-caption">
+        <figcaption id="exhibit-m-caption" class="exhibit-label">Exhibit M — Wind-Down Framework</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr>
+                <th scope="col">Phase</th>
+                <th scope="col">Action</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Announcement</td><td class="tbd">TBD</td><td class="tbd">TBD</td></tr>
+              <tr><td>Deposits paused</td><td class="tbd">TBD</td><td class="tbd">TBD</td></tr>
+              <tr><td>Withdrawals enabled</td><td class="tbd">TBD</td><td class="tbd">TBD</td></tr>
+              <tr><td>Final settlement</td><td class="tbd">TBD</td><td class="tbd">TBD</td></tr>
+            </tbody>
+          </table>
+          <p class="exhibit-note">Qualitative framework only — no ecosystem blame. Details pending case study draft.</p>
+        </div>
+      </figure>
+    </section>
+
+    <!-- Section 9: Key Takeaways + Audit Exhibits -->
+    <section class="case-section" id="key-takeaways" aria-labelledby="takeaways-heading">
+      <h2 id="takeaways-heading">Key Takeaways</h2>
+      <p class="placeholder">Placeholder — product leadership lessons after verification workflow completes.</p>
+
+      <figure class="exhibit" id="exhibit-n" aria-labelledby="exhibit-n-caption">
+        <figcaption id="exhibit-n-caption" class="exhibit-label">Exhibit N — Source Log</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr>
+                <th scope="col">Claim / exhibit</th>
+                <th scope="col">Source</th>
+                <th scope="col">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Degen Mode 5× leverage</td><td>docs.hashstack.finance/hub/degen-mode</td><td>Extracted (V2)</td></tr>
+              <tr><td>Production kink params</td><td>docs.hashstack.finance/risk/interest-rate-model</td><td>Extracted</td></tr>
+              <tr><td>DIAL bounded rates</td><td>Wayback blog</td><td>Pending extraction</td></tr>
+              <tr><td>Peak TVL $5M</td><td>User-claimed (asterisked)</td><td>Keep until reconcile — DefiLlama API max ≈ $635K (2024-10-09); no site link</td></tr>
+              <tr><td>User metrics (36K, 61%, etc.)</td><td>User-confirmed</td><td>Pending independent verify</td></tr>
+              <tr><td>V1: 3× / 70% withdrawal</td><td>Vinay Q2/Q3</td><td>Resolved — V1 only</td></tr>
+              <tr><td>V2: 5× / zero withdrawal</td><td>Vinay + current docs</td><td>Resolved — V2 final</td></tr>
+              <tr><td>DIAL rate sampling (keccak256)</td><td>Vinay Q1 (blog outdated)</td><td>Resolved — on-chain pseudo-random rate sampling</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <figure class="exhibit" id="exhibit-o" aria-labelledby="exhibit-o-caption">
+        <figcaption id="exhibit-o-caption" class="exhibit-label">Exhibit O — Documentation Gaps</figcaption>
+        <div class="exhibit-body">
+          <ul class="exhibit-list">
+            <li>Overview docs state “up to five times” borrow generically — aligns with V2 final; V1 3× is historical (Vinay), not in live docs.</li>
+            <li>70% withdrawal language absent from live docs — expected: V1-only; V2 = zero withdrawal.</li>
+            <li>DIAL blog still names Chainlink for randomization — outdated marketing; code mechanism = keccak256 (Vinay).</li>
+            <li>Supplier-side interest formula not fully documented in production IRM page.</li>
+            <li>Peak TVL: user $5M (asterisked on site) vs DefiLlama API historical max ≈ $635K on 2024-10-09 — reconcile offline; do not link DefiLlama on site.</li>
+          </ul>
+        </div>
+      </figure>
+
+      <figure class="exhibit" id="exhibit-p" aria-labelledby="exhibit-p-caption">
+        <figcaption id="exhibit-p-caption" class="exhibit-label">Exhibit P — Resolved Questions (Q1–Q3)</figcaption>
+        <div class="exhibit-body">
+          <ol class="exhibit-list numbered">
+            <li><strong>Q1 (rate sampling):</strong> keccak256 — on-chain pseudo-random rate sampling to mitigate in-block supply/withdraw rate manipulation. Blog Chainlink language = outdated marketing.</li>
+            <li><strong>Q2 (70% withdrawal):</strong> V1 only. V2 = zero withdrawal (fully constrained). Current docs = V2.</li>
+            <li><strong>Q3 (3× vs 5×):</strong> V1 = up to 3×; V2 final = up to 5×. Product evolution, not concurrent modes.</li>
+          </ol>
+          <p class="exhibit-note">No longer publish blockers. Exhibits B, C, F filled from these resolutions. Case study prose still pending (do not invent).</p>
+        </div>
+      </figure>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    Vinay Degavath · 2026
+  </footer>
+</body>
+</html>
