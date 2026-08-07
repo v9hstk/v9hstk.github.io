@@ -27,8 +27,8 @@
   --focus-ring: var(--focus);
   --radius: 0;
   --shadow-sm: none;
-  --font-display: "Outfit", system-ui, sans-serif;
-  --font-body: "Outfit", system-ui, sans-serif;
+  --font-display: "Avenir Next", Avenir, "Nunito Sans", "Helvetica Neue", Helvetica, sans-serif;
+  --font-body: "Avenir Next", Avenir, "Nunito Sans", "Helvetica Neue", Helvetica, sans-serif;
   --max: 1120px;
   --pad: clamp(1.25rem, 4vw, 2.5rem);
 }
@@ -538,6 +538,26 @@ main {
 
 .case-row:hover .case-go {
   transform: translateX(4px);
+}
+
+.case-row--soon {
+  cursor: default;
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.case-row--soon:hover {
+  background: transparent;
+  padding-left: 0;
+}
+
+.case-soon {
+  align-self: center;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
 }
 
 /* —— Ledger / proof —— */

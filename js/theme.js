@@ -3,9 +3,7 @@
   var root = document.documentElement;
 
   function getPreferred() {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
+    // Site default is light; OS preference only applies after user toggles (sessionStorage).
     return "light";
   }
 
