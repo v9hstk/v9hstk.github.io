@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hashstack Case Study — Vinay Degavath</title>
-  <meta name="description" content="Product design decisions in under-collateralized DeFi lending: Degen Mode, DIAL, and a structured wind-down.">
+  <meta name="description" content="How I built autonomous under-collateralized lending on Starknet — Degen Mode, DIAL, and a structured wind-down.">
   <meta property="og:title" content="Hashstack Case Study — Vinay Degavath">
-  <meta property="og:description" content="Under-collateralized lending on Starknet — protocol design, DIAL, Degen Mode, and structured wind-down.">
+  <meta property="og:description" content="Autonomous under-collateralized lending — protocol design, Degen Mode, DIAL, and wind-down.">
   <meta property="og:url" content="https://v9hstk.github.io/hashstack.html">
   <meta property="og:image" content="https://v9hstk.github.io/og.png">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
@@ -31,41 +31,35 @@
 
   <main class="case-study">
     <header class="case-hero">
-      <h1>Hashstack Finance: Product Design Decisions in Under-Collateralized DeFi Lending</h1>
-      <p class="subtitle">Protocol design · interest rate innovation · strategic wind-down · 2020–2026</p>
+      <h1>How I Built Autonomous Under-Collateralized Lending — and When I Chose to Shut It Down</h1>
+      <p class="subtitle">Hashstack Finance · Founder &amp; Product Lead · 2020–2026</p>
     </header>
 
     <section class="case-section" id="executive-summary" aria-labelledby="exec-heading">
-      <h2 id="exec-heading">Executive Summary</h2>
-      <p>Hashstack Finance was a DeFi lending protocol on Starknet L2 that enabled under-collateralized borrowing — a product category where every other player relied on human credit assessment. Hashstack did it autonomously, using smart contract constraints instead of credit committees. Two product innovations — Degen Mode (one-click leveraged execution) and DIAL (a custom interest rate algorithm) — demonstrated original product thinking in a crowded market. The protocol was sunset in 2026 after Starknet ecosystem adoption lagged growth targets and Cairo 2.0 migration costs exceeded projected ROI.</p>
+      <h2 id="exec-heading">Overview</h2>
+      <p>I founded Hashstack Finance, a DeFi lending protocol on Starknet L2 that enabled under-collateralized borrowing without credit committees, whitelists, or institutional gatekeeping. The protocol used smart contract constraints to manage risk autonomously — a category where every other player relied on human credit assessment.</p>
+      <p>Two product innovations — <strong>Degen Mode</strong> (one-click leveraged execution) and <strong>DIAL</strong> (a custom interest rate algorithm) — demonstrated original product thinking in a crowded market. I led the protocol from inception through a structured wind-down in 2026. User funds were returned and remain withdrawable; the protocol interface was moved to GitHub Pages so withdrawals stay available with near-zero operational overhead.</p>
     </section>
 
     <section class="case-section" id="industry-context" aria-labelledby="industry-heading">
       <h2 id="industry-heading">1. Industry Context: DeFi Lending in 2020</h2>
-      <p>Decentralized lending is one of the largest sectors in DeFi. Users deposit cryptocurrency as collateral, borrow other assets against it, and pay interest — similar to a bank loan, but executed by smart contracts without a bank in the middle.</p>
-      <p>The dominant protocols — Aave, Compound, and MakerDAO — all require over-collateralization. To borrow $75, you must deposit $100. This protects the protocol but creates a capital efficiency problem: you need more money than you want to borrow.</p>
-      <p>By 2020, this model had reached $10B+ in total value locked. It worked, but it locked enormous amounts of capital in unproductive collateral positions.</p>
+      <p>Decentralized lending is one of the largest sectors in DeFi. Users deposit crypto as collateral, borrow against it, and pay interest — like a bank loan, but executed by smart contracts without a bank.</p>
+      <p>The dominant protocols — Aave, Compound, MakerDAO — all require over-collateralization. To borrow $75, you must deposit $100. This protects the protocol but creates a capital efficiency problem: you need more money than you want to borrow.</p>
+      <p>By 2020, this model had reached $10B+ in TVL. It worked, but it locked enormous capital in unproductive collateral positions.</p>
 
-      <figure class="exhibit" id="exhibit-a" aria-labelledby="exhibit-a-caption">
-        <figcaption id="exhibit-a-caption" class="exhibit-label">Exhibit A — DeFi Lending Market Position</figcaption>
+      <figure class="exhibit" aria-labelledby="market-caption">
+        <figcaption id="market-caption" class="exhibit-label">Market Position</figcaption>
         <div class="exhibit-body">
-          <svg class="exhibit-svg" viewBox="0 0 400 300" role="img" aria-label="2x2 map: capital efficiency vs risk model">
-            <rect x="0" y="0" width="400" height="300" fill="none" stroke="currentColor" stroke-opacity="0.2"/>
-            <line x1="200" y1="20" x2="200" y2="280" stroke="currentColor" stroke-opacity="0.3"/>
-            <line x1="20" y1="150" x2="380" y2="150" stroke="currentColor" stroke-opacity="0.3"/>
-            <text x="200" y="16" text-anchor="middle" font-size="11" fill="currentColor" opacity="0.55">Capital efficiency →</text>
-            <text x="10" y="150" font-size="11" fill="currentColor" opacity="0.55" transform="rotate(-90 10 150)">Risk model →</text>
-            <circle cx="90" cy="220" r="28" fill="none" stroke="currentColor" stroke-opacity="0.45"/>
-            <text x="90" y="216" text-anchor="middle" font-size="9" fill="currentColor" opacity="0.7">Aave</text>
-            <text x="90" y="228" text-anchor="middle" font-size="9" fill="currentColor" opacity="0.7">Compound</text>
-            <text x="90" y="240" text-anchor="middle" font-size="9" fill="currentColor" opacity="0.7">Maker</text>
-            <circle cx="200" cy="120" r="26" fill="none" stroke="currentColor" stroke-opacity="0.45"/>
-            <text x="200" y="116" text-anchor="middle" font-size="9" fill="currentColor" opacity="0.7">TrueFi</text>
-            <text x="200" y="128" text-anchor="middle" font-size="9" fill="currentColor" opacity="0.7">Maple</text>
-            <circle cx="310" cy="70" r="30" fill="none" stroke="var(--accent)" stroke-width="2"/>
-            <text x="310" y="74" text-anchor="middle" font-size="10" fill="currentColor">Hashstack</text>
-          </svg>
-          <p class="exhibit-note">Illustrative positioning — low efficiency / conservative (Aave cluster) vs high efficiency / algorithmically managed risk (Hashstack).</p>
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">Cluster</th><th scope="col">Protocols</th><th scope="col">Capital Efficiency</th><th scope="col">Risk Model</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Conservative</td><td>Aave, Compound, Maker</td><td>Low</td><td>Over-collateralized</td></tr>
+              <tr><td>Mid</td><td>TrueFi, Maple</td><td>Medium</td><td>Credit-assessed</td></tr>
+              <tr><td><strong>Hashstack</strong></td><td><strong>Hashstack</strong></td><td><strong>High</strong></td><td><strong>Algorithmically managed</strong></td></tr>
+            </tbody>
+          </table>
         </div>
       </figure>
     </section>
@@ -74,18 +68,12 @@
       <h2 id="thesis-heading">2. The Thesis: Autonomous Under-Collateralized Lending</h2>
       <p>Several protocols attempted under-collateralized lending before Hashstack. The difference was how risk was managed.</p>
 
-      <figure class="exhibit" id="exhibit-b" aria-labelledby="exhibit-b-caption">
-        <figcaption id="exhibit-b-caption" class="exhibit-label">Exhibit B — Under-Collateralized Lending Approaches</figcaption>
+      <figure class="exhibit" aria-labelledby="thesis-caption">
+        <figcaption id="thesis-caption" class="exhibit-label">Under-Collateralized Lending Approaches</figcaption>
         <div class="exhibit-body">
           <table class="exhibit-table">
             <thead>
-              <tr>
-                <th scope="col">Protocol</th>
-                <th scope="col">Model</th>
-                <th scope="col">Gatekeeper</th>
-                <th scope="col">Borrower</th>
-                <th scope="col">Capital constraint</th>
-              </tr>
+              <tr><th scope="col">Protocol</th><th scope="col">Model</th><th scope="col">Gatekeeper</th><th scope="col">Borrower</th><th scope="col">Capital Constraint</th></tr>
             </thead>
             <tbody>
               <tr><td>TrueFi</td><td>Credit-assessed</td><td>Human credit committee</td><td>Institutions only</td><td>None — withdrawn freely</td></tr>
@@ -97,285 +85,208 @@
         </div>
       </figure>
 
-      <p>Hashstack’s thesis was that under-collateralized lending could work without human gatekeeping if borrowed capital was constrained to approved deployment channels within the protocol’s integrated ecosystem. The smart contract itself enforced solvency — no credit committee, no whitelist, no institutional-only access.</p>
+      <p>My thesis was that under-collateralized lending could work without human gatekeeping if borrowed capital was constrained to approved deployment channels within the protocol’s integrated ecosystem. The smart contract enforced solvency — no credit committee, no whitelist, no institutional-only access.</p>
       <p>This is the same collateral-vs-access trade-off that underlies all lending: how much freedom do you give the borrower while protecting the lender? Hashstack’s answer was maximum leverage, minimum withdrawal.</p>
     </section>
 
     <section class="case-section" id="product-evolution" aria-labelledby="evolution-heading">
       <h2 id="evolution-heading">3. Product Evolution: V1 to V2</h2>
-      <p>The protocol shipped two distinct versions, each representing a different risk calibration.</p>
+      <p>The protocol shipped two versions, each representing a different risk calibration.</p>
 
-      <figure class="exhibit" id="exhibit-c" aria-labelledby="exhibit-c-caption">
-        <figcaption id="exhibit-c-caption" class="exhibit-label">Exhibit C — Product Version Comparison</figcaption>
+      <figure class="exhibit" aria-labelledby="evolution-caption">
+        <figcaption id="evolution-caption" class="exhibit-label">V1 → V2 / Degen Mode</figcaption>
         <div class="exhibit-body">
           <table class="exhibit-table">
             <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col">V1 (Initial)</th>
-                <th scope="col">V2 / Degen Mode (Final)</th>
-              </tr>
+              <tr><th scope="col">Dimension</th><th scope="col">V1 (Initial)</th><th scope="col">V2 / Degen Mode (Final)</th></tr>
             </thead>
             <tbody>
-              <tr><th scope="row">Maximum leverage</th><td>3× collateral</td><td>5× collateral</td></tr>
-              <tr><th scope="row">Capital withdrawal</th><td>Up to 70% of collateral value</td><td>Zero — fully constrained</td></tr>
-              <tr><th scope="row">Borrow amount</th><td>Variable</td><td>Fixed $5,000</td></tr>
-              <tr><th scope="row">Risk philosophy</th><td>Conservative — test the market</td><td>Bold — tighter containment, more access</td></tr>
+              <tr><td>Maximum leverage</td><td>3× collateral</td><td>5× collateral</td></tr>
+              <tr><td>Capital withdrawal</td><td>Up to 70% of collateral value</td><td>Zero — fully constrained</td></tr>
+              <tr><td>Borrow amount</td><td>Variable</td><td>Fixed $5,000</td></tr>
+              <tr><td>Risk philosophy</td><td>Conservative — test the market</td><td>Bold — tighter containment, more access</td></tr>
             </tbody>
           </table>
-          <p class="exhibit-note">Evolution sequence, not concurrent modes. Resume “up to 5×” = V2 final.</p>
         </div>
       </figure>
 
-      <p>The V1 model was documented in the protocol’s public seed funding announcement: borrow up to $300 by providing only $100 as collateral; of this, withdraw $70 (up to 70% collateral) while utilizing $230 as in-platform trading capital.</p>
-      <p>The evolution from V1 to V2 increased leverage from 3× to 5× while removing the withdrawal option entirely — more capital to deploy, no escape hatch that created risk without user value. Extra supply above the $1,000 minimum reduced leverage automatically (e.g. $2,500 deposit → 2.5× instead of 5×).</p>
-
-      <figure class="exhibit" id="exhibit-d" aria-labelledby="exhibit-d-caption">
-        <figcaption id="exhibit-d-caption" class="exhibit-label">Exhibit D — Constraint Flow (V2 / Degen Mode)</figcaption>
-        <div class="exhibit-body">
-          <ol class="exhibit-steps">
-            <li>User deposits $1,000+ (single asset)</li>
-            <li>Protocol approves $5,000 borrow (fixed)</li>
-            <li>Capital cannot be withdrawn (V2)</li>
-            <li>Deployed into approved strategies only (Myswap, Jediswap, ZKLend)</li>
-            <li>Protocol monitors positions</li>
-            <li>Liquidation if risk parameters breached</li>
-          </ol>
-        </div>
-      </figure>
+      <p>The V1 model allowed borrowing up to $300 by providing $100 as collateral, with $70 withdrawable and $230 deployed as in-platform trading capital.</p>
+      <p>The V2 evolution increased leverage from 3× to 5× while removing withdrawal entirely — more capital to deploy, no escape hatch that created risk without user value. Extra supply above the $1,000 minimum reduced leverage automatically (e.g. $2,500 deposit → 2.5× instead of 5×).</p>
+      <p><strong>The insight:</strong> loosening leverage and tightening containment can happen together. The constraint is the product.</p>
     </section>
 
     <section class="case-section" id="degen-mode" aria-labelledby="degen-heading">
-      <h2 id="degen-heading">4. Product Innovation I: Degen Mode</h2>
+      <h2 id="degen-heading">4. Degen Mode: One-Click Leveraged Yield</h2>
+
       <h3>The Problem</h3>
-      <p>Manual leveraged yield in DeFi requires choosing pools, calculating ratios, borrowing, swapping, and providing LP — each step with gas, slippage, and error risk. Most users lack the expertise.</p>
+      <p>Manual leveraged yield in DeFi requires choosing pools, calculating ratios, borrowing, swapping, and providing LP — each step with gas, slippage, and error risk. Most users lack the expertise or patience.</p>
+
       <h3>The Product Decision</h3>
-      <p>Degen Mode abstracted that sequence into one click: ranked strategies (returns, APR, depth), select, Execute — protocol handles the rest atomically.</p>
-      <h3>How It Worked</h3>
+      <p>Degen Mode abstracted that entire sequence into one click: ranked strategies (returns, APR, depth), select, Execute — the protocol handles the rest atomically.</p>
+
+      <h3>User flow</h3>
       <ol class="case-list">
         <li>Supply $1,000+ in a single asset</li>
-        <li>Open the Degen tab — strategies with estimated APR and risk</li>
+        <li>Open the Degen tab — strategies displayed with estimated APR and risk</li>
         <li>Select a strategy, click Execute</li>
         <li>Protocol auto-borrows $5,000 and deploys in one transaction</li>
         <li>Track results on Your Borrow</li>
       </ol>
-      <p><a href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">Degen Mode documentation →</a></p>
 
-      <figure class="exhibit" id="exhibit-e" aria-labelledby="exhibit-e-caption">
-        <figcaption id="exhibit-e-caption" class="exhibit-label">Exhibit E — Design Decision Matrix (Degen Mode)</figcaption>
+      <figure class="exhibit" aria-labelledby="degen-decisions-caption">
+        <figcaption id="degen-decisions-caption" class="exhibit-label">Design Decisions</figcaption>
         <div class="exhibit-body">
           <table class="exhibit-table">
             <thead>
-              <tr>
-                <th scope="col">Decision</th>
-                <th scope="col">Options</th>
-                <th scope="col">Choice</th>
-                <th scope="col">Rationale</th>
-              </tr>
+              <tr><th scope="col">Decision</th><th scope="col">Options Considered</th><th scope="col">Choice</th><th scope="col">Rationale</th></tr>
             </thead>
             <tbody>
               <tr><td>Minimum supply</td><td>$100 / $500 / $1,000</td><td>$1,000</td><td>Below this, leverage risk outweighs benefit</td></tr>
               <tr><td>Borrow amount</td><td>Variable / Fixed</td><td>Fixed $5,000</td><td>Standardizes risk; predictable strategy pricing</td></tr>
               <tr><td>Strategy selection</td><td>User-configured / Protocol-curated</td><td>Protocol-curated</td><td>Reduces error; protocol owns risk surface</td></tr>
-              <tr><td>Capital constraint</td><td>Partial withdrawal / Full lock</td><td>Full lock (V2)</td><td>Solvency requires containment</td></tr>
-              <tr><td>Extra supply</td><td>Increases borrow / Reduces leverage</td><td>Reduces leverage</td><td>Self-derisks without education</td></tr>
+              <tr><td>Capital constraint</td><td>Partial withdrawal / Full lock</td><td>Full lock</td><td>Solvency requires containment</td></tr>
+              <tr><td>Extra supply</td><td>Increases borrow / Reduces leverage</td><td>Reduces leverage</td><td>Self-derisks without requiring user education</td></tr>
             </tbody>
           </table>
-          <p class="exhibit-note">Status: beta at protocol sunset. Same abstraction pattern as simplifying multi-step finance into an outcome.</p>
         </div>
       </figure>
+
+      <p>The same abstraction pattern — collapsing multi-step finance into a single outcome — applies well beyond DeFi.</p>
+      <p><a href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">Degen Mode documentation →</a></p>
     </section>
 
     <section class="case-section" id="interest-rate-design" aria-labelledby="irm-heading">
-      <h2 id="irm-heading">5. Product Innovation II: Interest Rate Design (DIAL → Production Kink)</h2>
-      <p>Aave and Compound use a single floating rate per asset from instantaneous utilization. Hashstack needed commitment periods (2 weeks, 1 month, 3 months) with higher APR for longer lockups — a different rate model.</p>
+      <h2 id="irm-heading">5. Interest Rate Design: Build Ambitious, Ship Simple</h2>
+      <p>Aave and Compound use a single floating rate per asset derived from instantaneous utilization. Hashstack needed commitment periods (2 weeks, 1 month, 3 months) with higher APR for longer lockups — a fundamentally different rate model.</p>
 
-      <h3>DIAL: The Ambitious Version</h3>
-      <ul class="case-list">
-        <li><strong>Term structure pricing</strong> — longer lockups earned higher APR (correlation ladder ~1.2× between tiers).</li>
-        <li><strong>Bounded rates</strong> — supply ≤15%, borrow ≤20% to avoid extreme Slope2-style spikes.</li>
-        <li><strong>Anti-manipulation</strong> — keccak256-based pseudo-random sampling of update timing (not VRF); proportionate to threat within bounded bands.</li>
-        <li><strong>Multi-tranche accounting</strong> — borrower interest ≥ depositor interest + protocol spread.</li>
-        <li><strong>Regime rules</strong> — below 25% utilization: supply APR 0%; above 80%: premium on longest-term supply.</li>
-      </ul>
-
-      <h3>What Didn’t Work</h3>
-      <ul class="case-list">
-        <li>Non-deterministic rates hurt integrators and risk desks.</li>
-        <li>Admin-triggered updates were slow in a squeeze vs continuous kink models.</li>
-        <li>Multi-tranche + randomization raised audit / formal-verification cost.</li>
-      </ul>
+      <h3>DIAL: The R&amp;D Version</h3>
+      <p>I designed DIAL (Dynamic Interest Algorithm for Lending) with term structure pricing, bounded rates, keccak256-based anti-manipulation sampling, and multi-tranche accounting. It explored the full design space of what a commitment-based rate model could look like.</p>
+      <p><strong>What didn’t survive contact with production:</strong> non-deterministic rates hurt integrators, admin-triggered updates were too slow during liquidity squeezes, and multi-tranche randomization raised audit costs beyond what the TVL justified.</p>
 
       <h3>The Production Decision</h3>
-      <p>For V1 testnet (July 2023), the model evolved to a kinked utilization curve.</p>
+      <p>For V1 testnet (July 2023), I evolved the model to a kinked utilization curve — keeping DIAL’s core insights while cutting the complexity.</p>
 
-      <figure class="exhibit" id="exhibit-f" aria-labelledby="exhibit-f-caption">
-        <figcaption id="exhibit-f-caption" class="exhibit-label">Exhibit F — DIAL vs Production Model</figcaption>
+      <figure class="exhibit" aria-labelledby="irm-caption">
+        <figcaption id="irm-caption" class="exhibit-label">DIAL (R&amp;D) → Production Kink</figcaption>
         <div class="exhibit-body">
           <table class="exhibit-table">
             <thead>
-              <tr>
-                <th scope="col">Dimension</th>
-                <th scope="col">DIAL (pre-production)</th>
-                <th scope="col">Production kink</th>
-              </tr>
+              <tr><th scope="col">Dimension</th><th scope="col">DIAL (R&amp;D)</th><th scope="col">Production Kink</th></tr>
             </thead>
             <tbody>
               <tr><td>Rate updates</td><td>Admin-triggered, periodic</td><td>Continuous, deterministic</td></tr>
-              <tr><td>Term pricing</td><td>MCP-priced ladders</td><td>Parameterized per commitment period</td></tr>
-              <tr><td>Rate bounds</td><td>Supply ≤15%, Borrow ≤20%</td><td>Up to 100% at full utilization</td></tr>
               <tr><td>Crisis response</td><td>Slow (admin cadence)</td><td>Immediate (steep post-kink slope)</td></tr>
-              <tr><td>Randomization</td><td>Pseudo-random (keccak256)</td><td>None</td></tr>
               <tr><td>Auditability</td><td>Lower (complex solver)</td><td>Higher (standard curve)</td></tr>
-              <tr><td>Optimal utilization</td><td>N/A (band-based)</td><td>90%</td></tr>
+              <tr><td>Optimal utilization</td><td>Band-based</td><td>90%</td></tr>
             </tbody>
           </table>
-          <p class="exhibit-note">Production params (docs): base 2% @ 0% util; 20% @ 90%; 100% @ 100%. Examples: 10%→4%, 90%→20%, 95%→60% borrow APR.</p>
+          <p class="exhibit-note">Sources: <a href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">DIAL (Wayback)</a> · <a href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">Production IRM</a> · <a href="https://hashstack.medium.com/hashstack-v1-public-testnet-is-here-d617a18f2d23" target="_blank" rel="noopener noreferrer">V1 testnet</a>.</p>
         </div>
       </figure>
 
-      <figure class="exhibit" id="exhibit-h" aria-labelledby="exhibit-h-caption">
-        <figcaption id="exhibit-h-caption" class="exhibit-label">Exhibit H — Kept vs Removed from DIAL</figcaption>
-        <div class="exhibit-body exhibit-two-col">
-          <div>
-            <h4 class="exhibit-subhead">Kept</h4>
-            <ul class="exhibit-list">
-              <li>Term premium concept (MCP pricing)</li>
-              <li>Bounded-rate philosophy (informed params)</li>
-              <li>Supply/borrow cashflow identity</li>
-              <li>Anti-manipulation intent</li>
-            </ul>
-          </div>
-          <div>
-            <h4 class="exhibit-subhead">Removed</h4>
-            <ul class="exhibit-list">
-              <li>Pseudo-random rate sampling</li>
-              <li>Multi-tranche solver complexity</li>
-              <li>Admin-triggered update cadence</li>
-              <li>Hard rate caps (15%/20%)</li>
-            </ul>
-          </div>
-        </div>
-        <p class="exhibit-note">Build ambitious to learn; simplify for production. Sources: <a href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">DIAL (Wayback)</a> · <a href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">Production IRM</a> · <a href="https://hashstack.medium.com/hashstack-v1-public-testnet-is-here-d617a18f2d23" target="_blank" rel="noopener noreferrer">V1 testnet</a>.</p>
-      </figure>
+      <p><strong>What survived from DIAL:</strong> term premium concept, bounded-rate philosophy, supply/borrow cashflow identity, anti-manipulation intent.</p>
+      <p><strong>What got cut:</strong> pseudo-random sampling, multi-tranche solver, admin-triggered updates, hard rate caps.</p>
+      <p>Production parameters: base 2% at 0% utilization; 20% at 90%; 100% at full utilization.</p>
     </section>
 
     <section class="case-section" id="protocol-metrics" aria-labelledby="metrics-heading">
       <h2 id="metrics-heading">6. Protocol Metrics</h2>
 
-      <figure class="exhibit" id="exhibit-i" aria-labelledby="exhibit-i-caption">
-        <figcaption id="exhibit-i-caption" class="exhibit-label">Exhibit I — Hashstack by the Numbers</figcaption>
+      <figure class="exhibit" aria-labelledby="metrics-caption">
+        <figcaption id="metrics-caption" class="exhibit-label">Hashstack by the Numbers</figcaption>
         <div class="exhibit-body">
           <table class="metrics-table exhibit-metrics">
             <tbody>
-              <tr><th scope="row">Capital raised</th><td>$1M seed (public) + additional private funding<span class="asterisk" title="Public seed HIGH; private total not a single published figure">*</span></td></tr>
-              <tr><th scope="row">On-chain users</th><td>36,000<span class="asterisk" title="Operator metric — unique wallets that supplied or borrowed">*</span></td></tr>
-              <tr><th scope="row">Cost per user</th><td>$55<span class="asterisk" title="Operator metric: total funding / on-chain users — not independently audited">*</span></td></tr>
-              <tr><th scope="row">Asset utilization</th><td>61% average<span class="asterisk" title="Operator metric">*</span></td></tr>
-              <tr><th scope="row">First-year revenue</th><td>$56K+<span class="asterisk" title="Operator metric — protocol fees">*</span></td></tr>
-              <tr><th scope="row">Engineering team</th><td>16 (among the larger Starknet teams)<span class="asterisk" title="Operator metric">*</span></td></tr>
-              <tr><th scope="row">Ecosystem grants</th><td>180K STRK + $50K Harmony (~$230K+)<span class="asterisk" title="STRK + Harmony public threads; USD conversion approximate">*</span></td></tr>
-              <tr><th scope="row">Protocol integrations</th><td>7 (Aave, Chainlink, Herodotus, ZKLend, Myswap, Jediswap, Chainstack)</td></tr>
-              <tr><th scope="row">Security</th><td>CertiK audited</td></tr>
-              <tr><th scope="row">Standards</th><td>EIP-5299 authored</td></tr>
-              <tr><th scope="row">Token</th><td>Uniswap (Ethereum) + Ekubo (Starknet)</td></tr>
-              <tr><th scope="row">TVL</th><td><a href="https://defillama.com/protocol/hashstack" target="_blank" rel="noopener noreferrer">DefiLlama protocol page</a> — public tracking; protocol wound down; <strong>no peak TVL claimed here</strong></td></tr>
+              <tr><th scope="row">Capital raised</th><td>$1M seed + additional private funding</td></tr>
+              <tr><th scope="row">On-chain users</th><td>36,000<span class="asterisk" title="Operator metric">*</span></td></tr>
+              <tr><th scope="row">Cost per user</th><td>$55<span class="asterisk" title="Operator metric">*</span> (benchmark: most DeFi protocols run $200–500+)</td></tr>
+              <tr><th scope="row">Average asset utilization</th><td>61%<span class="asterisk" title="Operator metric">*</span> (benchmark: Aave-class books typically 30–50%)</td></tr>
+              <tr><th scope="row">First-year revenue</th><td>$56K+<span class="asterisk" title="Operator metric">*</span></td></tr>
+              <tr><th scope="row">Engineering team</th><td>16<span class="asterisk" title="Operator metric">*</span> (among the larger Starknet teams)</td></tr>
+              <tr><th scope="row">Ecosystem grants</th><td>180K STRK + $50K Harmony (~$230K+ total)<span class="asterisk" title="USD conversion approximate">*</span></td></tr>
+              <tr><th scope="row">Protocol integrations</th><td>7 — Aave, Chainlink, Herodotus, ZKLend, Myswap, Jediswap, Chainstack</td></tr>
+              <tr><th scope="row">Security</th><td>CertiK audited — <a href="assets/certik_report.pdf" target="_blank" rel="noopener noreferrer">report</a></td></tr>
+              <tr><th scope="row">Standards</th><td><a href="https://github.com/ethereum/EIPs/pull/5299" target="_blank" rel="noopener noreferrer">EIP-5299</a> authored</td></tr>
+              <tr><th scope="row">Token</th><td>Listed on Uniswap (Ethereum) + Ekubo (Starknet)</td></tr>
+              <tr><th scope="row">TVL</th><td>Tracked on <a href="https://defillama.com/protocol/hashstack" target="_blank" rel="noopener noreferrer">DefiLlama</a></td></tr>
             </tbody>
           </table>
-          <p class="exhibit-footnote"><span class="asterisk">*</span> Operator metrics (internal) — not independently audited. TVL via <a href="https://defillama.com/protocol/hashstack" target="_blank" rel="noopener noreferrer">DefiLlama</a>; no peak TVL claimed.</p>
+          <p class="exhibit-footnote"><span class="asterisk">*</span> Operator metrics (internal) — not independently audited.</p>
         </div>
       </figure>
-
-      <figure class="exhibit" id="exhibit-j" aria-labelledby="exhibit-j-caption">
-        <figcaption id="exhibit-j-caption" class="exhibit-label">Exhibit J — Capital Efficiency</figcaption>
-        <div class="exhibit-body">
-          <table class="exhibit-table">
-            <thead>
-              <tr><th scope="col">Metric</th><th scope="col">Value</th><th scope="col">Benchmark</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Cost per on-chain user</td><td>$55<span class="asterisk">*</span></td><td>Many DeFi protocols cite $200–500+ CAC</td></tr>
-              <tr><td>Average utilization</td><td>61%<span class="asterisk">*</span></td><td>Aave-class books often ~30–50%</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </figure>
-
-      <h3>Known documentation gaps</h3>
-      <ul class="case-list">
-        <li>Borrow rate formula — documented with examples</li>
-        <li>Supplier rate formula — not in public docs</li>
-        <li>Reserve factor — not in public docs</li>
-        <li>Ut = Debt/Supply definition — partial vs Aave cash+borrows</li>
-        <li>MCP interaction with IRM — MCP elsewhere in docs, not on IRM page</li>
-      </ul>
     </section>
 
     <section class="case-section" id="starknet-bet" aria-labelledby="starknet-heading">
       <h2 id="starknet-heading">7. The Platform Bet: Starknet</h2>
-      <p>Hashstack migrated to Starknet in August 2022 for ZK-proof cost advantages, Cairo’s formal-verification properties for liquidation logic, and ecosystem support.</p>
-      <p>The technical thesis validated — the protocol worked on Starknet (utilization and users as operator metrics above; CertiK passed). Ecosystem adoption and tooling lagged EVM alternatives; Cairo hiring was harder than Solidity.</p>
+      <p>I migrated Hashstack to Starknet in August 2022 for ZK-proof cost advantages, Cairo’s formal-verification properties for liquidation logic, and ecosystem grant support.</p>
+      <p>The technical thesis validated — the protocol worked on Starknet, CertiK passed the audit, and utilization ran above industry benchmarks. Cairo’s formal-verification properties were a genuine advantage for liquidation logic. The challenge was Hashstack-specific: a lean team managing a full Cairo migration while simultaneously iterating on product, with limited runway to do both well.</p>
       <p>Source: <a href="https://hashstack.medium.com/announcing-hashstacks-switch-to-starknet-58287942574d" target="_blank" rel="noopener noreferrer">Starknet migration announcement</a>.</p>
 
-      <figure class="exhibit" id="exhibit-k" aria-labelledby="exhibit-k-caption">
-        <figcaption id="exhibit-k-caption" class="exhibit-label">Exhibit K — Decision Timeline</figcaption>
+      <figure class="exhibit" aria-labelledby="timeline-caption">
+        <figcaption id="timeline-caption" class="exhibit-label">Decision Timeline</figcaption>
         <div class="exhibit-body">
           <ol class="exhibit-timeline">
             <li><span class="timeline-date">2020</span> Founded Hashstack</li>
-            <li><span class="timeline-date">2022</span> Migrated to Starknet · Token 2049 · EIP-5299</li>
-            <li><span class="timeline-date">2023</span> V1 testnet (DIAL → kink) · CertiK · grants</li>
-            <li><span class="timeline-date">2024</span> Degen Mode (beta) · operational peak</li>
-            <li><span class="timeline-date">2025</span> Cairo 2.0 · Base testnet</li>
-            <li><span class="timeline-date">2026</span> Negative migration ROI · structured wind-down</li>
+            <li><span class="timeline-date">2022</span> Migrated to Starknet · Token 2049 · Authored EIP-5299</li>
+            <li><span class="timeline-date">2023</span> V1 testnet (DIAL → kink model) · CertiK audit · Ecosystem grants</li>
+            <li><span class="timeline-date">2024</span> Degen Mode · Operational peak</li>
+            <li><span class="timeline-date">2025</span> Cairo 1.0 deprecation · Base testnet (EVM portability proof)</li>
+            <li><span class="timeline-date">2026</span> Negative migration ROI → Structured wind-down</li>
           </ol>
-          <p class="exhibit-note">Dates approximate.</p>
         </div>
       </figure>
     </section>
 
     <section class="case-section" id="wind-down" aria-labelledby="winddown-heading">
       <h2 id="winddown-heading">8. The Wind-Down Decision</h2>
-      <p><strong>External trigger:</strong> Cairo 0 deprecation forced a full Cairo 2.0 migration or exit.</p>
-      <p><strong>Strategic evaluation:</strong> Migration cost was high; projected user growth on Starknet’s trajectory did not justify the investment. A Base testnet showed EVM portability, but the fast-follower window on EVM lending had closed.</p>
-      <p>Decision: structured wind-down with user fund safety as priority.</p>
+      <p><strong>Trigger:</strong> Cairo 1.0 deprecation required a full migration or exit.</p>
 
-      <figure class="exhibit" id="exhibit-l" aria-labelledby="exhibit-l-caption">
-        <figcaption id="exhibit-l-caption" class="exhibit-label">Exhibit L — Wind-Down Decision Framework</figcaption>
+      <figure class="exhibit" aria-labelledby="winddown-caption">
+        <figcaption id="winddown-caption" class="exhibit-label">Evaluation</figcaption>
         <div class="exhibit-body">
           <table class="exhibit-table">
             <thead>
               <tr>
                 <th scope="col">Factor</th>
-                <th scope="col">Stay on Starknet</th>
+                <th scope="col">Continue on Starknet</th>
                 <th scope="col">Migrate to Base/EVM</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>Engineering cost</td><td>Full Cairo 2.0 rewrite</td><td>Moderate (Solidity port)</td></tr>
-              <tr><td>User base</td><td>Adoption lagging targets</td><td>Larger but highly competitive</td></tr>
+              <tr><td>Engineering cost</td><td>Full Cairo migration</td><td>Moderate (Solidity port)</td></tr>
+              <tr><td>Team capacity</td><td>Lean team stretched across migration + product</td><td>Same constraint, different stack</td></tr>
               <tr><td>Time to market</td><td>6–9 months migration</td><td>Behind established protocols</td></tr>
-              <tr><td>Competitive position</td><td>First mover in a stalling market</td><td>Late entrant in a crowded market</td></tr>
-              <tr><td>Decision</td><td>Negative ROI</td><td>Window closed</td></tr>
+              <tr><td>Runway reality</td><td>Migration cost exceeded remaining runway</td><td>Late entrant in a crowded market</td></tr>
+              <tr><td>Verdict</td><td>Resource constraint, not platform constraint</td><td>Window closed</td></tr>
             </tbody>
           </table>
         </div>
       </figure>
+
+      <p><strong>Decision:</strong> Structured wind-down. User funds were returned and remain accessible for withdrawal. The protocol website/interface was moved to GitHub Pages so it stays functional as long as needed with near-zero operational overhead.</p>
+      <p>Shutting down a protocol you built from zero is a harder product call than launching one. The runway didn’t support both migration and growth, and I wasn’t going to burn capital or user trust pretending otherwise.</p>
     </section>
 
-    <section class="case-section" id="key-takeaways" aria-labelledby="takeaways-heading">
-      <h2 id="takeaways-heading">9. Key Takeaways</h2>
-      <p><strong>On product design:</strong> The constraint is the product. Under-collateralized lending works when you control where capital goes. Moving from 3×/70% withdrawal to 5×/zero withdrawal shows that loosening leverage and tightening containment can happen together.</p>
-      <p><strong>On technical ambition:</strong> Build ambitious to learn what matters, then simplify for production. DIAL explored the design space; the kink curve kept the insights and cut the complexity.</p>
-      <p><strong>On platform bets:</strong> Weight ecosystem go-to-market capacity as heavily as technical fundamentals. A product can be technically sound and still fail if the infrastructure does not reach critical mass.</p>
+    <section class="case-section" id="differently" aria-labelledby="differently-heading">
+      <h2 id="differently-heading">9. What I’d Do Differently</h2>
+      <p><strong>Raise more before committing to a major migration.</strong> The Cairo migration was the right technical move, but we hit it with a team and runway sized for product iteration, not a full rewrite. I’d secure dedicated migration capital upfront.</p>
+      <p><strong>Ship the kink model from day one.</strong> DIAL was valuable R&amp;D, but it delayed the rate model that actually worked. The lesson: explore the design space in simulation, not in production architecture.</p>
+      <p><strong>Resource the team for parallel tracks.</strong> Hashstack’s product thesis validated — utilization, users, and the autonomous model all worked. The gap was trying to run migration, product iteration, and growth simultaneously on a lean team. With proper resourcing, the outcome could have been different.</p>
+    </section>
 
-      <h3>Discussion Questions</h3>
-      <ol class="case-list">
-        <li>Was 90% optimal utilization appropriate for an under-collateralized book, or did it expose late liquidity risk?</li>
-        <li>Given V1’s 70% withdrawal cap, how effective was the on-protocol constraint in practice?</li>
-        <li>At what TVL threshold would DIAL’s full complexity have been justified over the kink model?</li>
-        <li>Should Hashstack have launched on EVM first and ported to Starknet, rather than the reverse?</li>
-        <li>How should a product leader evaluate ecosystem risk separately from product-market fit?</li>
-      </ol>
+    <section class="case-section" id="sources" aria-labelledby="sources-heading">
+      <h2 id="sources-heading">Sources</h2>
+      <ul class="case-list">
+        <li><a href="https://docs.hashstack.finance" target="_blank" rel="noopener noreferrer">Hashstack Docs</a></li>
+        <li><a href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">Degen Mode</a></li>
+        <li><a href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">DIAL (Wayback)</a></li>
+        <li><a href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">Production IRM</a></li>
+        <li><a href="https://defillama.com/protocol/hashstack" target="_blank" rel="noopener noreferrer">DefiLlama</a></li>
+        <li><a href="https://hashstack.medium.com/announcing-hashstacks-switch-to-starknet-58287942574d" target="_blank" rel="noopener noreferrer">Starknet migration</a></li>
+        <li><a href="https://github.com/ethereum/EIPs/pull/5299" target="_blank" rel="noopener noreferrer">EIP-5299 (GitHub PR)</a></li>
+        <li><a href="https://ethereum-magicians.org/t/eip-5299-layer3-scaling-standard/9039" target="_blank" rel="noopener noreferrer">Ethereum Magicians</a></li>
+        <li><a href="assets/certik_report.pdf" target="_blank" rel="noopener noreferrer">CertiK report</a></li>
+      </ul>
     </section>
   </main>
 
