@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guardrail Case Study — Vinay Degavath</title>
+  <meta name="description" content="Guardrail SFO: building systematic trading infrastructure — multi-agent architecture, 7-check risk plane, AI behavioral analysis. Principal capital only.">
+  <meta property="og:title" content="Guardrail Case Study — Vinay Degavath">
+  <meta property="og:description" content="Single-family office trading infra — multi-agent risk gates, journal, Attention agent. Principal capital only; no LPs.">
+  <meta property="og:url" content="https://v9hstk.github.io/guardrail.html">
+  <meta property="og:image" content="https://v9hstk.github.io/og.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script>!function(){var s=sessionStorage.getItem("theme");document.documentElement.setAttribute("data-theme",s||"light")}();</script>
+  <script src="js/theme.js" defer></script>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="back-link" href="index.html">← Back</a>
+    <div class="header-actions">
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="icon-sun" aria-hidden="true">☀</span>
+        <span class="icon-moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="case-study">
+    <header class="case-hero">
+      <h1>Guardrail: Building Systematic Trading Infrastructure from First Principles</h1>
+      <p class="subtitle">Single-family office · multi-agent architecture · risk engineering · AI behavioral analysis · infra 2025–Present</p>
+    </header>
+
+    <section class="case-section" id="executive-summary" aria-labelledby="exec-heading">
+      <h2 id="exec-heading">Executive Summary</h2>
+      <p><a href="https://guardrail.fund" target="_blank" rel="noopener noreferrer">Guardrail</a> is a <strong>single-family office</strong> operating an autonomous capital-allocation system across digital assets, hard commodities, real estate, and frontier technology. <strong>Principal capital only</strong> — no investors, no LPs, no clients, no redemption gates. For this portfolio site it also reads as a <strong>side personal project in finance</strong>: domain versatility next to Hashstack and Parashar, not the lead cold-outreach story.</p>
+      <p>I’m building the trading infrastructure stack that makes that posture real — a multi-agent execution system with 9 specialized sub-agents coordinated by an orchestrator over a Redis event bus, a <strong>7-check programmatic risk plane</strong>, an AI-powered behavioral analysis engine, and a build orchestrator that manages a 43-task deployment DAG. Public positioning on guardrail.fund: <em>from signal to settlement — no human in the loop</em>.</p>
+      <p>Venue focus for the live stack includes derivatives (Hyperliquid) and prediction markets (Polymarket), inside a broader SFO mandate. The <strong>infrastructure is live</strong>. Capital remains 100% principal — no third-party LP capital deployed.</p>
+      <p>Two design principles run through every decision: <strong>risk is a gate, not a dashboard</strong>, and <strong>the human is the weakest link</strong> — every casual intervention point is a failure mode to engineer out.</p>
+    </section>
+
+    <section class="case-section" id="current-status" aria-labelledby="status-heading">
+      <h2 id="status-heading">Current Status</h2>
+      <figure class="exhibit" aria-labelledby="status-caption">
+        <figcaption id="status-caption" class="exhibit-label">Aligned to guardrail.fund</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">Item</th><th scope="col">Status</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Entity</td><td>Single-family office (public: ACTIVE)</td></tr>
+              <tr><td>Capital</td><td>100% principal — <strong>no investors, no LPs, no redemption gates</strong></td></tr>
+              <tr><td>Inception</td><td>2017 (per <a href="https://guardrail.fund" target="_blank" rel="noopener noreferrer">guardrail.fund</a>)</td></tr>
+              <tr><td>Horizon</td><td>10Y+ / no redemptions</td></tr>
+              <tr><td>Infrastructure</td><td>Live multi-agent stack (risk plane, journal, event bus, Attention)</td></tr>
+              <tr><td>Case-study framing</td><td>Side finance project for domain versatility; secondary to Hashstack</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="mandate" aria-labelledby="mandate-heading">
+      <h2 id="mandate-heading">1. Mandate (Public Positioning)</h2>
+      <p>Per guardrail.fund, allocation spans four verticals — digital assets, precious metals, real estate, and technology (health-tech, insurance, defence, aerospace, bio-tech, quantum). Operating theses include hard-money scarcity (BTC + XAU), programmable settlement, tangible real-yield real estate, and concentrated deep-tech bets.</p>
+      <p>This case study is not a pitch for external capital. It documents the <strong>systematic trading infrastructure</strong> behind principal-capital allocation — how risk, journaling, and behavioral oversight are enforced in software.</p>
+    </section>
+
+    <section class="case-section" id="the-problem" aria-labelledby="problem-heading">
+      <h2 id="problem-heading">2. The Problem: Why Most Traders Lose</h2>
+      <p>Retail and small-operator traders fail for three reasons that have nothing to do with strategy:</p>
+      <p><strong>No systematic journaling.</strong> They can’t identify what’s working because they don’t track decisions with enough granularity. A trader who doesn’t know their win rate by setup type, timeframe, and market regime is guessing at their own edge.</p>
+      <p><strong>No real-time risk enforcement.</strong> Risk rules exist on paper, not in code. A drawdown limit that only fires when you check it manually isn’t a limit — it’s a suggestion.</p>
+      <p><strong>Emotional override.</strong> Discipline degrades under stress — systematically, predictably, and measurably. The hardest trade to skip is the revenge trade after a loss.</p>
+      <p>The terminal solves all three by removing casual human override from the execution loop and replacing judgment calls with programmatic constraints. The system doesn’t advise discipline — it enforces it.</p>
+    </section>
+
+    <section class="case-section" id="multi-agent" aria-labelledby="agents-heading">
+      <h2 id="agents-heading">3. Multi-Agent Architecture</h2>
+      <p>The system runs 9 specialized sub-agents coordinated by an orchestrator over a Redis pub/sub event bus. Each agent owns one domain, publishes typed events, and consumes events from other agents. No agent has global state — coordination happens through the bus.</p>
+
+      <figure class="exhibit" aria-labelledby="agents-caption">
+        <figcaption id="agents-caption" class="exhibit-label">Nine agents</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">Agent</th><th scope="col">Domain</th><th scope="col">Key Function</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Exchange (HL)</td><td>Hyperliquid</td><td>Position sync, order execution, balance tracking, funding rate monitoring</td></tr>
+              <tr><td>Exchange (PM)</td><td>Polymarket</td><td>Market resolution tracking, position management, outcome probability sync</td></tr>
+              <tr><td>Risk</td><td>Enforcement</td><td>7-check risk plane — hard blocks, not warnings</td></tr>
+              <tr><td>Journal</td><td>Record-keeping</td><td>29-field trade journal (22 auto + 4 pre-trade + 3 post-trade)</td></tr>
+              <tr><td>Portfolio</td><td>Analytics</td><td>Kelly sizing, Monte Carlo, cross-position correlation</td></tr>
+              <tr><td>Alerts</td><td>Notification</td><td>Threshold-triggered alerts, multi-channel delivery</td></tr>
+              <tr><td>Attention (AI)</td><td>Behavioral analysis</td><td>LLM anomaly detection — tilt, pattern drift, regime mismatch</td></tr>
+              <tr><td>Summary</td><td>Synthesis</td><td>Session reports, performance attribution</td></tr>
+              <tr><td>Wallet Decay</td><td>Diagnostics</td><td>Balance drift every 15 minutes — fees, funding, slippage</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <h3>Why Agents, Not a Monolith</h3>
+      <p>Each agent can fail independently. Exchange going down doesn’t disable Risk. Journal offline doesn’t stop position monitoring. Attention failing degrades insight quality but doesn’t block execution. Fault isolation matters when a cascading failure can mean capital loss.</p>
+
+      <h3>Event Bus Design</h3>
+      <p>Events are typed (<code>POSITION_OPENED</code>, <code>RISK_CHECK_FAILED</code>, <code>ANOMALY_DETECTED</code>, <code>DECAY_ALERT</code>), timestamped, and source-tagged. The orchestrator routes cross-agent responses — e.g. <code>POSITION_LIMIT_BREACH</code> → Exchange reduction; <code>TILT_DETECTED</code> → session pause escalation.</p>
+    </section>
+
+    <section class="case-section" id="ai-layer" aria-labelledby="ai-heading">
+      <h2 id="ai-heading">4. The AI Layer: Attention + Summary</h2>
+      <p>Most trading systems treat AI as a signal generator. The Attention agent doesn’t generate trade ideas — it watches the operator.</p>
+      <p>It scores live behavior against the operator’s own Journal baseline: sizing drift after losses, entry-frequency spikes, hold-time compression, regime mismatch, conviction–outcome divergence, session-pattern change. Deviations emit typed bus events. Haiku handles real-time scoring; Sonnet generates narrative explanations only when an anomaly is confirmed and context is requested.</p>
+      <p>The Summary agent synthesizes cross-agent state into session reports, performance attribution, behavioral digests, and portfolio risk snapshots — a read layer on collective agent state, not a second research engine.</p>
+    </section>
+
+    <section class="case-section" id="risk-plane" aria-labelledby="risk-heading">
+      <h2 id="risk-heading">5. The 7-Check Risk Plane</h2>
+      <p>Risk isn’t a dashboard — it’s a gate. Every trade passes through seven checks before execution. Any single failure blocks the trade. The plane is designed for <strong>no casual bypass</strong>; exceptions, if any, require an audited path — not an in-the-moment override button.</p>
+
+      <figure class="exhibit" aria-labelledby="risk-caption">
+        <figcaption id="risk-caption" class="exhibit-label">Seven checks</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">Check</th><th scope="col">What It Enforces</th><th scope="col">Why It Exists</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Daily loss cap</td><td>Max loss per 24h rolling window</td><td>Stops revenge trading after a bad morning</td></tr>
+              <tr><td>Weekly drawdown</td><td>Max drawdown from weekly HWM</td><td>Catches slow bleeds daily caps miss</td></tr>
+              <tr><td>Kelly sizing</td><td>Fractional Kelly (0.25–0.5×)</td><td>Sizing from edge math, not gut feel</td></tr>
+              <tr><td>Max positions</td><td>Hard concurrent-position limit</td><td>Prevents fake diversification</td></tr>
+              <tr><td>Correlation</td><td>Cross-position correlation check</td><td>Blocks the same bet under new names</td></tr>
+              <tr><td>Stop loss</td><td>Mandatory stop on every position</td><td>No undefined exits</td></tr>
+              <tr><td>Session check</td><td>Hours / fatigue enforcement</td><td>No 3 AM “I have a feeling” trades</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+      <p>Kelly inputs come from the operator’s own Journal history by setup type. Monte Carlo on the Portfolio agent models book-level tail risk before a new position is approved — catching five individually-safe legs that collectively blow up on one macro factor.</p>
+    </section>
+
+    <section class="case-section" id="build-orchestrator" aria-labelledby="build-heading">
+      <h2 id="build-heading">6. Build Orchestrator: 43-Task Deployment DAG</h2>
+      <p>Development and deployment use a 43-task DAG: dependency resolution, auto-resume on API rate limits, per-node checkpoints, multi-model routing (Haiku / Sonnet / Opus by task type), and per-agent rollback so a failed deploy doesn’t take the full system down.</p>
+    </section>
+
+    <section class="case-section" id="wallet-decay" aria-labelledby="decay-heading">
+      <h2 id="decay-heading">7. Wallet Decay Diagnostic</h2>
+      <p>Funding, fees, slippage, and rounding create a slow bleed that looks like noise trade-by-trade. The Wallet Decay agent checks expected vs actual balance every 15 minutes and attributes erosion to funding, fees, slippage, or rounding — making invisible capital decay visible.</p>
+    </section>
+
+    <section class="case-section" id="journal" aria-labelledby="journal-heading">
+      <h2 id="journal-heading">8. The Auto-Journal: 29 Fields</h2>
+      <p>The system auto-fills <strong>22 of 29 fields</strong> from exchange data, leaving <strong>4 manual pre-trade</strong> and <strong>3 manual post-trade</strong> inputs (22 + 4 + 3 = 29). Attention-agent fields and the TradingView chart link are <strong>overlays</strong> — not an additive count that would inflate the journal to 33.</p>
+      <p>Absolute dollar amounts are never shown — percentages, ROE, and R-multiples only. For prediction markets, a <strong>Calibration Score</strong> tracks how well stated confidence matches outcomes over time. That score is not commonly treated as a first-class metric in public prediction-market terminals.</p>
+    </section>
+
+    <section class="case-section" id="layers" aria-labelledby="layers-heading">
+      <h2 id="layers-heading">9. Four-Layer Separation</h2>
+      <p>Strict downward-only dependencies:</p>
+      <ul class="case-list">
+        <li><strong>Orchestrator</strong> — agent coordination, event routing, workflows</li>
+        <li><strong>Integrity</strong> — hash-chained audit log, dead-man switch, kill switch</li>
+        <li><strong>Observability</strong> — BetterStack, Retool, Summary agent</li>
+        <li><strong>Security</strong> — read-only keys, namespaced events, per-agent permissions</li>
+      </ul>
+      <p>Every decision and risk check lands in an append-only SHA-256 hash-chained log. Kill switch (manual flatten) and dead-man switch (missed heartbeat → safe mode) stay separate so one failure mode can’t erase both protections.</p>
+    </section>
+
+    <section class="case-section" id="moats" aria-labelledby="moats-heading">
+      <h2 id="moats-heading">10. Compounding Advantages</h2>
+      <figure class="exhibit" aria-labelledby="moats-caption">
+        <figcaption id="moats-caption" class="exhibit-label">What compounds for a principal-only operator</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">Advantage</th><th scope="col">What It Is</th><th scope="col">Why It Compounds</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Behavioral dataset</td><td>29-field journal + AI overlays</td><td>Personalized history a new stack doesn’t have</td></tr>
+              <tr><td>Prediction-market first-class design</td><td>Calibration Score, resolution tracking</td><td>PM venues rarely get native treatment in public terminals</td></tr>
+              <tr><td>Risk plane as infrastructure</td><td>7-check enforcement API, not a dashboard</td><td>Separable enforcement layer</td></tr>
+              <tr><td>Feedback loop</td><td>Journal ↔ Attention ↔ Summary</td><td>Smarter about this operator with every trade</td></tr>
+              <tr><td>Audit integrity</td><td>Hash-chained logs + layered safety</td><td>Tamper-evident record for principal capital</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="qa" aria-labelledby="qa-heading">
+      <h2 id="qa-heading">11. QA — Target Operating Discipline</h2>
+      <p>Target cadence (not a claim that every practice is already ritualized monthly): unit + integration tests per deploy, pre-release regression suite, chaos engineering (target monthly), penetration testing (target quarterly), and CI/CD with per-agent rollback via GitHub Actions.</p>
+    </section>
+
+    <section class="case-section" id="takeaways" aria-labelledby="takeaways-heading">
+      <h2 id="takeaways-heading">12. Key Takeaways</h2>
+      <p><strong>On positioning:</strong> Guardrail is an SFO with principal capital only — not a client fund, not an LP vehicle. The case study shows the infra that makes autonomous allocation enforceable.</p>
+      <p><strong>On risk engineering:</strong> A risk dashboard reports damage. A risk gate prevents it. Casual override turns a gate into a suggestion box.</p>
+      <p><strong>On AI:</strong> Attention monitors the trader, not the market. Alpha loss often comes from good strategy executed badly under stress.</p>
+      <p><strong>On domain versatility:</strong> Same person who shipped DeFi protocol product work also builds systematic trading infra — different domain, same “risk as interface” instinct.</p>
+      <p class="exhibit-note">Stack: TypeScript · Bun · Redis (pub/sub) · BullMQ · PostgreSQL · Hyperliquid SDK · Polymarket API · Claude API (Haiku/Sonnet) · BetterStack · Retool · GitHub Actions · TradingView</p>
+    </section>
+
+    <section class="case-section" id="sources" aria-labelledby="sources-heading">
+      <h2 id="sources-heading">Sources</h2>
+      <ul class="case-list">
+        <li><a href="https://guardrail.fund" target="_blank" rel="noopener noreferrer">guardrail.fund</a> — authoritative public positioning (SFO, principal-only, inception, mandate)</li>
+        <li>Operator / design SoT (internal): <code>stream-c/case_studies/guardrail.md</code></li>
+        <li>Resume: Guardrail — Managing Partner (SFO umbrella)</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    Vinay Degavath · 2026
+  </footer>
+</body>
+</html>
