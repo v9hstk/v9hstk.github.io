@@ -1,6 +1,6 @@
 # v9hstk.github.io
 
-Personal verification hub and case study site for Vinay Degavath.
+Personal verification hub and case study site for Vinay Kumar.
 
 **Live:** https://v9hstk.github.io
 
