@@ -29,11 +29,11 @@ Parallel static locale pages — no build step, no i18n framework.
 | Locale | Path |
 |--------|------|
 | English (default) | `/` (`index.html`) |
-| Korean | `/ko/` |
-| Japanese | `/ja/` |
+| Korean | `/kor/` |
+| Japanese | `/jp/` |
 | German | `/de/` |
 
-Header language `<select>` (EN · 한국어 · 日本語 · Deutsch) on landings and case studies. First visit to `/` auto-redirects once from `navigator.language(s)` (`ko*`/`ja*`/`de*`) unless `localStorage` already has `v9hstk-lang-pref` or `v9hstk-lang-auto`. Dropdown choice sets `v9hstk-lang-pref` and navigates to `/`, `/ko/`, `/ja/`, or `/de/`. `hreflang` + `lang` kept on each landing locale.
+Header language `<select>` (EN · 한국어 · 日本語 · Deutsch) on landings and case studies. First visit to `/` auto-redirects once from `navigator.language(s)` (`ko*`/`ja*`/`de*`) unless `localStorage` already has `v9hstk-lang-pref` or `v9hstk-lang-auto`. Dropdown choice sets `v9hstk-lang-pref` and navigates to `/`, `/kor/`, `/jp/`, or `/de/`. `hreflang` + `lang` kept on each landing locale.
 
 **Not translated yet:** case study bodies (`hashstack.html`, `parashar.html`, `guardrail.html`) remain English; locale landings and case headers note “case studies EN for now.” Resume PDFs remain English.
 

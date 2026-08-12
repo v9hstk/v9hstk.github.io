@@ -198,12 +198,13 @@ button:focus-visible {
 }
 
 .lang-select {
+  min-width: 7.5rem;
   appearance: none;
   -webkit-appearance: none;
   font: inherit;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0;
   line-height: 1.2;
   color: var(--ink);
   background-color: transparent;
@@ -214,7 +215,7 @@ button:focus-visible {
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 0.28rem 1.25rem 0.28rem 0.55rem;
-  max-width: 5.5rem;
+  max-width: 11rem;
   cursor: pointer;
 }
 
