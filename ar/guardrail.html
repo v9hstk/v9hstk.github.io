@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>دراسة حالة Guardrail — Vinay Kumar</title>
+  <meta name="description" content="Guardrail SFO: بنية تداول منهجية — متعدد الوكلاء، مستوى مخاطر من 7 فحوصات، تحليل سلوكي. رأس مال أصلي فقط.">
+  <meta property="og:title" content="دراسة حالة Guardrail — Vinay Kumar">
+  <meta property="og:description" content="بنية تداول SFO — بوابات مخاطر متعددة الوكلاء، دفتر، Attention. رأس مال أصلي فقط؛ بلا LPs.">
+  <meta property="og:url" content="https://v9hstk.github.io/ar/guardrail.html">
+  <meta property="og:image" content="https://v9hstk.github.io/og.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ar_SA">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="دراسة حالة Guardrail — Vinay Kumar">
+  <meta name="twitter:description" content="بنية تداول SFO — بوابات مخاطر متعددة الوكلاء، دفتر، Attention. رأس مال أصلي فقط؛ بلا LPs.">
+  <meta name="twitter:image" content="https://v9hstk.github.io/og.png">
+  <link rel="alternate" hreflang="en" href="https://v9hstk.github.io/guardrail.html">
+  <link rel="alternate" hreflang="ko" href="https://v9hstk.github.io/ko/guardrail.html">
+  <link rel="alternate" hreflang="ja" href="https://v9hstk.github.io/ja/guardrail.html">
+  <link rel="alternate" hreflang="de" href="https://v9hstk.github.io/de/guardrail.html">
+  <link rel="alternate" hreflang="zh-Hans" href="https://v9hstk.github.io/zh/guardrail.html">
+  <link rel="alternate" hreflang="ar" href="https://v9hstk.github.io/ar/guardrail.html">
+  <link rel="alternate" hreflang="x-default" href="https://v9hstk.github.io/guardrail.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@360;400;500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script>!function(){var s=sessionStorage.getItem("theme");document.documentElement.setAttribute("data-theme",s||"light")}();</script>
+  <script src="../js/theme.js" defer></script>
+  <script src="../js/lang.js" defer></script>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="back-link" href="index.html">العودة →</a>
+    <div class="header-actions">
+    <div class="lang-switch">
+      <label class="visually-hidden" for="lang-select">Language</label>
+      <select id="lang-select" class="lang-select" aria-label="Language">
+        <option value="en" lang="en">EN</option>
+        <option value="ko" lang="ko">KOR</option>
+        <option value="ja" lang="ja">JP</option>
+        <option value="de" lang="de">DE</option>
+        <option value="zh" lang="zh">ZH</option>
+        <option value="ar" lang="ar" selected>AR</option>
+      </select>
+    </div>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="تبديل الوضع الداكن">
+        <span class="icon-sun" aria-hidden="true">☀</span>
+        <span class="icon-moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="case-study">
+<header class="case-hero">
+      <h1>Guardrail: بناء بنية تداول منهجية من المبادئ الأولى</h1>
+      <p class="subtitle">Single-family office · بنية متعددة الوكلاء · هندسة المخاطر · تحليل سلوكي بالذكاء الاصطناعي · البنية 2025–الآن</p>
+    </header>
+
+    <section class="case-section" id="executive-summary" aria-labelledby="exec-heading">
+      <h2 id="exec-heading">الملخص التنفيذي</h2>
+      <p><a href="https://guardrail.fund" target="_blank" rel="noopener noreferrer">Guardrail</a> هو <strong>single-family office</strong> يشغّل نظام تخصيص رأس مال ذاتي عبر الأصول الرقمية والسلع الصلبة والعقارات وتقنيات frontier. <strong>رأس مال أصلي فقط</strong> — بلا مستثمرين، بلا LPs، بلا عملاء، بلا بوابات استرداد. على موقع المحفظة هذا يُقرأ أيضاً كـ<strong>مشروع جانبي في المالية</strong> بجانب Hashstack وParashar — وليس قصة التواصل البارد الرئيسية.</p>
+      <p>أبني مكدس بنية التداول الذي يجعل هذا الموقف واقعاً — نظام تنفيذ متعدد الوكلاء بـ 9 وكلاء فرعيين متخصصين ينسّقهم مُنظِّم عبر ناقل أحداث Redis، و<strong>مستوى مخاطر برنامجي من 7 فحوصات</strong>، ومحرك تحليل سلوكي بالذكاء الاصطناعي، ومُنظِّم بناء يدير DAG نشر من 43 مهمة. التموضع العلني على guardrail.fund: <em>from signal to settlement — no human in the loop</em>.</p>
+      <p>تركيز الأماكن للمكدس الحي يشمل المشتقات (Hyperliquid) وأسواق التوقعات (Polymarket) ضمن تفويض SFO أوسع. <strong>البنية حية</strong>. رأس المال 100% أصلي — بلا رأس مال LP من طرف ثالث.</p>
+      <p>مبدآن يمران بكل قرار: <strong>المخاطرة بوابة لا لوحة معلومات</strong>، و<strong>الإنسان أضعف حلقة</strong> — كل نقطة تدخل عابر هي نمط فشل يُزال بالهندسة.</p>
+    </section>
+
+    <section class="case-section" id="current-status" aria-labelledby="status-heading">
+      <h2 id="status-heading">الحالة الحالية</h2>
+      <figure class="exhibit" aria-labelledby="status-caption">
+        <figcaption id="status-caption" class="exhibit-label">متوافق مع guardrail.fund</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">البند</th><th scope="col">الحالة</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>الكيان</td><td>Single-family office (علني: ACTIVE)</td></tr>
+              <tr><td>رأس المال</td><td>100% أصلي — <strong>بلا مستثمرين ولا LPs ولا بوابات استرداد</strong></td></tr>
+              <tr><td>البدء</td><td>2017 (حسب <a href="https://guardrail.fund" target="_blank" rel="noopener noreferrer">guardrail.fund</a>)</td></tr>
+              <tr><td>الأفق</td><td>10Y+ / بلا استرداد</td></tr>
+              <tr><td>البنية</td><td>مكدس متعدد الوكلاء حي (مستوى مخاطر، دفتر، ناقل أحداث، Attention)</td></tr>
+              <tr><td>إطار دراسة الحالة</td><td>مشروع مالي جانبي لعرض اتساع المجال؛ ثانوي لـ Hashstack</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="mandate" aria-labelledby="mandate-heading">
+      <h2 id="mandate-heading">1. التفويض (التموضع العلني)</h2>
+      <p>حسب guardrail.fund يمتد التخصيص عبر أربعة قطاعات — أصول رقمية، معادن ثمينة، عقارات، وتقنية (صحة، تأمين، دفاع، فضاء، Biotech، كمي). تشمل الأطروحات التشغيلية ندرة المال الصلب (BTC + XAU)، التسوية القابلة للبرمجة، عقارات عائد حقيقي ملموس، ورهانات تقنية عميقة مركّزة.</p>
+      <p>هذه الدراسة ليست عرضاً لرأس مال خارجي. توثّق <strong>بنية التداول المنهجية</strong> خلف تخصيص رأس المال الأصلي — كيف تُفرَض المخاطر والتدوين والمراقبة السلوكية في البرمجيات.</p>
+    </section>
+
+    <section class="case-section" id="the-problem" aria-labelledby="problem-heading">
+      <h2 id="problem-heading">2. المشكلة: لماذا يخسر معظم المتداولين</h2>
+      <p>يفشل متداولو التجزئة والمشغّلون الصغار لثلاثة أسباب لا علاقة لها بالاستراتيجية:</p>
+      <p><strong>لا تدوين منهجي.</strong> لا يمكنهم معرفة ما يعمل لأنهم لا يتتبعون القرارات بدقة كافية. من لا يعرف معدل فوزه حسب نوع الإعداد والإطار الزمني ونظام السوق يخمن ميزته.</p>
+      <p><strong>لا إنفاذ مخاطر فوري.</strong> قواعد المخاطر على الورق لا في الكود. حد السحب الذي لا يعمل إلا عند الفحص اليدوي ليس حداً — بل اقتراح.</p>
+      <p><strong>تجاوز عاطفي.</strong> الانضباط يتدهور تحت الضغط — بشكل منهجي ومتوقع وقابل للقياس. أصعب صفقة للتخطي هي صفقة الانتقام بعد خسارة.</p>
+      <p>يحل الطرف الثلاثة بإزالة التجاوز البشري العابر من حلقة التنفيذ واستبدال الأحكام بقيود برمجية. النظام لا ينصح بالانضباط — يفرضه.</p>
+    </section>
+
+    <section class="case-section" id="multi-agent" aria-labelledby="agents-heading">
+      <h2 id="agents-heading">3. بنية متعددة الوكلاء</h2>
+      <p>يعمل النظام بـ 9 وكلاء فرعيين متخصصين ينسّقهم مُنظِّم عبر ناقل أحداث Redis pub/sub. كل وكيل يملك مجالاً واحداً، ينشر أحداثاً مكتوبة الأنواع ويستهلك أحداث الآخرين. لا حالة عالمية — التنسيق عبر الناقل.</p>
+      <figure class="exhibit" aria-labelledby="agents-caption">
+        <figcaption id="agents-caption" class="exhibit-label">تسعة وكلاء</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">الوكيل</th><th scope="col">المجال</th><th scope="col">الوظيفة الرئيسية</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Exchange (HL)</td><td>Hyperliquid</td><td>مزامنة المراكز، تنفيذ الأوامر، تتبع الرصيد، مراقبة تمويل التمويل</td></tr>
+              <tr><td>Exchange (PM)</td><td>Polymarket</td><td>تتبع التسوية، إدارة المراكز، مزامنة احتمالات النتائج</td></tr>
+              <tr><td>Risk</td><td>إنفاذ</td><td>مستوى مخاطر من 7 فحوصات — حظر صلب لا تحذيرات</td></tr>
+              <tr><td>Journal</td><td>تسجيل</td><td>دفتر صفقة من 29 حقلاً (22 تلقائي + 4 قبل + 3 بعد)</td></tr>
+              <tr><td>Portfolio</td><td>تحليلات</td><td>حجم Kelly، Monte Carlo، ارتباط عبر المراكز</td></tr>
+              <tr><td>Alerts</td><td>إشعار</td><td>تنبيهات عند العتبات، تسليم متعدد القنوات</td></tr>
+              <tr><td>Attention (AI)</td><td>تحليل سلوكي</td><td>كشف شذوذ LLM — ميل، انجراف نمط، عدم تطابق النظام</td></tr>
+              <tr><td>Summary</td><td>تركيب</td><td>تقارير الجلسة، إسناد الأداء</td></tr>
+              <tr><td>Wallet Decay</td><td>تشخيص</td><td>انجراف الرصيد كل 15 دقيقة — رسوم، تمويل، انزلاق</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+      <h3>لماذا وكلاء لا كتلة واحدة</h3>
+      <p>كل وكيل يمكن أن يفشل مستقلاً. تعطل Exchange لا يعطّل Risk. Journal دون اتصال لا يوقف مراقبة المراكز. فشل Attention يضعف جودة الرؤية دون حجب التنفيذ. عزل الأعطال مهم عندما يعني الفشل المتسلسل خسارة رأس مال.</p>
+      <h3>تصميم ناقل الأحداث</h3>
+      <p>الأحداث مكتوبة الأنواع (<code>POSITION_OPENED</code>، <code>RISK_CHECK_FAILED</code>، <code>ANOMALY_DETECTED</code>، <code>DECAY_ALERT</code>) ومؤرخة وموسومة المصدر. يوجّه المُنظِّم الاستجابات عبر الوكلاء — مثلاً <code>POSITION_LIMIT_BREACH</code> → تخفيض Exchange؛ <code>TILT_DETECTED</code> → تصعيد إيقاف الجلسة.</p>
+    </section>
+
+    <section class="case-section" id="ai-layer" aria-labelledby="ai-heading">
+      <h2 id="ai-heading">4. طبقة الذكاء الاصطناعي: Attention + Summary</h2>
+      <p>معظم أنظمة التداول تعامل الذكاء الاصطناعي كمولّد إشارات. وكيل Attention لا يولّد أفكار صفقات — يراقب المشغّل.</p>
+      <p>يقيّم السلوك الحي مقابل خط أساس Journal للمشغّل: انجراف الحجم بعد الخسائر، قفزات تكرار الدخول، ضغط زمن الاحتفاظ، عدم تطابق النظام، تباعد القناعة–النتيجة، تغيّر نمط الجلسة. الانحرافات تصدر أحداث ناقل مكتوبة. Haiku للتسجيل الفوري؛ Sonnet يولّد شرحاً سردياً فقط عند تأكيد شذوذ وطلب سياق.</p>
+      <p>وكيل Summary يركّب حالة الوكلاء إلى تقارير جلسة وإسناد أداء وملخصات سلوكية ولقطات مخاطر المحفظة — طبقة قراءة على الحالة الجماعية لا محرك بحث ثانٍ.</p>
+    </section>
+
+    <section class="case-section" id="risk-plane" aria-labelledby="risk-heading">
+      <h2 id="risk-heading">5. مستوى مخاطر من 7 فحوصات</h2>
+      <p>المخاطرة ليست لوحة معلومات — إنها بوابة. كل صفقة تمر بسبع فحوصات قبل التنفيذ. أي فشل واحد يحظر الصفقة. المستوى مصمم لـ<strong>لا تجاوز عابر</strong>؛ الاستثناءات إن وُجدت تتطلب مساراً قابلاً للتدقيق — لا زر تجاوز لحظي.</p>
+      <figure class="exhibit" aria-labelledby="risk-caption">
+        <figcaption id="risk-caption" class="exhibit-label">سبع فحوصات</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">الفحص</th><th scope="col">ما يفرضه</th><th scope="col">لماذا يوجد</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>سقف خسارة يومي</td><td>أقصى خسارة في نافذة 24 ساعة متدحرجة</td><td>يوقف تداول الانتقام بعد صباح سيئ</td></tr>
+              <tr><td>سحب أسبوعي</td><td>أقصى سحب من ذروة أسبوعية</td><td>يلتقط نزفاً بطيئاً تفوته السقوف اليومية</td></tr>
+              <tr><td>حجم Kelly</td><td>Kelly كسري (0.25–0.5×)</td><td>الحجم من رياضيات الميزة لا الحدس</td></tr>
+              <tr><td>أقصى مراكز</td><td>حد صلب للمراكز المتزامنة</td><td>يمنع تنويعاً زائفاً</td></tr>
+              <tr><td>الارتباط</td><td>فحص ارتباط عبر المراكز</td><td>يحظر نفس الرهان بأسماء جديدة</td></tr>
+              <tr><td>وقف خسارة</td><td>وقف إلزامي على كل مركز</td><td>لا مخارج غير معرّفة</td></tr>
+              <tr><td>فحص الجلسة</td><td>ساعات / إرهاق</td><td>لا صفقات «إحساس» في الثالثة صباحاً</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+      <p>مدخلات Kelly من تاريخ Journal للمشغّل حسب نوع الإعداد. Monte Carlo على وكيل Portfolio ينمذج مخاطر الذيل على مستوى الدفتر قبل الموافقة على مركز جديد — ملتقطاً خمسة أرجل آمنة منفرداً تنفجر معاً على عامل كلي واحد.</p>
+    </section>
+
+    <section class="case-section" id="build-orchestrator" aria-labelledby="build-heading">
+      <h2 id="build-heading">6. منظّم البناء: DAG نشر من 43 مهمة</h2>
+      <p>التطوير والنشر يستخدمان DAG من 43 مهمة: حل التبعيات، استئناف تلقائي عند حدود معدل API، نقاط تحقق لكل عقدة، توجيه متعدد النماذج (Haiku / Sonnet / Opus حسب نوع المهمة)، وتراجع لكل وكيل حتى لا يُسقط نشر فاشل النظام كاملاً.</p>
+    </section>
+
+    <section class="case-section" id="wallet-decay" aria-labelledby="decay-heading">
+      <h2 id="decay-heading">7. تشخيص اضمحلال المحفظة</h2>
+      <p>التمويل والرسوم والانزلاق والتقريب تخلق نزفاً بطيئاً يبدو ضوضاء صفقة بصفقة. وكيل Wallet Decay يقارن الرصيد المتوقع بالفعلي كل 15 دقيقة وينسب التآكل إلى التمويل أو الرسوم أو الانزلاق أو التقريب — جاعلاً اضمحلال رأس المال الخفي مرئياً.</p>
+    </section>
+
+    <section class="case-section" id="journal" aria-labelledby="journal-heading">
+      <h2 id="journal-heading">8. الدفتر التلقائي: 29 حقلاً</h2>
+      <p>يملأ النظام تلقائياً <strong>22 من 29 حقلاً</strong> من بيانات البورصة، تاركاً <strong>4 يدوية قبل الصفقة</strong> و<strong>3 يدوية بعد الصفقة</strong> (22 + 4 + 3 = 29). حقول Attention ورابط مخطط TradingView هي <strong>طبقات فوقية</strong> — لا تُحسب بعدٍّ يضخم الدفتر إلى 33.</p>
+      <p>لا تُعرض مبالغ دولارية مطلقة — نسب مئوية وROE ومضاعفات R فقط. لأسواق التوقعات يتتبع <strong>درجة المعايرة</strong> مدى تطابق الثقة المعلنة مع النتائج عبر الزمن. نادراً ما تُعامل هذه الدرجة كمقياس من الدرجة الأولى في أطراف أسواق التوقعات العامة.</p>
+    </section>
+
+    <section class="case-section" id="layers" aria-labelledby="layers-heading">
+      <h2 id="layers-heading">9. فصل من أربع طبقات</h2>
+      <p>تبعيات صارمة للأسفل فقط:</p>
+      <ul class="case-list">
+        <li><strong>Orchestrator</strong> — تنسيق الوكلاء، توجيه الأحداث، مسارات العمل</li>
+        <li><strong>Integrity</strong> — سجل تدقيق متسلسل بالهاش، مفتاح الرجل الميت، مفتاح القتل</li>
+        <li><strong>Observability</strong> — BetterStack، Retool، وكيل Summary</li>
+        <li><strong>Security</strong> — مفاتيح قراءة فقط، أحداث بأسماء نطاق، صلاحيات لكل وكيل</li>
+      </ul>
+      <p>كل قرار وفحص مخاطر يدخل سجلاً متسلسل الهاش SHA-256 للإلحاق فقط. مفتاح القتل (تصفية يدوية) ومفتاح الرجل الميت (نبض مفقود → وضع آمن) يبقيان منفصلين حتى لا يمحو نمط فشل واحد الحمايتين معاً.</p>
+    </section>
+
+    <section class="case-section" id="moats" aria-labelledby="moats-heading">
+      <h2 id="moats-heading">10. مزايا مركّبة</h2>
+      <figure class="exhibit" aria-labelledby="moats-caption">
+        <figcaption id="moats-caption" class="exhibit-label">ما يتركّب لمشغّل رأس مال أصلي فقط</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">الميزة</th><th scope="col">ما هي</th><th scope="col">لماذا تتركّب</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>مجموعة بيانات سلوكية</td><td>دفتر 29 حقلاً + طبقات AI</td><td>تاريخ شخصي لا يملكه مكدس جديد</td></tr>
+              <tr><td>تصميم أسواق توقعات من الدرجة الأولى</td><td>درجة معايرة، تتبع التسوية</td><td>نادراً ما تُعامل أماكن PM أصلياً في الأطراف العامة</td></tr>
+              <tr><td>مستوى المخاطر كبنية</td><td>API إنفاذ من 7 فحوصات لا لوحة</td><td>طبقة إنفاذ قابلة للفصل</td></tr>
+              <tr><td>حلقة تغذية راجعة</td><td>Journal ↔ Attention ↔ Summary</td><td>أذكى عن هذا المشغّل مع كل صفقة</td></tr>
+              <tr><td>سلامة التدقيق</td><td>سجلات متسلسلة + أمان طبقي</td><td>سجل مقاوم للتلاعب لرأس المال الأصلي</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="qa" aria-labelledby="qa-heading">
+      <h2 id="qa-heading">11. QA — انضباط تشغيل مستهدف</h2>
+      <p>إيقاع مستهدف (وليس ادعاء أن كل ممارسة مُرسَّمة شهرياً): اختبارات وحدة + تكامل لكل نشر، مجموعة انحدار قبل الإصدار، هندسة فوضى (هدف شهري)، اختبار اختراق (هدف ربع سنوي)، وCI/CD مع تراجع لكل وكيل عبر GitHub Actions.</p>
+    </section>
+
+    <section class="case-section" id="takeaways" aria-labelledby="takeaways-heading">
+      <h2 id="takeaways-heading">12. الخلاصات الرئيسية</h2>
+      <p><strong>عن التموضع:</strong> Guardrail هو SFO برأس مال أصلي فقط — ليس صندوق عملاء ولا مركبة LP. الدراسة تُظهر البنية التي تجعل التخصيص الذاتي قابلاً للإنفاذ.</p>
+      <p><strong>عن هندسة المخاطر:</strong> لوحة المخاطر تبلّغ عن الضرر. بوابة المخاطر تمنعه. التجاوز العابر يحوّل البوابة إلى صندوق اقتراحات.</p>
+      <p><strong>عن الذكاء الاصطناعي:</strong> Attention يراقب المتداول لا السوق. خسارة الألفا غالباً من استراتيجية جيدة تُنفَّذ بشكل سيئ تحت الضغط.</p>
+      <p><strong>عن اتساع المجال:</strong> الشخص نفسه الذي سلّم عمل منتج بروتوكول DeFi يبني أيضاً بنية تداول منهجية — مجال مختلف، نفس حدس «المخاطرة كواجهة».</p>
+      <p class="exhibit-note">المكدس: TypeScript · Bun · Redis (pub/sub) · BullMQ · PostgreSQL · Hyperliquid SDK · Polymarket API · Claude API (Haiku/Sonnet) · BetterStack · Retool · GitHub Actions · TradingView</p>
+    </section>
+
+    <section class="case-section" id="sources" aria-labelledby="sources-heading">
+      <h2 id="sources-heading">المصادر</h2>
+      <ul class="case-list">
+        <li><a href="https://guardrail.fund" target="_blank" rel="noopener noreferrer">guardrail.fund</a> — التموضع العلني المرجعي (SFO، أصلي فقط، البدء، التفويض)</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    Vinay Kumar · 2026
+  </footer>
+</body>
+</html>

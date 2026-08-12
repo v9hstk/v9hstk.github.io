@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parasharケーススタディ — Vinay Kumar</title>
+  <meta name="description" content="ドメイン専門性からAIプロダクトを構築: プロダクト戦略、AIループエンジニアリング、段階的開示。">
+  <meta property="og:title" content="Parasharケーススタディ — Vinay Kumar">
+  <meta property="og:description" content="ドメイン専門性からのAI消費者プロダクト — 戦略、AIループ、複雑分析UX。">
+  <meta property="og:url" content="https://v9hstk.github.io/ja/parashar.html">
+  <meta property="og:image" content="https://v9hstk.github.io/og.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ja_JP">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Parasharケーススタディ — Vinay Kumar">
+  <meta name="twitter:description" content="ドメイン専門性からのAI消費者プロダクト — 戦略、AIループ、複雑分析UX。">
+  <meta name="twitter:image" content="https://v9hstk.github.io/og.png">
+  <link rel="alternate" hreflang="en" href="https://v9hstk.github.io/parashar.html">
+  <link rel="alternate" hreflang="ko" href="https://v9hstk.github.io/ko/parashar.html">
+  <link rel="alternate" hreflang="ja" href="https://v9hstk.github.io/ja/parashar.html">
+  <link rel="alternate" hreflang="de" href="https://v9hstk.github.io/de/parashar.html">
+  <link rel="alternate" hreflang="zh-Hans" href="https://v9hstk.github.io/zh/parashar.html">
+  <link rel="alternate" hreflang="ar" href="https://v9hstk.github.io/ar/parashar.html">
+  <link rel="alternate" hreflang="x-default" href="https://v9hstk.github.io/parashar.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script>!function(){var s=sessionStorage.getItem("theme");document.documentElement.setAttribute("data-theme",s||"light")}();</script>
+  <script src="../js/theme.js" defer></script>
+  <script src="../js/lang.js" defer></script>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="back-link" href="index.html">← 戻る</a>
+    <div class="header-actions">
+    <div class="lang-switch">
+      <label class="visually-hidden" for="lang-select">Language</label>
+      <select id="lang-select" class="lang-select" aria-label="Language">
+        <option value="en" lang="en">EN</option>
+        <option value="ko" lang="ko">KOR</option>
+        <option value="ja" lang="ja" selected>JP</option>
+        <option value="de" lang="de">DE</option>
+        <option value="zh" lang="zh">ZH</option>
+        <option value="ar" lang="ar">AR</option>
+      </select>
+    </div>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="ダークモード切替">
+        <span class="icon-sun" aria-hidden="true">☀</span>
+        <span class="icon-moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="case-study">
+<header class="case-hero">
+      <h1>Parashar: ドメイン専門性からAIプロダクトを構築</h1>
+      <p class="subtitle">プロダクト戦略 · AIループエンジニアリング · ドメイン→消費者インテリジェンス · 2024–現在</p>
+    </header>
+
+    <section class="case-section" id="executive-summary" aria-labelledby="exec-heading">
+      <h2 id="exec-heading">要約</h2>
+      <p>Parasharは複雑な伝統知識ドメインに予測分析を適用するAI消費者プロダクトです。システムは天文位置データ（Swiss Ephemeris）と数千の解釈ルールを組み合わせます — 精密入力と階層的推論が必要な計算集約ドメインです。プロダクト課題は戦略的でした: どの分析体系を優先するか、相互依存ルールを正しく適用するAIループをどう設計するか、密な多次元出力を非専門家が使えるようにするか。これは真の知的関心から生まれたサイドプロジェクトであり、ドメイン専門性がAIプロダクト思考をどう形作るかの実世界テストです。</p>
+    </section>
+
+    <section class="case-section" id="the-problem" aria-labelledby="problem-heading">
+      <h2 id="problem-heading">1. 問題</h2>
+      <p>対象ドメインにはソフトウェアで扱いづらくする三つの特性があります:</p>
+      <p><strong>ルール複雑性。</strong>ドメインはSwiss Ephemerisで計算された天文位置データ由来の数千の相互依存変数で動きます。単一分析は各々ルール・例外・文脈修飾子を持つ複数の分析体系を横断参照します。専門家はこれらの相互作用を扱うのに何年も費やします。</p>
+      <p><strong>計算強度。</strong>完全な分析を手動で行うには惑星位置を分精度で計算し、数十のデータ点に階層的解釈ルールを適用します。専門家は一回に数時間かかることも。天文層は決定的ですが、解釈層は競合体系間の文脈判断を要します。</p>
+      <p><strong>専門性ゲートキーピング。</strong>質の高い分析には熟練実務者を探す必要があります。標準認証がなく品質差が大きく、知識は徒弟制で伝わります。大半の消費者は厳密な分析と表層的作業を区別できません。</p>
+
+      <h3>機会</h3>
+      <p>天文データが精密で（Swiss Ephemerisが提供）ルールがコード化可能なら、AIは規模で適用できます。プロダクトテーゼ: <strong>精密科学計算とAIルール適用・文脈推論を組み合わせ、専門家級分析へのアクセスを民主化。</strong></p>
+    </section>
+
+    <section class="case-section" id="product-strategy" aria-labelledby="strategy-heading">
+      <h2 id="strategy-heading">2. プロダクト戦略: 何を作るか</h2>
+      <h3>システムのスコープ</h3>
+      <p>ドメインには10以上の分析体系があり各々異なる次元をカバーします。全部入れると包括的だが圧倒的、少なすぎると専門家が浅いと見る作業になります。</p>
+      <p>戦略的問い: <strong>有用で信頼できる分析を生む最小体系カバレッジは？</strong> 古典的v1スコープ — 何を入れるか決めるとき全PMが直面する問題。</p>
+      <p>アプローチ: 三基準で分析体系を順位付け:</p>
+      <ol class="case-list">
+        <li><strong>カバレッジ</strong> — この体系が扱うユーザー質問の割合は？</li>
+        <li><strong>計算決定性</strong> — ルールを信頼してエンコードできるか、主観判断が必要か？</li>
+        <li><strong>体系間依存</strong> — 出力が他へ入るか？（はいならインフラであり任意ではない）</li>
+      </ol>
+      <p>三基準すべて高い体系を先に出荷。重い文脈判断が必要な体系は将来反復へフラグ。</p>
+
+      <h3>AIがすべきこと vs すべきでないこと</h3>
+      <p>ドメインのすべてを自動化すべきではありません。戦略フレームワーク:</p>
+
+      <figure class="exhibit" id="exhibit-a" aria-labelledby="exhibit-a-caption">
+        <figcaption id="exhibit-a-caption" class="exhibit-label">Exhibit A — 構築 vs 延期</figcaption>
+        <div class="exhibit-body exhibit-two-col">
+          <div>
+            <h4 class="exhibit-subhead">AIがすべきこと</h4>
+            <ul class="exhibit-list">
+              <li>天文位置計算</li>
+              <li>決定的ルール適用</li>
+              <li>複数体系の横断参照</li>
+              <li>データセット横断のパターン識別</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="exhibit-subhead">AIが（まだ）すべきでないこと</h4>
+            <ul class="exhibit-list">
+              <li>曖昧信号にまたがる文脈総合</li>
+              <li>専門家が分かれる判断コール</li>
+              <li>開かれた解釈ナラティブ</li>
+              <li>信頼区間なしの処方的推奨</li>
+            </ul>
+          </div>
+        </div>
+        <p class="exhibit-note">すべてのAIプロダクトが直面する同じ構築-延期規律 — AIが価値を足す所と偽の確信を生む所を知る。</p>
+      </figure>
+    </section>
+
+    <section class="case-section" id="ai-loop" aria-labelledby="loop-heading">
+      <h2 id="loop-heading">3. AIループエンジニアリング</h2>
+      <h3>核心課題</h3>
+      <p>標準AIプロダクトはデータパターンから学びます。Parasharはルール体系を学ぶ必要があります — 数千の相互依存if-then、階層オーバーライド、文脈重み。AIループは次のために設計されます:</p>
+      <ol class="case-list">
+        <li><strong>精密天文データの取り込み</strong> — Swiss Ephemerisが惑星位置・アスペクト・タイミングを分精度で提供。</li>
+        <li><strong>ルールカスケード適用</strong> — 複数分析体系が順次実行; 各々次へ入る中間出力を生成。</li>
+        <li><strong>衝突解決</strong> — 二体系が矛盾するとき、加重解決フレームワークがドメイン慣例に従う。</li>
+        <li><strong>階層出力生成</strong> — 一次信号、二次補助分析、三次エッジケースと注意。</li>
+      </ol>
+
+      <h3>エンジニアリング評価基準</h3>
+      <p>ここでの「正しさ」は統計的精度を超えます:</p>
+      <ul class="case-list">
+        <li><strong>位置精度</strong> — 計算がSwiss Ephemerisと分精度で一致</li>
+        <li><strong>ルール忠実度</strong> — 各体系のルールをドメイン専門家同様に適用</li>
+        <li><strong>体系重み</strong> — 衝突解決が体系階層の専門家合意と一致</li>
+        <li><strong>完全性</strong> — 結論を変える次元を省かずクエリ種別に関連体系をカバー</li>
+      </ul>
+      <p>これら基準はラベル付きデータセットではなくドメイン専門性から来ます。「正しさの姿」を定義する人はドメイン専門家であるべき — 学習データから正しさを近似するMLエンジニアではありません。</p>
+    </section>
+
+    <section class="case-section" id="ux" aria-labelledby="ux-heading">
+      <h2 id="ux-heading">4. UX: 複雑さをアクセス可能に</h2>
+      <p>ドメインは密な多次元出力を生みます。完全分析は同時に10以上の次元を覆うことがあります。一度に全部は圧倒し、少なすぎると浅く感じます。</p>
+
+      <figure class="exhibit" id="exhibit-b" aria-labelledby="exhibit-b-caption">
+        <figcaption id="exhibit-b-caption" class="exhibit-label">Exhibit B — 段階的開示</figcaption>
+        <div class="exhibit-body">
+          <ol class="exhibit-steps">
+            <li><strong>Level 1 — ヘッドライン信号。</strong>支配的発見を明確に。ユーザーが最も知るべきことは？</li>
+            <li><strong>Level 2 — 補助分析。</strong>ヘッドラインを強化・限定・複雑化する3–4次元。</li>
+            <li><strong>Level 3 — 全深度。</strong>全体系出力、横断参照、信頼区間、エッジケース — 利用可能だが強制しない。</li>
+          </ol>
+          <p class="exhibit-note">プロダクト意見: 明確さを既定に、深さを提供。どちらも妥協せず。</p>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="product-thinking" aria-labelledby="thinking-heading">
+      <h2 id="thinking-heading">5. これが示すプロダクト思考</h2>
+      <h3>戦略的優位としてのドメイン専門性</h3>
+      <p>大半のAIプロダクトは出荷できる程度ドメインを学んだチームが作ります。Parasharはこれを反転 — プロダクト戦略者がドメイン専門家。通常AIプロダクトを劣化させる翻訳損失を削ります:</p>
+      <ul class="case-list">
+        <li><strong>仕様-実装ギャップなし。</strong>スコープする人がエッジケース・体系相互作用・品質バーを理解。</li>
+        <li><strong>評価基準が実専門性を反映。</strong>「正しい出力」は専門家が何を生むか知る人が設定。</li>
+        <li><strong>UX優先がドメイン根拠。</strong>何を先に出すか、衝突処理、ここでの段階的開示 — 実務に根ざす。</li>
+      </ul>
+
+      <h3>プロダクト戦略 + AIエンジニアリング、MLエンジニアリングではない</h3>
+      <p>役割はプロダクトビジョン、AIループエンジニアリング、システムアーキテクチャ、UX戦略にまたがる — モデル訓練やインフラではない:</p>
+
+      <figure class="exhibit" id="exhibit-c" aria-labelledby="exhibit-c-caption">
+        <figcaption id="exhibit-c-caption" class="exhibit-label">Exhibit C — 役割境界</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr>
+                <th scope="col">プロダクト + AI戦略（この役割）</th>
+                <th scope="col">MLエンジニアリング（別役割）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>AIは何をすべきか？</td><td>モデルはどう学ぶか？</td></tr>
+              <tr><td>正しい出力とは？</td><td>正しさに最適化する損失関数は？</td></tr>
+              <tr><td>ルール衝突はどう解決すべきか？</td><td>モデルは矛盾をどう扱うか？</td></tr>
+              <tr><td>v1にどの体系を出荷するか？</td><td>最小実行可能精度は？</td></tr>
+              <tr><td>不確実性はどう提示すべきか？</td><td>信頼度はどう校正されるか？</td></tr>
+            </tbody>
+          </table>
+          <p class="exhibit-note">両方必須。本ケースは左列について。</p>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="current-status" aria-labelledby="status-heading">
+      <h2 id="status-heading">6. 現状</h2>
+      <p>進行中サイドプロジェクト（2024–現在）。プロダクトビジョン定義、分析体系スコープと優先、AIループアーキテクチャ仕様、評価基準確立、UX戦略設計。ドメインへの真の知的関心から構築 — 科学的計算層とルールベース解釈、AIプロダクト戦略の実世界テスト。</p>
+    </section>
+
+    <section class="case-section" id="key-takeaways" aria-labelledby="takeaways-heading">
+      <h2 id="takeaways-heading">7. 主な学び</h2>
+      <p><strong>ドメイン→プロダクト翻訳:</strong> AIプロダクトで最も難しいのはAIではなく戦略的スコープ。どのルールをエンコードし、どの体系を延期し、AIが価値を足す所と偽の確信を生む所。エンジニアリングではなくプロダクト決定。</p>
+      <p><strong>AIループエンジニアリング:</strong> AIがルール体系を適用するとき（パターン探索ではない）課題は学習データからルール忠実度へ。評価基準は統計ベンチマークだけでなくドメイン専門性から。</p>
+      <p><strong>複雑さのアクセス性:</strong> 段階的開示はUXパターンだけでなくプロダクト戦略。Level 2・3へ何を送るかが製品を力づけるか圧倒するかを決める。</p>
+
+      <h3>要点</h3>
+      <p>トレーディング/リスクAIと同じプロダクト判断: 何が決定的で何が解釈的か、ユーザーが全層を監査できないとき何を先に出すか。</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    Vinay Kumar · 2026
+  </footer>
+</body>
+</html>

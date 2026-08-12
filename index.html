@@ -19,6 +19,8 @@
   <link rel="alternate" hreflang="ko" href="https://v9hstk.github.io/ko/">
   <link rel="alternate" hreflang="ja" href="https://v9hstk.github.io/ja/">
   <link rel="alternate" hreflang="de" href="https://v9hstk.github.io/de/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://v9hstk.github.io/zh/">
+  <link rel="alternate" hreflang="ar" href="https://v9hstk.github.io/ar/">
   <link rel="alternate" hreflang="x-default" href="https://v9hstk.github.io/">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,7 +28,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <script>
-  !function(){try{var P="v9hstk-lang-pref",A="v9hstk-lang-auto";if(localStorage.getItem(P)||localStorage.getItem(A))return;localStorage.setItem(A,"1");var list=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""];var loc="en";for(var i=0;i<list.length;i++){var c=String(list[i]||"").toLowerCase();if(c.indexOf("ko")===0){loc="ko";break}if(c.indexOf("ja")===0){loc="ja";break}if(c.indexOf("de")===0){loc="de";break}}if(loc!=="en")location.replace("/"+loc+"/")}catch(e){}}();
+  !function(){try{var P="v9hstk-lang-pref",A="v9hstk-lang-auto";if(localStorage.getItem(P)||localStorage.getItem(A))return;localStorage.setItem(A,"1");var list=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""];var loc="en";for(var i=0;i<list.length;i++){var c=String(list[i]||"").toLowerCase();if(c.indexOf("ko")===0){loc="ko";break}if(c.indexOf("ja")===0){loc="ja";break}if(c.indexOf("de")===0){loc="de";break}if(c.indexOf("zh")===0){loc="zh";break}if(c.indexOf("ar")===0){loc="ar";break}}if(loc!=="en")location.replace("/"+loc+"/")}catch(e){}}();
   </script>
   <script>!function(){var s=sessionStorage.getItem("theme");document.documentElement.setAttribute("data-theme",s||"light")}();</script>
   <script src="js/theme.js" defer></script>
@@ -47,9 +49,11 @@
       <label class="visually-hidden" for="lang-select">Language</label>
       <select id="lang-select" class="lang-select" aria-label="Language">
         <option value="en" lang="en" selected>EN</option>
-        <option value="ko" lang="ko">한국어</option>
-        <option value="ja" lang="ja">日本語</option>
-        <option value="de" lang="de">Deutsch</option>
+        <option value="ko" lang="ko">KOR</option>
+        <option value="ja" lang="ja">JP</option>
+        <option value="de" lang="de">DE</option>
+        <option value="zh" lang="zh">ZH</option>
+        <option value="ar" lang="ar">AR</option>
       </select>
     </div>
       <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
@@ -60,7 +64,7 @@
   </header>
 
   <main id="top">
-    <section class="hero" aria-labelledby="name">
+    <section class="hero hero-solo" aria-labelledby="name">
       <div class="hero-copy">
         <p class="eyebrow">Head of Product · DeFi · CeFi · Protocol Design</p>
         <h1 id="name">Vinay<br>Kumar</h1>
@@ -71,39 +75,6 @@
           <a class="btn-text" href="#cases">Read the work →</a>
         </div>
       </div>
-      <aside class="hero-signal" aria-label="Selected signal">
-        <p class="signal-label">Selected signal</p>
-        <ol class="signal-list">
-          <li>
-            <span class="signal-k">01</span>
-            <div>
-              <strong>Under-collateralized lending</strong>
-              <span>Autonomous risk constraints on Starknet — not credit committees.</span>
-            </div>
-          </li>
-          <li>
-            <span class="signal-k">02</span>
-            <div>
-              <strong>Interest as product</strong>
-              <span>DIAL → production kinked utilization model, shipped and documented.</span>
-            </div>
-          </li>
-          <li>
-            <span class="signal-k">03</span>
-            <div>
-              <strong>Standards + stage</strong>
-              <span>Proposed EIP-5299 · Token 2049 speaker · CertiK-audited protocol.</span>
-            </div>
-          </li>
-        </ol>
-        <nav class="contact-compact" aria-label="Contact">
-          <a href="mailto:2vinaykumard@gmail.com">Email</a>
-          <a href="https://linkedin.com/in/vinaydkumar" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="https://github.com/v9hstk" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://x.com/v9hstk" target="_blank" rel="noopener noreferrer">X</a>
-          <a href="https://t.me/v9hstk" target="_blank" rel="noopener noreferrer">Telegram</a>
-        </nav>
-      </aside>
     </section>
 
     <section class="band talk" aria-labelledby="talk-heading">
@@ -123,9 +94,17 @@
 
     <section class="band" id="cases" aria-labelledby="cases-heading">
       <div class="band-head">
-        <h2 id="cases-heading">Case studies</h2>
-        <p>Decisions, tradeoffs, and the receipts — not a feature laundry list.</p>
+        <h2 id="cases-heading">Connect &amp; case studies</h2>
+        <p>Public handles and the work — decisions, tradeoffs, and receipts.</p>
       </div>
+      <nav class="social-rail" aria-label="Social">
+        <a class="social-chip" href="mailto:2vinaykumard@gmail.com">Email <span class="social-handle">2vinaykumard@gmail.com</span></a>
+        <a class="social-chip" href="https://linkedin.com/in/vinaydkumar" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="social-chip" href="https://t.me/v9hstk" target="_blank" rel="noopener noreferrer">Telegram <span class="social-handle">@v9hstk</span></a>
+        <a class="social-chip" href="https://github.com/v9hstk" target="_blank" rel="noopener noreferrer">GitHub <span class="social-handle">v9hstk</span></a>
+        <a class="social-chip" href="https://x.com/v9hstk" target="_blank" rel="noopener noreferrer">X <span class="social-handle">@v9hstk</span></a>
+        <a class="social-chip" href="https://cal.com/vinaydkumar/intro" target="_blank" rel="noopener noreferrer">Cal.com</a>
+      </nav>
       <div class="case-rows">
         <a class="case-row" href="hashstack.html">
           <span class="case-index">01</span>
@@ -253,7 +232,7 @@
     <section class="band resumes" id="resumes" aria-labelledby="resume-heading">
       <div class="band-head">
         <h2 id="resume-heading">Resumes</h2>
-        <p>Two cuts of the same career — pick the market you’re hiring for.</p>
+        <p>Two cuts of the same career — pick the market you’re hiring for. PDFs are English.</p>
       </div>
       <div class="resume-grid">
         <a class="resume-tile" href="assets/resume_crypto.pdf" target="_blank" rel="noopener noreferrer">

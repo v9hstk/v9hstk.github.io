@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parashar 케이스 스터디 — Vinay Kumar</title>
+  <meta name="description" content="도메인 전문성으로 AI 제품 구축: 제품 전략, AI 루프 엔지니어링, 점진적 공개.">
+  <meta property="og:title" content="Parashar 케이스 스터디 — Vinay Kumar">
+  <meta property="og:description" content="도메인 전문성에서 나온 AI 소비자 제품 — 제품 전략, AI 루프, 복잡 분석 UX.">
+  <meta property="og:url" content="https://v9hstk.github.io/ko/parashar.html">
+  <meta property="og:image" content="https://v9hstk.github.io/og.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ko_KR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Parashar 케이스 스터디 — Vinay Kumar">
+  <meta name="twitter:description" content="도메인 전문성에서 나온 AI 소비자 제품 — 제품 전략, AI 루프, 복잡 분석 UX.">
+  <meta name="twitter:image" content="https://v9hstk.github.io/og.png">
+  <link rel="alternate" hreflang="en" href="https://v9hstk.github.io/parashar.html">
+  <link rel="alternate" hreflang="ko" href="https://v9hstk.github.io/ko/parashar.html">
+  <link rel="alternate" hreflang="ja" href="https://v9hstk.github.io/ja/parashar.html">
+  <link rel="alternate" hreflang="de" href="https://v9hstk.github.io/de/parashar.html">
+  <link rel="alternate" hreflang="zh-Hans" href="https://v9hstk.github.io/zh/parashar.html">
+  <link rel="alternate" hreflang="ar" href="https://v9hstk.github.io/ar/parashar.html">
+  <link rel="alternate" hreflang="x-default" href="https://v9hstk.github.io/parashar.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script>!function(){var s=sessionStorage.getItem("theme");document.documentElement.setAttribute("data-theme",s||"light")}();</script>
+  <script src="../js/theme.js" defer></script>
+  <script src="../js/lang.js" defer></script>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="back-link" href="index.html">← 뒤로</a>
+    <div class="header-actions">
+    <div class="lang-switch">
+      <label class="visually-hidden" for="lang-select">Language</label>
+      <select id="lang-select" class="lang-select" aria-label="Language">
+        <option value="en" lang="en">EN</option>
+        <option value="ko" lang="ko" selected>KOR</option>
+        <option value="ja" lang="ja">JP</option>
+        <option value="de" lang="de">DE</option>
+        <option value="zh" lang="zh">ZH</option>
+        <option value="ar" lang="ar">AR</option>
+      </select>
+    </div>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="다크 모드 전환">
+        <span class="icon-sun" aria-hidden="true">☀</span>
+        <span class="icon-moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="case-study">
+<header class="case-hero">
+      <h1>Parashar: 도메인 전문성으로 AI 제품 만들기</h1>
+      <p class="subtitle">제품 전략 · AI 루프 엔지니어링 · 도메인→소비자 인텔리전스 · 2024–현재</p>
+    </header>
+
+    <section class="case-section" id="executive-summary" aria-labelledby="exec-heading">
+      <h2 id="exec-heading">요약</h2>
+      <p>Parashar는 복잡한 전통 지식 도메인에 예측 분석을 적용하는 AI 소비자 제품입니다. 시스템은 천문 위치 데이터(Swiss Ephemeris)와 수천 개의 해석 규칙을 결합합니다 — 정밀 입력과 계층적 추론이 필요한 연산 집약 도메인입니다. 제품 과제는 전략적이었습니다: 어떤 분석 체계를 우선할지, 상호의존 규칙을 올바르게 적용하는 AI 루프를 어떻게 설계할지, 밀도 높은 다차원 출력을 비전문가도 쓰게 할지. 이는 진짜 지적 관심에서 나온 사이드 프로젝트이자, 도메인 전문성이 AI 제품 사고를 어떻게 형성하는지에 대한 실전 테스트입니다.</p>
+    </section>
+
+    <section class="case-section" id="the-problem" aria-labelledby="problem-heading">
+      <h2 id="problem-heading">1. 문제</h2>
+      <p>대상 도메인은 소프트웨어로 서비스하기 어렵게 만드는 세 특성이 있습니다:</p>
+      <p><strong>규칙 복잡도.</strong> 도메인은 Swiss Ephemeris로 계산된 천문 위치 데이터에서 파생된 수천 개의 상호의존 변수로 작동합니다. 단일 분석은 각각 규칙·예외·맥락 수정자를 가진 여러 분석 체계를 교차 참조해야 합니다. 전문가는 이 상호작용을 다루는 데 수년을 씁니다.</p>
+      <p><strong>연산 집약도.</strong> 완전한 분석을 수동으로 내려면 행성 위치를 각분 정밀도로 계산한 뒤 수십 데이터 포인트에 계층적 해석 규칙을 적용해야 합니다. 전문가는 한 번에 수 시간이 걸릴 수 있습니다. 천문 층은 결정적이지만 해석 층은 경쟁 체계 간 맥락적 판단이 필요합니다.</p>
+      <p><strong>전문성 게이트키핑.</strong> 품질 분석에 접근하려면 숙련된 실무자를 찾아야 합니다. 표준 인증이 없고 품질 편차가 크며 지식은 전통적으로 도제식으로 전달됩니다. 대부분 소비자는 엄밀한 분석과 피상적 작업을 구분하지 못합니다.</p>
+
+      <h3>기회</h3>
+      <p>천문 데이터가 정밀하고(Swiss Ephemeris가 제공) 규칙이 코드화 가능하면 AI 시스템은 규모 있게 적용할 수 있습니다. 제품 테제: <strong>정밀 과학 연산과 AI 규칙 적용·맥락 추론을 결합해 전문가급 분석 접근을 민주화.</strong></p>
+    </section>
+
+    <section class="case-section" id="product-strategy" aria-labelledby="strategy-heading">
+      <h2 id="strategy-heading">2. 제품 전략: 무엇을 만들 것인가</h2>
+      <h3>시스템 범위 설정</h3>
+      <p>도메인에는 10개 이상의 분석 체계가 있으며 각각 다른 차원을 다룹니다. 전부 포함하면 포괄적이지만 압도적이고, 너무 적으면 전문가가 얕다고 볼 작업이 됩니다.</p>
+      <p>전략적 질문: <strong>유용하고 신뢰할 분석을 만드는 최소 체계 커버리지는?</strong> 고전적 v1 범위 설정 — 무엇을 넣을지 결정할 때 모든 PM이 마주하는 문제.</p>
+      <p>접근: 세 기준으로 분석 체계 순위:</p>
+      <ol class="case-list">
+        <li><strong>커버리지</strong> — 이 체계가 다루는 사용자 질문 비율은?</li>
+        <li><strong>연산 결정성</strong> — 규칙을 신뢰성 있게 인코딩할 수 있는가, 주관적 판단이 필요한가?</li>
+        <li><strong>체계 간 의존성</strong> — 출력이 다른 체계로 들어가는가? (그렇다면 인프라이며 선택 사항이 아님)</li>
+      </ol>
+      <p>세 기준 모두 높은 체계를 먼저 출시. 무거운 맥락 판단이 필요한 체계는 이후 반복으로 표시.</p>
+
+      <h3>AI가 해야 할 것과 하지 말아야 할 것</h3>
+      <p>도메인의 모든 부분을 자동화해서는 안 됩니다. 전략 프레임워크:</p>
+
+      <figure class="exhibit" id="exhibit-a" aria-labelledby="exhibit-a-caption">
+        <figcaption id="exhibit-a-caption" class="exhibit-label">Exhibit A — 구축 vs 연기</figcaption>
+        <div class="exhibit-body exhibit-two-col">
+          <div>
+            <h4 class="exhibit-subhead">AI가 해야 할 것</h4>
+            <ul class="exhibit-list">
+              <li>천문 위치 계산</li>
+              <li>결정적 규칙 적용</li>
+              <li>다중 체계 교차 참조</li>
+              <li>데이터셋 간 패턴 식별</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="exhibit-subhead">AI가 (아직) 하지 말아야 할 것</h4>
+            <ul class="exhibit-list">
+              <li>모호한 신호에 걸친 맥락 종합</li>
+              <li>전문가가 갈리는 판단 호출</li>
+              <li>열린 해석 내러티브</li>
+              <li>신뢰 구간 없는 처방적 권고</li>
+            </ul>
+          </div>
+        </div>
+        <p class="exhibit-note">모든 AI 제품이 마주하는 같은 구축-대-연기 규율 — AI가 가치를 더하는 곳과 거짓 확신을 만드는 곳을 알 것.</p>
+      </figure>
+    </section>
+
+    <section class="case-section" id="ai-loop" aria-labelledby="loop-heading">
+      <h2 id="loop-heading">3. AI 루프 엔지니어링</h2>
+      <h3>핵심 과제</h3>
+      <p>표준 AI 제품은 데이터 패턴에서 학습합니다. Parashar는 규칙 체계를 학습해야 합니다 — 수천 개의 상호의존 if-then, 계층적 오버라이드, 맥락 가중치. AI 루프는 다음을 위해 설계됩니다:</p>
+      <ol class="case-list">
+        <li><strong>정밀 천문 데이터 수집</strong> — Swiss Ephemeris가 행성 위치·애스펙트·타이밍을 각분 정확도로 제공.</li>
+        <li><strong>규칙 캐스케이드 적용</strong> — 여러 분석 체계가 순차 실행; 각각 다음으로 들어가는 중간 출력 생성.</li>
+        <li><strong>충돌 해결</strong> — 두 체계가 모순될 때 가중 해결 프레임워크가 도메인 관례를 따름.</li>
+        <li><strong>계층 출력 생성</strong> — 1차 신호, 2차 보조 분석, 3차 경계 사례·주의.</li>
+      </ol>
+
+      <h3>엔지니어링 평가 기준</h3>
+      <p>여기서 “정확”은 통계적 정확도를 넘어갑니다:</p>
+      <ul class="case-list">
+        <li><strong>위치 정확도</strong> — 계산이 Swiss Ephemeris와 각분 정밀도로 일치</li>
+        <li><strong>규칙 충실도</strong> — 각 체계의 규칙을 도메인 전문가처럼 적용</li>
+        <li><strong>체계 가중</strong> — 충돌 해결이 체계 계층에 대한 전문가 합의와 일치</li>
+        <li><strong>완결성</strong> — 결론을 바꿀 차원을 빼지 않고 질의 유형에 맞는 체계를 커버</li>
+      </ul>
+      <p>이 기준은 라벨 데이터셋이 아니라 도메인 전문성에서 옵니다. “정확함의 모습”을 정의하는 사람은 도메인 전문가여야 합니다 — 학습 데이터로 정확도를 근사하는 ML 엔지니어가 아닙니다.</p>
+    </section>
+
+    <section class="case-section" id="ux" aria-labelledby="ux-heading">
+      <h2 id="ux-heading">4. UX: 복잡성을 접근 가능하게</h2>
+      <p>도메인은 밀도 높은 다차원 출력을 만듭니다. 완전한 분석은 동시에 10개 이상 차원을 다룰 수 있습니다. 한꺼번에 보여주면 압도되고, 너무 적으면 제품이 얕게 느껴집니다.</p>
+
+      <figure class="exhibit" id="exhibit-b" aria-labelledby="exhibit-b-caption">
+        <figcaption id="exhibit-b-caption" class="exhibit-label">Exhibit B — 점진적 공개</figcaption>
+        <div class="exhibit-body">
+          <ol class="exhibit-steps">
+            <li><strong>Level 1 — 헤드라인 시그널.</strong> 지배적 발견을 명확히. 사용자가 가장 알아야 할 것은?</li>
+            <li><strong>Level 2 — 보조 분석.</strong> 헤드라인을 강화·한정·복잡하게 하는 3–4개 차원.</li>
+            <li><strong>Level 3 — 전체 깊이.</strong> 모든 체계 출력, 교차 참조, 신뢰 구간, 경계 사례 — 가능하되 강제하지 않음.</li>
+          </ol>
+          <p class="exhibit-note">제품 의견: 명확성을 기본으로, 깊이를 제공. 둘 다 타협 없이.</p>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="product-thinking" aria-labelledby="thinking-heading">
+      <h2 id="thinking-heading">5. 이것이 보여주는 제품 사고</h2>
+      <h3>전략 이점으로서의 도메인 전문성</h3>
+      <p>대부분 AI 제품은 출시할 만큼 도메인을 배운 팀이 만듭니다. Parashar는 이를 뒤집습니다 — 제품 전략가가 도메인 전문가입니다. 이는 보통 AI 제품을 저하시키는 번역 손실을 줄입니다:</p>
+      <ul class="case-list">
+        <li><strong>스펙-구현 갭 없음.</strong> 제품 범위를 잡는 사람이 경계 사례·체계 상호작용·품질 기준을 이해.</li>
+        <li><strong>평가 기준이 실제 전문성을 반영.</strong> “정확한 출력”은 전문가가 무엇을 만들지 아는 사람이 설정.</li>
+        <li><strong>UX 우선순위가 도메인에 기반.</strong> 무엇을 먼저 보여줄지, 충돌 처리, 여기서의 점진적 공개 — 실무에 근거.</li>
+      </ul>
+
+      <h3>제품 전략 + AI 엔지니어링, ML 엔지니어링이 아님</h3>
+      <p>역할은 제품 비전, AI 루프 엔지니어링, 시스템 아키텍처, UX 전략에 걸쳐 있습니다 — 모델 학습이나 인프라가 아닙니다:</p>
+
+      <figure class="exhibit" id="exhibit-c" aria-labelledby="exhibit-c-caption">
+        <figcaption id="exhibit-c-caption" class="exhibit-label">Exhibit C — 역할 경계</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr>
+                <th scope="col">제품 + AI 전략 (이 역할)</th>
+                <th scope="col">ML 엔지니어링 (다른 역할)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>AI가 무엇을 해야 하는가?</td><td>모델은 어떻게 학습하는가?</td></tr>
+              <tr><td>정확한 출력은 어떤 모습인가?</td><td>어떤 손실 함수가 정확도를 최적화하는가?</td></tr>
+              <tr><td>규칙 충돌은 어떻게 해결되어야 하는가?</td><td>모델은 모순을 어떻게 처리하는가?</td></tr>
+              <tr><td>v1에 어떤 체계를 출시하는가?</td><td>최소 실행 가능 정확도는?</td></tr>
+              <tr><td>불확실성은 어떻게 제시되어야 하는가?</td><td>신뢰도는 어떻게 보정되는가?</td></tr>
+            </tbody>
+          </table>
+          <p class="exhibit-note">둘 다 필수입니다. 이 케이스 스터디는 왼쪽 열에 관한 것입니다.</p>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="current-status" aria-labelledby="status-heading">
+      <h2 id="status-heading">6. 현재 상태</h2>
+      <p>활성 사이드 프로젝트(2024–현재). 제품 비전 정의, 분석 체계 범위·우선순위, AI 루프 아키텍처 명세, 평가 기준 수립, UX 전략 설계. 도메인에 대한 진짜 지적 관심에서 구축 — 과학적 연산 층과 규칙 기반 해석, AI 제품 전략의 실전 테스트.</p>
+    </section>
+
+    <section class="case-section" id="key-takeaways" aria-labelledby="takeaways-heading">
+      <h2 id="takeaways-heading">7. 핵심 요점</h2>
+      <p><strong>도메인→제품 번역:</strong> AI 제품의 가장 어려운 부분은 AI가 아니라 전략적 범위 설정입니다. 어떤 규칙을 인코딩할지, 어떤 체계를 미룰지, AI가 가치를 더하는 곳과 거짓 확신을 만드는 곳. 엔지니어링이 아닌 제품 결정.</p>
+      <p><strong>AI 루프 엔지니어링:</strong> AI가 규칙 체계를 적용할 때(패턴 탐색이 아님) 과제는 학습 데이터에서 규칙 충실도로 이동합니다. 평가 기준은 통계 벤치마크만이 아니라 도메인 전문성에서 와야 합니다.</p>
+      <p><strong>복잡성 접근성:</strong> 점진적 공개는 UX 패턴만이 아니라 제품 전략입니다. Level 2·3으로 무엇을 미루는지가 제품을 권한 부여할지 압도할지 결정합니다.</p>
+
+      <h3>요점</h3>
+      <p>트레이딩/리스크 AI와 같은 제품 판단: 무엇이 결정적이고 무엇이 해석적인지, 사용자가 모든 층을 감사할 수 없을 때 무엇을 먼저 보여줄지.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    Vinay Kumar · 2026
+  </footer>
+</body>
+</html>

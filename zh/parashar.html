@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parashar 案例研究 — Vinay Kumar</title>
+  <meta name="description" content="从领域专长构建 AI 产品：产品策略、AI 循环工程与渐进披露。">
+  <meta property="og:title" content="Parashar 案例研究 — Vinay Kumar">
+  <meta property="og:description" content="来自领域专长的 AI 消费产品 — 策略、AI 循环、复杂分析 UX。">
+  <meta property="og:url" content="https://v9hstk.github.io/zh/parashar.html">
+  <meta property="og:image" content="https://v9hstk.github.io/og.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Parashar 案例研究 — Vinay Kumar">
+  <meta name="twitter:description" content="来自领域专长的 AI 消费产品 — 策略、AI 循环、复杂分析 UX。">
+  <meta name="twitter:image" content="https://v9hstk.github.io/og.png">
+  <link rel="alternate" hreflang="en" href="https://v9hstk.github.io/parashar.html">
+  <link rel="alternate" hreflang="ko" href="https://v9hstk.github.io/ko/parashar.html">
+  <link rel="alternate" hreflang="ja" href="https://v9hstk.github.io/ja/parashar.html">
+  <link rel="alternate" hreflang="de" href="https://v9hstk.github.io/de/parashar.html">
+  <link rel="alternate" hreflang="zh-Hans" href="https://v9hstk.github.io/zh/parashar.html">
+  <link rel="alternate" hreflang="ar" href="https://v9hstk.github.io/ar/parashar.html">
+  <link rel="alternate" hreflang="x-default" href="https://v9hstk.github.io/parashar.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@360;400;500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script>!function(){var s=sessionStorage.getItem("theme");document.documentElement.setAttribute("data-theme",s||"light")}();</script>
+  <script src="../js/theme.js" defer></script>
+  <script src="../js/lang.js" defer></script>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="back-link" href="index.html">← 返回</a>
+    <div class="header-actions">
+    <div class="lang-switch">
+      <label class="visually-hidden" for="lang-select">Language</label>
+      <select id="lang-select" class="lang-select" aria-label="Language">
+        <option value="en" lang="en">EN</option>
+        <option value="ko" lang="ko">KOR</option>
+        <option value="ja" lang="ja">JP</option>
+        <option value="de" lang="de">DE</option>
+        <option value="zh" lang="zh" selected>ZH</option>
+        <option value="ar" lang="ar">AR</option>
+      </select>
+    </div>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="切换深色模式">
+        <span class="icon-sun" aria-hidden="true">☀</span>
+        <span class="icon-moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="case-study">
+<header class="case-hero">
+      <h1>Parashar：从领域专长构建 AI 产品</h1>
+      <p class="subtitle">产品策略 · AI 循环工程 · 领域到消费者智能 · 2024–至今</p>
+    </header>
+
+    <section class="case-section" id="executive-summary" aria-labelledby="exec-heading">
+      <h2 id="exec-heading">执行摘要</h2>
+      <p>Parashar 是一款将预测分析应用于复杂传统知识领域的 AI 消费级产品。系统基于天文位置数据（Swiss Ephemeris）与数千条解释规则 — 需要精确输入与分层推理的计算密集型领域。产品挑战是战略性的：优先哪些分析体系、如何工程化正确应用相互依赖规则的 AI 循环、如何让密集多维输出对非专家可用。这是源于真正智识兴趣的副业项目 — 也是领域专长如何塑造 AI 产品思维的现实检验。</p>
+    </section>
+
+    <section class="case-section" id="the-problem" aria-labelledby="problem-heading">
+      <h2 id="problem-heading">1. 问题</h2>
+      <p>目标领域有三个特征，使软件服务变得困难：</p>
+      <p><strong>规则复杂性。</strong>该领域基于来自天文位置数据（经 Swiss Ephemeris 计算）的数千个相互依赖变量。单次分析需交叉参照多个分析体系，各有规则、例外与情境修饰。专家从业者需数年学习才能驾驭这些互动。</p>
+      <p><strong>计算强度。</strong>手动完成完整分析需将行星位置算到角分精度，再对数十数据点应用分层解释规则。专家一次解读可耗数小时。天文层是确定性的，但解释层需要跨竞争体系的情境判断。</p>
+      <p><strong>专长守门。</strong>获得优质分析需找到熟练从业者。没有标准化认证，质量差异巨大，知识传统上通过师徒制传递。多数消费者无法区分严谨分析与肤浅工作。</p>
+
+      <h3>机会</h3>
+      <p>若天文数据精确（Swiss Ephemeris 提供）且规则可编码，AI 系统可规模化应用。产品论点：<strong>将精确科学计算与 AI 驱动的规则应用和情境推理结合，民主化专家级分析的获取。</strong></p>
+    </section>
+
+    <section class="case-section" id="product-strategy" aria-labelledby="strategy-heading">
+      <h2 id="strategy-heading">2. 产品策略：构建什么</h2>
+      <h3>界定系统范围</h3>
+      <p>该领域有 10+ 个分析体系，各覆盖不同维度。全部纳入输出全面但令人不堪重负；过少则专家会视为肤浅。</p>
+      <p>战略问题：<strong>产生有用、可信分析的最小体系覆盖是什么？</strong>经典 v1 范围界定 — 每个 PM 决定纳入什么时都会面对。</p>
+      <p>方法：按三标准给分析体系排序：</p>
+      <ol class="case-list">
+        <li><strong>覆盖</strong> — 该体系覆盖多少用户问题？</li>
+        <li><strong>计算确定性</strong> — 规则能否可靠编码，还是需要主观判断？</li>
+        <li><strong>体系间依赖</strong> — 输出是否喂给其他体系？（若是，则是基础设施而非可选项）</li>
+      </ol>
+      <p>三项都高的体系先交付。需大量情境判断的体系标为后续迭代。</p>
+
+      <h3>决定 AI 该做什么与不该做什么</h3>
+      <p>并非领域每个部分都应自动化。战略框架：</p>
+
+      <figure class="exhibit" id="exhibit-a" aria-labelledby="exhibit-a-caption">
+        <figcaption id="exhibit-a-caption" class="exhibit-label">Exhibit A — 构建 vs 推迟</figcaption>
+        <div class="exhibit-body exhibit-two-col">
+          <div>
+            <h4 class="exhibit-subhead">AI 应做</h4>
+            <ul class="exhibit-list">
+              <li>天文位置计算</li>
+              <li>确定性规则应用</li>
+              <li>交叉参照多体系</li>
+              <li>跨数据集模式识别</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="exhibit-subhead">AI（尚）不应做</h4>
+            <ul class="exhibit-list">
+              <li>跨模糊信号的情境综合</li>
+              <li>专家分歧处的判断调用</li>
+              <li>开放式解释叙事</li>
+              <li>无置信边界的规范性建议</li>
+            </ul>
+          </div>
+        </div>
+        <p class="exhibit-note">每个 AI 产品都面对的构建-推迟纪律 — 知道 AI 在何处增值、何处制造虚假自信。</p>
+      </figure>
+    </section>
+
+    <section class="case-section" id="ai-loop" aria-labelledby="loop-heading">
+      <h2 id="loop-heading">3. AI 循环工程</h2>
+      <h3>核心挑战</h3>
+      <p>标准 AI 产品从数据模式学习。Parashar 需学习规则体系 — 数千相互依赖的 if-then、层级覆盖与情境权重。AI 循环被工程化为：</p>
+      <ol class="case-list">
+        <li><strong>摄取精确天文数据</strong> — Swiss Ephemeris 提供角分精度的行星位置、相位与时机。</li>
+        <li><strong>应用规则级联</strong> — 多分析体系顺序运行；各自产生喂给下一层的中间输出。</li>
+        <li><strong>解决冲突</strong> — 两体系矛盾时，加权解决框架遵循领域惯例。</li>
+        <li><strong>生成分层输出</strong> — 先主信号，再辅助分析，再边缘情况与注意事项。</li>
+      </ol>
+
+      <h3>工程评估标准</h3>
+      <p>此处“正确”超越统计精度：</p>
+      <ul class="case-list">
+        <li><strong>位置精度</strong> — 计算与 Swiss Ephemeris 角分一致</li>
+        <li><strong>规则保真</strong> — 各体系规则按领域专家方式应用</li>
+        <li><strong>体系加权</strong> — 冲突解决匹配体系层级的专家共识</li>
+        <li><strong>完整性</strong> — 输出覆盖查询类型相关体系，不省略会改变结论的维度</li>
+      </ul>
+      <p>这些标准来自领域专长，而非标注数据集。定义“正确长什么样”的人必须是领域专家 — 而非从训练数据近似正确性的 ML 工程师。</p>
+    </section>
+
+    <section class="case-section" id="ux" aria-labelledby="ux-heading">
+      <h2 id="ux-heading">4. UX：让复杂性可及</h2>
+      <p>该领域产生密集多维输出。完整分析可能同时覆盖 10+ 维度。一次全部呈现令人不堪；过少则产品显得肤浅。</p>
+
+      <figure class="exhibit" id="exhibit-b" aria-labelledby="exhibit-b-caption">
+        <figcaption id="exhibit-b-caption" class="exhibit-label">Exhibit B — 渐进披露</figcaption>
+        <div class="exhibit-body">
+          <ol class="exhibit-steps">
+            <li><strong>Level 1 — 标题信号。</strong>清晰陈述主导发现。用户最需知道什么？</li>
+            <li><strong>Level 2 — 辅助分析。</strong>强化、限定或复杂化标题的 3–4 个维度。</li>
+            <li><strong>Level 3 — 完整深度。</strong>每个体系输出、交叉参照、置信边界、边缘情况 — 可用，从不强加。</li>
+          </ol>
+          <p class="exhibit-note">产品观点：默认清晰，提供深度。两者兼得，互不牺牲。</p>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="product-thinking" aria-labelledby="thinking-heading">
+      <h2 id="thinking-heading">5. 这揭示了怎样的产品思维</h2>
+      <h3>作为战略优势的领域专长</h3>
+      <p>多数 AI 产品由学到足以交付的领域知识的团队构建。Parashar 将其反转 — 产品策略师即领域专家。这削减了通常削弱 AI 产品的翻译损耗：</p>
+      <ul class="case-list">
+        <li><strong>无规格到实现的落差。</strong>界定范围的人理解边缘情况、体系互动与质量门槛。</li>
+        <li><strong>评估标准反映真实专长。</strong>“正确输出”由知道专家会产出什么的人设定。</li>
+        <li><strong>UX 优先级有领域依据。</strong>先呈现什么、如何处理冲突、此处渐进披露意味着什么 — 扎根实践。</li>
+      </ul>
+
+      <h3>产品策略 + AI 工程，而非 ML 工程</h3>
+      <p>该角色跨越产品愿景、AI 循环工程、系统架构与 UX 策略 — 而非模型训练或基础设施：</p>
+
+      <figure class="exhibit" id="exhibit-c" aria-labelledby="exhibit-c-caption">
+        <figcaption id="exhibit-c-caption" class="exhibit-label">Exhibit C — 角色边界</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr>
+                <th scope="col">产品 + AI 策略（本角色）</th>
+                <th scope="col">ML 工程（不同角色）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>AI 应做什么？</td><td>模型如何学习？</td></tr>
+              <tr><td>正确输出是什么样？</td><td>何种损失函数优化正确性？</td></tr>
+              <tr><td>规则冲突应如何解决？</td><td>模型如何处理矛盾？</td></tr>
+              <tr><td>v1 交付哪些体系？</td><td>最低可行精度是多少？</td></tr>
+              <tr><td>不确定性应如何呈现？</td><td>置信度如何校准？</td></tr>
+            </tbody>
+          </table>
+          <p class="exhibit-note">两者都必要。本案例研究关注左列。</p>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="current-status" aria-labelledby="status-heading">
+      <h2 id="status-heading">6. 当前状态</h2>
+      <p>活跃副业项目（2024–至今）。产品愿景已定义，分析体系已界定并优先排序，AI 循环架构已规格化，评估标准已建立，UX 策略已设计。源于对该领域真正智识兴趣 — 科学根基的计算层加基于规则的解释，以及 AI 产品策略的现实检验。</p>
+    </section>
+
+    <section class="case-section" id="key-takeaways" aria-labelledby="takeaways-heading">
+      <h2 id="takeaways-heading">7. 关键要点</h2>
+      <p><strong>关于领域到产品翻译：</strong>AI 产品最难的不是 AI — 而是战略范围界定。编码哪些规则、推迟哪些体系、AI 在何处增值 vs 制造虚假自信。是产品决策，不是工程决策。</p>
+      <p><strong>关于 AI 循环工程：</strong>当 AI 应用规则体系（而非找模式）时，挑战从训练数据转向规则保真。评估标准必须来自领域专长，而非仅统计基准。</p>
+      <p><strong>关于让复杂性可及：</strong>渐进披露是产品策略，不仅是 UX 模式。推到 Level 2 或 3 的内容决定产品是赋能还是压垮。</p>
+
+      <h3>要点</h3>
+      <p>与交易/风险 AI 相同的产品判断：知道什么是确定性的、什么是解释性的，以及当用户无法审计每一层时你先呈现什么。</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    Vinay Kumar · 2026
+  </footer>
+</body>
+</html>

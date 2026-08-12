@@ -19,6 +19,8 @@
   <link rel="alternate" hreflang="ko" href="https://v9hstk.github.io/ko/">
   <link rel="alternate" hreflang="ja" href="https://v9hstk.github.io/ja/">
   <link rel="alternate" hreflang="de" href="https://v9hstk.github.io/de/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://v9hstk.github.io/zh/">
+  <link rel="alternate" hreflang="ar" href="https://v9hstk.github.io/ar/">
   <link rel="alternate" hreflang="x-default" href="https://v9hstk.github.io/">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +35,7 @@
   <div class="atmosphere" aria-hidden="true"></div>
 
   <header class="site-header">
-    <a class="mark" href="#top">VD</a>
+    <a class="mark" href="#top">VINAY</a>
     <nav class="nav-rail" aria-label="주요 메뉴">
       <a href="#cases">케이스</a>
       <a href="#proof">근거</a>
@@ -44,9 +46,11 @@
       <label class="visually-hidden" for="lang-select">Language</label>
       <select id="lang-select" class="lang-select" aria-label="Language">
         <option value="en" lang="en">EN</option>
-        <option value="ko" lang="ko" selected>한국어</option>
-        <option value="ja" lang="ja">日本語</option>
-        <option value="de" lang="de">Deutsch</option>
+        <option value="ko" lang="ko" selected>KOR</option>
+        <option value="ja" lang="ja">JP</option>
+        <option value="de" lang="de">DE</option>
+        <option value="zh" lang="zh">ZH</option>
+        <option value="ar" lang="ar">AR</option>
       </select>
     </div>
       <button type="button" id="theme-toggle" class="theme-toggle" aria-label="다크 모드 전환">
@@ -57,7 +61,7 @@
   </header>
 
   <main id="top">
-    <section class="hero" aria-labelledby="name">
+    <section class="hero hero-solo" aria-labelledby="name">
       <div class="hero-copy">
         <p class="eyebrow">Head of Product · DeFi · CeFi · Protocol Design</p>
         <h1 id="name">Vinay<br>Kumar</h1>
@@ -68,39 +72,6 @@
           <a class="btn-text" href="#cases">작업 보기 →</a>
         </div>
       </div>
-      <aside class="hero-signal" aria-label="주요 시그널">
-        <p class="signal-label">주요 시그널</p>
-        <ol class="signal-list">
-          <li>
-            <span class="signal-k">01</span>
-            <div>
-              <strong>언더콜래터럴 대출</strong>
-              <span>Starknet 위 자율 리스크 제약 — 신용위원회가 아님.</span>
-            </div>
-          </li>
-          <li>
-            <span class="signal-k">02</span>
-            <div>
-              <strong>금리를 제품으로</strong>
-              <span>DIAL → 프로덕션 kinked utilization 모델, 출시 및 문서화.</span>
-            </div>
-          </li>
-          <li>
-            <span class="signal-k">03</span>
-            <div>
-              <strong>표준 + 무대</strong>
-              <span>Proposed EIP-5299 · Token 2049 연사 · CertiK 감사 프로토콜.</span>
-            </div>
-          </li>
-        </ol>
-        <nav class="contact-compact" aria-label="연락">
-          <a href="mailto:2vinaykumard@gmail.com">Email</a>
-          <a href="https://linkedin.com/in/vinaydkumar" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="https://github.com/v9hstk" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://x.com/v9hstk" target="_blank" rel="noopener noreferrer">X</a>
-          <a href="https://t.me/v9hstk" target="_blank" rel="noopener noreferrer">Telegram</a>
-        </nav>
-      </aside>
     </section>
 
     <section class="band talk" aria-labelledby="talk-heading">
@@ -120,12 +91,19 @@
 
     <section class="band" id="cases" aria-labelledby="cases-heading">
       <div class="band-head">
-        <h2 id="cases-heading">케이스 스터디</h2>
-        <p>의사결정, 트레이드오프, 그리고 근거 — 기능 나열이 아닙니다.</p>
-        <p class="lang-case-note" style="display:block;margin-top:0.5rem">케이스 스터디는 현재 영어(EN)입니다.</p>
+        <h2 id="cases-heading">연결 &amp; 케이스 스터디</h2>
+        <p>공개 핸들과 작업 — 의사결정, 트레이드오프, 근거.</p>
       </div>
+      <nav class="social-rail" aria-label="소셜">
+        <a class="social-chip" href="mailto:2vinaykumard@gmail.com">Email <span class="social-handle">2vinaykumard@gmail.com</span></a>
+        <a class="social-chip" href="https://linkedin.com/in/vinaydkumar" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="social-chip" href="https://t.me/v9hstk" target="_blank" rel="noopener noreferrer">Telegram <span class="social-handle">@v9hstk</span></a>
+        <a class="social-chip" href="https://github.com/v9hstk" target="_blank" rel="noopener noreferrer">GitHub <span class="social-handle">v9hstk</span></a>
+        <a class="social-chip" href="https://x.com/v9hstk" target="_blank" rel="noopener noreferrer">X <span class="social-handle">@v9hstk</span></a>
+        <a class="social-chip" href="https://cal.com/vinaydkumar/intro" target="_blank" rel="noopener noreferrer">Cal.com</a>
+      </nav>
       <div class="case-rows">
-        <a class="case-row" href="../hashstack.html">
+        <a class="case-row" href="hashstack.html">
           <span class="case-index">01</span>
           <div class="case-body">
             <h3>자율 언더콜래터럴 대출을 어떻게 만들었는가</h3>
@@ -133,7 +111,7 @@
           </div>
           <span class="case-go" aria-hidden="true">→</span>
         </a>
-        <a class="case-row" href="../parashar.html">
+        <a class="case-row" href="parashar.html">
           <span class="case-index">02</span>
           <div class="case-body">
             <h3>도메인 전문성으로 AI 제품을 만들기</h3>
@@ -141,7 +119,7 @@
           </div>
           <span class="case-go" aria-hidden="true">→</span>
         </a>
-        <a class="case-row" href="../guardrail.html">
+        <a class="case-row" href="guardrail.html">
           <span class="case-index">03</span>
           <div class="case-body">
             <h3>제1원칙에서 출발한 시스템 트레이딩 인프라</h3>
@@ -251,7 +229,7 @@
     <section class="band resumes" id="resumes" aria-labelledby="resume-heading">
       <div class="band-head">
         <h2 id="resume-heading">이력서</h2>
-        <p>같은 커리어의 두 버전 — 채용 시장에 맞게 고르세요.</p>
+        <p>같은 커리어의 두 버전 — 채용 시장에 맞게 고르세요. PDF는 영어입니다.</p>
       </div>
       <div class="resume-grid">
         <a class="resume-tile" href="../assets/resume_crypto.pdf" target="_blank" rel="noopener noreferrer">

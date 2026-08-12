@@ -19,6 +19,8 @@
   <link rel="alternate" hreflang="ko" href="https://v9hstk.github.io/ko/">
   <link rel="alternate" hreflang="ja" href="https://v9hstk.github.io/ja/">
   <link rel="alternate" hreflang="de" href="https://v9hstk.github.io/de/">
+  <link rel="alternate" hreflang="zh-Hans" href="https://v9hstk.github.io/zh/">
+  <link rel="alternate" hreflang="ar" href="https://v9hstk.github.io/ar/">
   <link rel="alternate" hreflang="x-default" href="https://v9hstk.github.io/">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +35,7 @@
   <div class="atmosphere" aria-hidden="true"></div>
 
   <header class="site-header">
-    <a class="mark" href="#top">VD</a>
+    <a class="mark" href="#top">VINAY</a>
     <nav class="nav-rail" aria-label="メイン">
       <a href="#cases">事例</a>
       <a href="#proof">根拠</a>
@@ -44,9 +46,11 @@
       <label class="visually-hidden" for="lang-select">Language</label>
       <select id="lang-select" class="lang-select" aria-label="Language">
         <option value="en" lang="en">EN</option>
-        <option value="ko" lang="ko">한국어</option>
-        <option value="ja" lang="ja" selected>日本語</option>
-        <option value="de" lang="de">Deutsch</option>
+        <option value="ko" lang="ko">KOR</option>
+        <option value="ja" lang="ja" selected>JP</option>
+        <option value="de" lang="de">DE</option>
+        <option value="zh" lang="zh">ZH</option>
+        <option value="ar" lang="ar">AR</option>
       </select>
     </div>
       <button type="button" id="theme-toggle" class="theme-toggle" aria-label="ダークモード切替">
@@ -57,50 +61,17 @@
   </header>
 
   <main id="top">
-    <section class="hero" aria-labelledby="name">
+    <section class="hero hero-solo" aria-labelledby="name">
       <div class="hero-copy">
         <p class="eyebrow">Head of Product · DeFi · CeFi · Protocol Design</p>
         <h1 id="name">Vinay<br>Kumar</h1>
-        <p class="thesis">私は<em>リスクがインターフェース</em>であるプロダクトを作ります。Hashstackでは、与信委員会なしのアンダーコラテラル貸付——支払能力はスマートコントラクトが強制。Fininでは、銀行パートナーと組んだネオバンクのコアバンキング（KYC → 貯蓄 → カード）を、RBIのデジタルバンキング制約の下で設計。共通点は、ユーザーが協力しなくても動くシステムです。</p>
+        <p class="thesis">私は<em>リスクがインターフェース</em>であるプロダクトを作ります。Hashstackでは信用委員会なしのアンダーコラテラル貸付を実現し—支払能力はスマートコントラクトが強制しました。Fininでは銀行パートナーと共にネオバンクのコアバンキング（KYC → 貯蓄 → カード）をRBIデジタルバンキング制約の下で設計しました。パターンは同じ。ユーザーが協力しなくても動くシステム。</p>
         <p class="credentials">IIT Kharagpur · Hashstack創業 · Finin Head of Product（買収済み） · Token 2049</p>
         <div class="hero-cta">
           <a class="btn-primary" href="https://cal.com/vinaydkumar/intro" target="_blank" rel="noopener noreferrer">通話を予約</a>
           <a class="btn-text" href="#cases">実績を読む →</a>
         </div>
       </div>
-      <aside class="hero-signal" aria-label="選定シグナル">
-        <p class="signal-label">選定シグナル</p>
-        <ol class="signal-list">
-          <li>
-            <span class="signal-k">01</span>
-            <div>
-              <strong>アンダーコラテラル貸付</strong>
-              <span>Starknet上の自律リスク制約 — 与信委員会ではない。</span>
-            </div>
-          </li>
-          <li>
-            <span class="signal-k">02</span>
-            <div>
-              <strong>金利をプロダクトに</strong>
-              <span>DIAL → 本番の kinked utilization モデル。出荷し文書化。</span>
-            </div>
-          </li>
-          <li>
-            <span class="signal-k">03</span>
-            <div>
-              <strong>標準 + 登壇</strong>
-              <span>Proposed EIP-5299 · Token 2049登壇 · CertiK監査済みプロトコル。</span>
-            </div>
-          </li>
-        </ol>
-        <nav class="contact-compact" aria-label="連絡先">
-          <a href="mailto:2vinaykumard@gmail.com">Email</a>
-          <a href="https://linkedin.com/in/vinaydkumar" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="https://github.com/v9hstk" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="https://x.com/v9hstk" target="_blank" rel="noopener noreferrer">X</a>
-          <a href="https://t.me/v9hstk" target="_blank" rel="noopener noreferrer">Telegram</a>
-        </nav>
-      </aside>
     </section>
 
     <section class="band talk" aria-labelledby="talk-heading">
@@ -120,32 +91,39 @@
 
     <section class="band" id="cases" aria-labelledby="cases-heading">
       <div class="band-head">
-        <h2 id="cases-heading">ケーススタディ</h2>
-        <p>意思決定、トレードオフ、そして根拠 — 機能一覧ではない。</p>
-        <p class="lang-case-note" style="display:block;margin-top:0.5rem">ケーススタディは現時点で英語（EN）です。</p>
+        <h2 id="cases-heading">つながり &amp; ケーススタディ</h2>
+        <p>公開ハンドルと実績 — 意思決定、トレードオフ、根拠。</p>
       </div>
+      <nav class="social-rail" aria-label="ソーシャル">
+        <a class="social-chip" href="mailto:2vinaykumard@gmail.com">Email <span class="social-handle">2vinaykumard@gmail.com</span></a>
+        <a class="social-chip" href="https://linkedin.com/in/vinaydkumar" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a class="social-chip" href="https://t.me/v9hstk" target="_blank" rel="noopener noreferrer">Telegram <span class="social-handle">@v9hstk</span></a>
+        <a class="social-chip" href="https://github.com/v9hstk" target="_blank" rel="noopener noreferrer">GitHub <span class="social-handle">v9hstk</span></a>
+        <a class="social-chip" href="https://x.com/v9hstk" target="_blank" rel="noopener noreferrer">X <span class="social-handle">@v9hstk</span></a>
+        <a class="social-chip" href="https://cal.com/vinaydkumar/intro" target="_blank" rel="noopener noreferrer">Cal.com</a>
+      </nav>
       <div class="case-rows">
-        <a class="case-row" href="../hashstack.html">
+        <a class="case-row" href="hashstack.html">
           <span class="case-index">01</span>
           <div class="case-body">
-            <h3>自律アンダーコラテラル貸付をどう作ったか</h3>
-            <p>Hashstack — Degen Mode、DIAL、リスク制約、資金引出可能な構造的終了。</p>
+            <h3>自律的アンダーコラテラル貸付をどう作ったか</h3>
+            <p>Hashstack — Degen Mode、DIAL、リスク制約、資金引き出し可能な構造的クローズ。</p>
           </div>
           <span class="case-go" aria-hidden="true">→</span>
         </a>
-        <a class="case-row" href="../parashar.html">
+        <a class="case-row" href="parashar.html">
           <span class="case-index">02</span>
           <div class="case-body">
-            <h3>ドメイン専門性からAIプロダクトを作る</h3>
-            <p>Parashar — プロダクト戦略、ルールシステム、ドメイン判断を消費者インテリジェンスへ翻訳。</p>
+            <h3>ドメイン専門性からAIプロダクトを構築</h3>
+            <p>Parashar — プロダクト戦略、ルールシステム、ドメイン判断を消費者インテリジェンスへ。</p>
           </div>
           <span class="case-go" aria-hidden="true">→</span>
         </a>
-        <a class="case-row" href="../guardrail.html">
+        <a class="case-row" href="guardrail.html">
           <span class="case-index">03</span>
           <div class="case-body">
-            <h3>第一原理から組むシステマティック取引インフラ</h3>
-            <p>Guardrail — マルチエージェント・リスクゲート、behavioral AI、自己資金向けライブインフラ — DeFiプロダクトを超えるドメイン幅。</p>
+            <h3>第一原理からのシステマティック・トレーディング基盤</h3>
+            <p>Guardrail — マルチエージェント・リスクゲート、行動AI、自己資本向けライブ基盤 — DeFi以外のドメイン幅。</p>
           </div>
           <span class="case-go" aria-hidden="true">→</span>
         </a>
@@ -168,17 +146,17 @@
           </li>
           <li>
             <span class="proof-title">DIAL</span>
-            <span class="proof-desc">定期預金型貸付向けカスタム金利モデル</span>
+            <span class="proof-desc">定期預金型レンディング向けカスタム金利モデル</span>
             <a class="proof-link" href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">archive</a>
           </li>
           <li>
             <span class="proof-title">Interest rate model</span>
-            <span class="proof-desc">本番 kinked utilization カーブ</span>
+            <span class="proof-desc">本番 kinked utilization 曲線</span>
             <a class="proof-link" href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">docs</a>
           </li>
           <li>
             <span class="proof-title">CertiK audit</span>
-            <span class="proof-desc">独立スマートコントラクトレビュー</span>
+            <span class="proof-desc">独立スマートコントラクト監査</span>
             <a class="proof-link" href="../assets/certik_report.pdf" target="_blank" rel="noopener noreferrer">PDF</a>
           </li>
           <li>
@@ -208,7 +186,7 @@
           </li>
           <li>
             <span class="proof-title">DefiLlama</span>
-            <span class="proof-desc">公開TVL追跡 — プロトコル終了；peak TVLは主張せず</span>
+            <span class="proof-desc">公開TVL追跡 — プロトコル終了; peak TVLの主張なし</span>
             <a class="proof-link" href="https://defillama.com/protocol/hashstack" target="_blank" rel="noopener noreferrer">DefiLlama</a>
           </li>
         </ul>
@@ -222,7 +200,7 @@
           </li>
           <li>
             <span class="proof-title">Ethereum Magicians</span>
-            <span class="proof-desc">EIP-5299討論スレッド</span>
+            <span class="proof-desc">EIP-5299 議論スレッド</span>
             <a class="proof-link" href="https://ethereum-magicians.org/t/eip-5299-layer3-scaling-standard/9039" target="_blank" rel="noopener noreferrer">thread</a>
           </li>
         </ul>
@@ -251,7 +229,7 @@
     <section class="band resumes" id="resumes" aria-labelledby="resume-heading">
       <div class="band-head">
         <h2 id="resume-heading">履歴書</h2>
-        <p>同じキャリアの二切り — 採用市場に合わせて選んでください。</p>
+        <p>同じキャリアの2バージョン — 採用市場に合わせて選択。PDFは英語です。</p>
       </div>
       <div class="resume-grid">
         <a class="resume-tile" href="../assets/resume_crypto.pdf" target="_blank" rel="noopener noreferrer">

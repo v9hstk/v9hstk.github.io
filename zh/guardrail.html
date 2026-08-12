@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guardrail 案例研究 — Vinay Kumar</title>
+  <meta name="description" content="Guardrail SFO：系统性交易基础设施 — 多智能体、7 项风险平面、AI 行为分析。仅本金。">
+  <meta property="og:title" content="Guardrail 案例研究 — Vinay Kumar">
+  <meta property="og:description" content="SFO 交易基础设施 — 多智能体风险闸门、日志、Attention。仅本金；无 LP。">
+  <meta property="og:url" content="https://v9hstk.github.io/zh/guardrail.html">
+  <meta property="og:image" content="https://v9hstk.github.io/og.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Guardrail 案例研究 — Vinay Kumar">
+  <meta name="twitter:description" content="SFO 交易基础设施 — 多智能体风险闸门、日志、Attention。仅本金；无 LP。">
+  <meta name="twitter:image" content="https://v9hstk.github.io/og.png">
+  <link rel="alternate" hreflang="en" href="https://v9hstk.github.io/guardrail.html">
+  <link rel="alternate" hreflang="ko" href="https://v9hstk.github.io/ko/guardrail.html">
+  <link rel="alternate" hreflang="ja" href="https://v9hstk.github.io/ja/guardrail.html">
+  <link rel="alternate" hreflang="de" href="https://v9hstk.github.io/de/guardrail.html">
+  <link rel="alternate" hreflang="zh-Hans" href="https://v9hstk.github.io/zh/guardrail.html">
+  <link rel="alternate" hreflang="ar" href="https://v9hstk.github.io/ar/guardrail.html">
+  <link rel="alternate" hreflang="x-default" href="https://v9hstk.github.io/guardrail.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@360;400;500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script>!function(){var s=sessionStorage.getItem("theme");document.documentElement.setAttribute("data-theme",s||"light")}();</script>
+  <script src="../js/theme.js" defer></script>
+  <script src="../js/lang.js" defer></script>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="back-link" href="index.html">← 返回</a>
+    <div class="header-actions">
+    <div class="lang-switch">
+      <label class="visually-hidden" for="lang-select">Language</label>
+      <select id="lang-select" class="lang-select" aria-label="Language">
+        <option value="en" lang="en">EN</option>
+        <option value="ko" lang="ko">KOR</option>
+        <option value="ja" lang="ja">JP</option>
+        <option value="de" lang="de">DE</option>
+        <option value="zh" lang="zh" selected>ZH</option>
+        <option value="ar" lang="ar">AR</option>
+      </select>
+    </div>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="切换深色模式">
+        <span class="icon-sun" aria-hidden="true">☀</span>
+        <span class="icon-moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="case-study">
+<header class="case-hero">
+      <h1>Guardrail：从第一性原理构建系统性交易基础设施</h1>
+      <p class="subtitle">Single-family office · 多智能体架构 · 风险工程 · AI 行为分析 · 基础设施 2025–至今</p>
+    </header>
+
+    <section class="case-section" id="executive-summary" aria-labelledby="exec-heading">
+      <h2 id="exec-heading">执行摘要</h2>
+      <p><a href="https://guardrail.fund" target="_blank" rel="noopener noreferrer">Guardrail</a> 是一家 <strong>single-family office</strong>，在数字资产、硬商品、房地产与前沿技术上运行自主资本配置系统。<strong>仅本金</strong> — 无外部投资者、无 LP、无客户、无赎回闸门。在本作品集站点上，它也可读作 Hashstack 与 Parashar 旁的<strong>金融副业项目</strong> — 不是冷触达主线故事。</p>
+      <p>我正在构建把这一姿态落地的交易基础设施 — 经 Redis 事件总线由编排器协调的 9 个专业子智能体执行系统、<strong>7 项程序化风险平面</strong>、AI 行为分析引擎，以及管理 43 任务部署 DAG 的构建编排器。guardrail.fund 公开定位：<em>from signal to settlement — no human in the loop</em>。</p>
+      <p>实盘栈的交易场所重点包括衍生品（Hyperliquid）与预测市场（Polymarket），处于更广的 SFO 使命之内。<strong>基础设施已上线</strong>。资本 100% 为本金 — 无第三方 LP 资本。</p>
+      <p>贯穿每个决策的两条原则：<strong>风险是闸门，不是仪表盘</strong>；以及<strong>人是最弱环节</strong> — 每个随意干预点都是需要工程化移除的失败模式。</p>
+    </section>
+
+    <section class="case-section" id="current-status" aria-labelledby="status-heading">
+      <h2 id="status-heading">当前状态</h2>
+      <figure class="exhibit" aria-labelledby="status-caption">
+        <figcaption id="status-caption" class="exhibit-label">与 guardrail.fund 对齐</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">项目</th><th scope="col">状态</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>实体</td><td>Single-family office（公开：ACTIVE）</td></tr>
+              <tr><td>资本</td><td>100% 本金 — <strong>无投资者、无 LP、无赎回闸门</strong></td></tr>
+              <tr><td>起始</td><td>2017（见 <a href="https://guardrail.fund" target="_blank" rel="noopener noreferrer">guardrail.fund</a>）</td></tr>
+              <tr><td>视野</td><td>10Y+ / 无赎回</td></tr>
+              <tr><td>基础设施</td><td>实盘多智能体栈（风险平面、日志、事件总线、Attention）</td></tr>
+              <tr><td>案例定位</td><td>展示领域广度的金融副业；次于 Hashstack</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="mandate" aria-labelledby="mandate-heading">
+      <h2 id="mandate-heading">1. 使命（公开定位）</h2>
+      <p>据 guardrail.fund，配置覆盖四个垂直：数字资产、贵金属、房地产与技术（健康科技、保险、国防、航空航天、生物科技、量子）。运营论点包括硬货币稀缺（BTC + XAU）、可编程结算、实物真实收益地产，以及集中深科技押注。</p>
+      <p>本案例研究不是对外募资材料。它记录本金配置背后的<strong>系统性交易基础设施</strong> — 风险、日志与行为监督如何在软件中强制执行。</p>
+    </section>
+
+    <section class="case-section" id="the-problem" aria-labelledby="problem-heading">
+      <h2 id="problem-heading">2. 问题：多数交易者为何亏损</h2>
+      <p>零售与小型运营商失败的三个原因与策略无关：</p>
+      <p><strong>无系统化日志。</strong> 决策粒度不足，无法识别何有效。不知道按 setup、时间框架与市场状态划分胜率的交易者，是在猜测自己的优势。</p>
+      <p><strong>无实时风险强制。</strong> 风险规则写在纸上，不在代码里。只有手动检查才触发的回撤上限不是上限 — 是建议。</p>
+      <p><strong>情绪覆盖。</strong> 纪律在压力下系统性、可预测、可度量地退化。最难跳过的交易是亏损后的报复交易。</p>
+      <p>终端通过从执行环移除随意人工覆盖、用程序约束替代主观判断来同时解决三点。系统不建议纪律 — 它强制纪律。</p>
+    </section>
+
+    <section class="case-section" id="multi-agent" aria-labelledby="agents-heading">
+      <h2 id="agents-heading">3. 多智能体架构</h2>
+      <p>系统在 Redis pub/sub 事件总线上由编排器协调 9 个专业子智能体。每个智能体拥有一个领域，发布类型化事件并消费其他智能体事件。无全局状态 — 协调经总线完成。</p>
+      <figure class="exhibit" aria-labelledby="agents-caption">
+        <figcaption id="agents-caption" class="exhibit-label">九个智能体</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">智能体</th><th scope="col">领域</th><th scope="col">关键功能</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Exchange (HL)</td><td>Hyperliquid</td><td>仓位同步、下单、余额跟踪、资金费率监控</td></tr>
+              <tr><td>Exchange (PM)</td><td>Polymarket</td><td>市场结算跟踪、仓位管理、结果概率同步</td></tr>
+              <tr><td>Risk</td><td>强制</td><td>7 项风险平面 — 硬阻断，非警告</td></tr>
+              <tr><td>Journal</td><td>记录</td><td>29 字段交易日志（22 自动 + 4 交易前 + 3 交易后）</td></tr>
+              <tr><td>Portfolio</td><td>分析</td><td>Kelly 仓位、Monte Carlo、跨仓相关</td></tr>
+              <tr><td>Alerts</td><td>通知</td><td>阈值触发告警、多通道投递</td></tr>
+              <tr><td>Attention (AI)</td><td>行为分析</td><td>LLM 异常检测 — 倾斜、模式漂移、状态错配</td></tr>
+              <tr><td>Summary</td><td>综合</td><td>会话报告、绩效归因</td></tr>
+              <tr><td>Wallet Decay</td><td>诊断</td><td>每 15 分钟余额漂移 — 手续费、资金费、滑点</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+      <h3>为何用智能体而非单体</h3>
+      <p>每个智能体可独立失败。Exchange 宕机不会关闭 Risk。Journal 离线不停止仓位监控。Attention 失败降低洞察质量但不阻断执行。当级联失败意味着资本损失时，故障隔离至关重要。</p>
+      <h3>事件总线设计</h3>
+      <p>事件有类型（<code>POSITION_OPENED</code>、<code>RISK_CHECK_FAILED</code>、<code>ANOMALY_DETECTED</code>、<code>DECAY_ALERT</code>），带时间戳与来源标签。编排器路由跨智能体响应 — 例如 <code>POSITION_LIMIT_BREACH</code> → Exchange 减仓；<code>TILT_DETECTED</code> → 会话暂停升级。</p>
+    </section>
+
+    <section class="case-section" id="ai-layer" aria-labelledby="ai-heading">
+      <h2 id="ai-heading">4. AI 层：Attention + Summary</h2>
+      <p>多数交易系统把 AI 当信号生成器。Attention 智能体不生成交易想法 — 它监视操作者。</p>
+      <p>它对照操作者自己的 Journal 基线对实时行为打分：亏损后仓位漂移、入场频率尖峰、持仓时间压缩、状态错配、信念–结果背离、会话模式变化。偏差发出类型化总线事件。Haiku 做实时打分；仅在异常确认且请求上下文时，Sonnet 才生成叙述解释。</p>
+      <p>Summary 智能体将跨智能体状态综合为会话报告、绩效归因、行为摘要与组合风险快照 — 是集体状态的读取层，而非第二研究引擎。</p>
+    </section>
+
+    <section class="case-section" id="risk-plane" aria-labelledby="risk-heading">
+      <h2 id="risk-heading">5. 7 项检查风险平面</h2>
+      <p>风险不是仪表盘 — 是闸门。每笔交易执行前经过七项检查。任一项失败即阻断。平面设计为<strong>无随意绕过</strong>；若有例外，需可审计路径 — 而非当下的覆盖按钮。</p>
+      <figure class="exhibit" aria-labelledby="risk-caption">
+        <figcaption id="risk-caption" class="exhibit-label">七项检查</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">检查</th><th scope="col">强制内容</th><th scope="col">存在原因</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>日亏损上限</td><td>24h 滚动窗口最大亏损</td><td>阻止糟糕早晨后的报复交易</td></tr>
+              <tr><td>周回撤</td><td>相对周高水位最大回撤</td><td>捕捉日上限漏掉的慢出血</td></tr>
+              <tr><td>Kelly 仓位</td><td>分数 Kelly（0.25–0.5×）</td><td>仓位来自优势数学，而非直觉</td></tr>
+              <tr><td>最大仓位数</td><td>硬并发仓位上限</td><td>防止虚假分散</td></tr>
+              <tr><td>相关性</td><td>跨仓相关检查</td><td>阻止换名的同一押注</td></tr>
+              <tr><td>止损</td><td>每仓强制止损</td><td>无未定义退出</td></tr>
+              <tr><td>会话检查</td><td>时长 / 疲劳强制</td><td>无凌晨 3 点“凭感觉”交易</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+      <p>Kelly 输入来自操作者按 setup 类型的 Journal 历史。Portfolio 智能体的 Monte Carlo 在批准新仓前建模组合尾部风险 — 捕捉各自安全但共同暴露于同一宏观因子的五条腿。</p>
+    </section>
+
+    <section class="case-section" id="build-orchestrator" aria-labelledby="build-heading">
+      <h2 id="build-heading">6. 构建编排器：43 任务部署 DAG</h2>
+      <p>开发与部署使用 43 任务 DAG：依赖解析、API 限流自动恢复、每节点检查点、按任务类型的多模型路由（Haiku / Sonnet / Opus），以及按智能体回滚，使失败部署不拖垮全系统。</p>
+    </section>
+
+    <section class="case-section" id="wallet-decay" aria-labelledby="decay-heading">
+      <h2 id="decay-heading">7. 钱包衰减诊断</h2>
+      <p>资金费、手续费、滑点与舍入造成逐笔看似噪声的慢出血。Wallet Decay 智能体每 15 分钟核对期望与实际余额，并将侵蚀归因于资金费、手续费、滑点或舍入 — 让不可见的资本衰减可见。</p>
+    </section>
+
+    <section class="case-section" id="journal" aria-labelledby="journal-heading">
+      <h2 id="journal-heading">8. 自动日志：29 字段</h2>
+      <p>系统从交易所数据自动填充 <strong>29 字段中的 22 个</strong>，留下 <strong>4 个手动交易前</strong> 与 <strong>3 个手动交易后</strong> 输入（22 + 4 + 3 = 29）。Attention 字段与 TradingView 图表链接是<strong>叠加层</strong> — 不会计入使日志膨胀到 33 的加法。</p>
+      <p>从不展示绝对美元金额 — 仅百分比、ROE 与 R 倍数。对预测市场，<strong>校准分数</strong>跟踪陈述置信度与结果随时间的匹配。该分数在公开预测市场终端中很少被当作一等指标。</p>
+    </section>
+
+    <section class="case-section" id="layers" aria-labelledby="layers-heading">
+      <h2 id="layers-heading">9. 四层分离</h2>
+      <p>严格仅向下依赖：</p>
+      <ul class="case-list">
+        <li><strong>Orchestrator</strong> — 智能体协调、事件路由、工作流</li>
+        <li><strong>Integrity</strong> — 哈希链审计日志、死人开关、紧急开关</li>
+        <li><strong>Observability</strong> — BetterStack、Retool、Summary 智能体</li>
+        <li><strong>Security</strong> — 只读密钥、命名空间事件、按智能体权限</li>
+      </ul>
+      <p>每个决策与风险检查落入仅追加的 SHA-256 哈希链日志。紧急开关（手动平仓）与死人开关（心跳缺失 → 安全模式）保持分离，使一种失败模式无法同时抹掉两层保护。</p>
+    </section>
+
+    <section class="case-section" id="moats" aria-labelledby="moats-heading">
+      <h2 id="moats-heading">10. 复合优势</h2>
+      <figure class="exhibit" aria-labelledby="moats-caption">
+        <figcaption id="moats-caption" class="exhibit-label">对本金-only 操作者复合的内容</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">优势</th><th scope="col">是什么</th><th scope="col">为何复合</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>行为数据集</td><td>29 字段日志 + AI 叠加</td><td>新栈没有的个性化历史</td></tr>
+              <tr><td>预测市场一等设计</td><td>校准分数、结算跟踪</td><td>公开终端很少原生对待 PM 场所</td></tr>
+              <tr><td>风险平面即基础设施</td><td>7 项强制 API，非仪表盘</td><td>可分离的强制层</td></tr>
+              <tr><td>反馈环</td><td>Journal ↔ Attention ↔ Summary</td><td>每笔交易更懂该操作者</td></tr>
+              <tr><td>审计完整性</td><td>哈希链日志 + 分层安全</td><td>对本金的防篡改记录</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="qa" aria-labelledby="qa-heading">
+      <h2 id="qa-heading">11. QA — 目标运营纪律</h2>
+      <p>目标节奏（非声称每项实践已按月仪式化）：每次部署的单元+集成测试、发布前回归套件、混沌工程（目标每月）、渗透测试（目标每季），以及经 GitHub Actions 的按智能体回滚 CI/CD。</p>
+    </section>
+
+    <section class="case-section" id="takeaways" aria-labelledby="takeaways-heading">
+      <h2 id="takeaways-heading">12. 关键要点</h2>
+      <p><strong>关于定位：</strong> Guardrail 是仅本金的 SFO — 非客户基金、非 LP 载体。案例展示使自主配置可强制执行的基础设施。</p>
+      <p><strong>关于风险工程：</strong> 风险仪表盘报告损害。风险闸门阻止损害。随意覆盖把闸门变成意见箱。</p>
+      <p><strong>关于 AI：</strong> Attention 监视交易者，而非市场。Alpha 损失常来自好策略在压力下执行糟糕。</p>
+      <p><strong>关于领域广度：</strong> 交付过 DeFi 协议产品工作的同一人，也构建系统性交易基础设施 — 不同领域，同样的“风险即接口”直觉。</p>
+      <p class="exhibit-note">栈：TypeScript · Bun · Redis (pub/sub) · BullMQ · PostgreSQL · Hyperliquid SDK · Polymarket API · Claude API (Haiku/Sonnet) · BetterStack · Retool · GitHub Actions · TradingView</p>
+    </section>
+
+    <section class="case-section" id="sources" aria-labelledby="sources-heading">
+      <h2 id="sources-heading">来源</h2>
+      <ul class="case-list">
+        <li><a href="https://guardrail.fund" target="_blank" rel="noopener noreferrer">guardrail.fund</a> — 权威公开定位（SFO、仅本金、起始、使命）</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    Vinay Kumar · 2026
+  </footer>
+</body>
+</html>
