@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hashstack 案例研究 — Vinay Kumar</title>
+  <meta name="description" content="我如何在 Starknet 上构建自主不足额抵押借贷 — Degen Mode、DIAL 与结构化关停。">
+  <meta property="og:title" content="Hashstack 案例研究 — Vinay Kumar">
+  <meta property="og:description" content="自主不足额抵押借贷 — 协议设计、Degen Mode、DIAL 与关停。">
+  <meta property="og:url" content="https://v9hstk.github.io/zh/hashstack.html">
+  <meta property="og:image" content="https://v9hstk.github.io/og.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hashstack 案例研究 — Vinay Kumar">
+  <meta name="twitter:description" content="自主不足额抵押借贷 — 协议设计、Degen Mode、DIAL 与关停。">
+  <meta name="twitter:image" content="https://v9hstk.github.io/og.png">
+  <link rel="alternate" hreflang="en" href="https://v9hstk.github.io/hashstack.html">
+  <link rel="alternate" hreflang="ko" href="https://v9hstk.github.io/ko/hashstack.html">
+  <link rel="alternate" hreflang="ja" href="https://v9hstk.github.io/ja/hashstack.html">
+  <link rel="alternate" hreflang="de" href="https://v9hstk.github.io/de/hashstack.html">
+  <link rel="alternate" hreflang="zh-Hans" href="https://v9hstk.github.io/zh/hashstack.html">
+  <link rel="alternate" hreflang="ar" href="https://v9hstk.github.io/ar/hashstack.html">
+  <link rel="alternate" hreflang="x-default" href="https://v9hstk.github.io/hashstack.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@360;400;500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script>!function(){var s=sessionStorage.getItem("theme");document.documentElement.setAttribute("data-theme",s||"light")}();</script>
+  <script src="../js/theme.js" defer></script>
+  <script src="../js/lang.js" defer></script>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="back-link" href="index.html">← 返回</a>
+    <div class="header-actions">
+    <div class="lang-switch">
+      <label class="visually-hidden" for="lang-select">Language</label>
+      <select id="lang-select" class="lang-select" aria-label="Language">
+        <option value="en" lang="en">EN</option>
+        <option value="ko" lang="ko">KOR</option>
+        <option value="ja" lang="ja">JP</option>
+        <option value="de" lang="de">DE</option>
+        <option value="zh" lang="zh" selected>ZH</option>
+        <option value="ar" lang="ar">AR</option>
+      </select>
+    </div>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="切换深色模式">
+        <span class="icon-sun" aria-hidden="true">☀</span>
+        <span class="icon-moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="case-study">
+<header class="case-hero">
+      <h1>我如何构建自主不足额抵押借贷 — 以及何时选择关停</h1>
+      <p class="subtitle">Hashstack Finance · Founder &amp; Product Lead · 2020–2026</p>
+    </header>
+
+    <section class="case-section" id="executive-summary" aria-labelledby="exec-heading">
+      <h2 id="exec-heading">概述</h2>
+      <p>我创立了 Hashstack Finance，一个在 Starknet L2 上实现不足额抵押借贷的 DeFi 借贷协议，无需信贷委员会、白名单或机构守门。协议用智能合约约束自主管理风险 — 该类别中其他参与者都依赖人工信用评估。</p>
+      <p>两项产品创新 — <strong>Degen Mode</strong>（一键杠杆执行）与 <strong>DIAL</strong>（定制利率算法）— 在拥挤市场中展现了原创产品思维。我带领协议从创立到 2026 年结构化关停。用户资金已返还且仍可提取；协议界面迁至 GitHub Pages，以近乎零运营成本维持提款。</p>
+    </section>
+
+    <section class="case-section" id="industry-context" aria-labelledby="industry-heading">
+      <h2 id="industry-heading">1. 行业背景：2020 年的 DeFi 借贷</h2>
+      <p>去中心化借贷是 DeFi 最大板块之一。用户存入加密资产作抵押、借贷并支付利息 — 类似银行贷款，但由智能合约执行、无需银行。</p>
+      <p>主导协议 — Aave、Compound、MakerDAO — 都要求超额抵押。借 $75 需存 $100。这保护了协议，却造成资本效率问题。</p>
+      <p>到 2020 年，该模式达到 $10B+ TVL。它有效，但把巨额资本锁在非生产性抵押仓位中。</p>
+
+      <figure class="exhibit" aria-labelledby="market-caption">
+        <figcaption id="market-caption" class="exhibit-label">市场定位</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">集群</th><th scope="col">协议</th><th scope="col">资本效率</th><th scope="col">风险模型</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>保守</td><td>Aave, Compound, Maker</td><td>低</td><td>超额抵押</td></tr>
+              <tr><td>中档</td><td>TrueFi, Maple</td><td>中</td><td>信用评估</td></tr>
+              <tr><td><strong>Hashstack</strong></td><td><strong>Hashstack</strong></td><td><strong>高</strong></td><td><strong>算法管理</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="the-thesis" aria-labelledby="thesis-heading">
+      <h2 id="thesis-heading">2. 论点：自主不足额抵押借贷</h2>
+      <p>在 Hashstack 之前已有协议尝试不足额抵押借贷。差别在于风险管理方式。</p>
+
+      <figure class="exhibit" aria-labelledby="thesis-caption">
+        <figcaption id="thesis-caption" class="exhibit-label">不足额抵押借贷路径</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">协议</th><th scope="col">模型</th><th scope="col">守门人</th><th scope="col">借款人</th><th scope="col">资本约束</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>TrueFi</td><td>信用评估</td><td>人工信贷委员会</td><td>仅限机构</td><td>无 — 可自由提取</td></tr>
+              <tr><td>Maple</td><td>信用评估</td><td>人工资金池代表</td><td>仅限机构</td><td>无 — 可自由提取</td></tr>
+              <tr><td>Goldfinch</td><td>信用评估</td><td>人工审计员</td><td>实体企业</td><td>链下使用</td></tr>
+              <tr><td><strong>Hashstack</strong></td><td><strong>自主</strong></td><td><strong>智能合约</strong></td><td><strong>任何人（无需许可）</strong></td><td><strong>仅限协议内部署</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <p>我的论点是：若借入资本被约束在协议集成生态的批准部署通道内，不足额抵押借贷可不靠人工守门。智能合约强制偿付能力 — 无信贷委员会、无白名单、无机构专属准入。</p>
+      <p>这与所有借贷背后的抵押-准入权衡相同。Hashstack 的答案是：最大杠杆、最小提款。</p>
+    </section>
+
+    <section class="case-section" id="product-evolution" aria-labelledby="evolution-heading">
+      <h2 id="evolution-heading">3. 产品演进：V1 到 V2</h2>
+      <p>协议发布了两个版本，各自代表不同的风险校准。</p>
+
+      <figure class="exhibit" aria-labelledby="evolution-caption">
+        <figcaption id="evolution-caption" class="exhibit-label">V1 → V2 / Degen Mode</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">维度</th><th scope="col">V1（初始）</th><th scope="col">V2 / Degen Mode（最终）</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>最大杠杆</td><td>抵押的 3×</td><td>抵押的 5×</td></tr>
+              <tr><td>资本提取</td><td>最高抵押价值的 70%</td><td>零 — 完全约束</td></tr>
+              <tr><td>借款金额</td><td>可变</td><td>固定 $5,000</td></tr>
+              <tr><td>风险哲学</td><td>保守 — 测试市场</td><td>大胆 — 更紧约束、更多准入</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <p>V1 模型以 $100 抵押最多借 $300，其中 $70 可提取、$230 作为平台内交易资本部署。</p>
+      <p>V2 将杠杆从 3× 提到 5×，并完全取消提款 — 可部署资本更多，没有只制造风险而无用户价值的逃生口。超过 $1,000 最低供给的额外供给会自动降低杠杆（例：$2,500 存款 → 2.5× 而非 5×）。</p>
+      <p><strong>洞察：</strong>放松杠杆与收紧约束可以同时发生。约束即产品。</p>
+    </section>
+
+    <section class="case-section" id="degen-mode" aria-labelledby="degen-heading">
+      <h2 id="degen-heading">4. Degen Mode：一键杠杆收益</h2>
+
+      <h3>问题</h3>
+      <p>DeFi 中手动杠杆收益需要选池、算比例、借贷、兑换、提供 LP — 每步都有 gas、滑点与错误风险。多数用户缺乏专业能力或耐心。</p>
+
+      <h3>产品决策</h3>
+      <p>Degen Mode 将该序列抽象为一键：排名策略（回报、APR、深度）、选择、Execute — 协议原子化处理其余步骤。</p>
+
+      <h3>用户流程</h3>
+      <ol class="case-list">
+        <li>以单一资产供给 $1,000+</li>
+        <li>打开 Degen 标签 — 显示带预估 APR 与风险的策略</li>
+        <li>选择策略，点击 Execute</li>
+        <li>协议自动借入 $5,000 并在一笔交易中部署</li>
+        <li>在 Your Borrow 跟踪结果</li>
+      </ol>
+
+      <figure class="exhibit" aria-labelledby="degen-decisions-caption">
+        <figcaption id="degen-decisions-caption" class="exhibit-label">设计决策</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">决策</th><th scope="col">考虑选项</th><th scope="col">选择</th><th scope="col">理由</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>最低供给</td><td>$100 / $500 / $1,000</td><td>$1,000</td><td>低于此水平，杠杆风险超过收益</td></tr>
+              <tr><td>借款金额</td><td>可变 / Fixed</td><td>固定 $5,000</td><td>标准化风险；可预测的策略定价</td></tr>
+              <tr><td>策略选择</td><td>用户配置 / 协议策展</td><td>协议策展</td><td>减少错误；协议拥有风险面</td></tr>
+              <tr><td>资本约束</td><td>部分提款 / 完全锁定</td><td>完全锁定</td><td>偿付能力需要约束</td></tr>
+              <tr><td>额外供给</td><td>增加借款 / 降低杠杆</td><td>降低杠杆</td><td>无需用户教育即可自我降险</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <p>将多步金融折叠为单一结果的同一抽象模式，同样适用于 DeFi 之外。</p>
+      <p><a href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">Degen Mode 文档 →</a></p>
+    </section>
+
+    <section class="case-section" id="interest-rate-design" aria-labelledby="irm-heading">
+      <h2 id="irm-heading">5. 利率设计：大胆构想，简单交付</h2>
+      <p>Aave 与 Compound 使用由瞬时利用率导出的单一浮动利率。Hashstack 需要承诺期（2 周、1 个月、3 个月），锁定期越长 APR 越高 — 本质不同的利率模型。</p>
+
+      <h3>DIAL：研发版本</h3>
+      <p>我设计了 DIAL（Dynamic Interest Algorithm for Lending），含期限结构定价、有界利率、基于 keccak256 的防操纵采样与多层会计。它探索了承诺型利率模型的完整设计空间。</p>
+      <p><strong>未能在生产中存活的：</strong>非确定性利率伤害集成方；管理员触发更新在流动性紧张时过慢；多层随机化把审计成本推高到 TVL 无法支撑。</p>
+
+      <h3>生产决策</h3>
+      <p>在 V1 测试网（2023 年 7 月），我将模型演进为 kinked utilization 曲线 — 保留 DIAL 核心洞察并削减复杂度。</p>
+
+      <figure class="exhibit" aria-labelledby="irm-caption">
+        <figcaption id="irm-caption" class="exhibit-label">DIAL (R&amp;D) → Production Kink</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">维度</th><th scope="col">DIAL (R&amp;D)</th><th scope="col">Production Kink</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>利率更新</td><td>管理员触发、周期性</td><td>连续、确定性</td></tr>
+              <tr><td>危机响应</td><td>慢（管理员节奏）</td><td>即时（陡峭 kink 后斜率）</td></tr>
+              <tr><td>可审计性</td><td>较低（复杂求解器）</td><td>较高（标准曲线）</td></tr>
+              <tr><td>最优利用率</td><td>区间制</td><td>90%</td></tr>
+            </tbody>
+          </table>
+          <p class="exhibit-note">来源: <a href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">DIAL (Wayback)</a> · <a href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">Production IRM</a> · <a href="https://hashstack.medium.com/hashstack-v1-public-testnet-is-here-d617a18f2d23" target="_blank" rel="noopener noreferrer">V1 testnet</a>.</p>
+        </div>
+      </figure>
+
+      <p><strong>DIAL 保留下来的：</strong>期限溢价概念、有界利率哲学、供给/借款现金流同一性、防操纵意图。</p>
+      <p><strong>被砍掉的：</strong>伪随机采样、多层求解器、管理员触发更新、硬利率上限。</p>
+      <p>生产参数：0% 利用率时 base 2%；90% 时 20%；满利用率时 100%。</p>
+    </section>
+
+    <section class="case-section" id="protocol-metrics" aria-labelledby="metrics-heading">
+      <h2 id="metrics-heading">6. 协议指标</h2>
+
+      <figure class="exhibit" aria-labelledby="metrics-caption">
+        <figcaption id="metrics-caption" class="exhibit-label">数字看 Hashstack</figcaption>
+        <div class="exhibit-body">
+          <table class="metrics-table exhibit-metrics">
+            <tbody>
+              <tr><th scope="row">募集资本</th><td>$1M 种子轮 + 额外私募</td></tr>
+              <tr><th scope="row">链上用户</th><td>36,000<span class="asterisk" title="Operator metric">*</span></td></tr>
+              <tr><th scope="row">每用户成本</th><td>$55<span class="asterisk" title="Operator metric">*</span> （基准：多数 DeFi 协议为 $200–500+）</td></tr>
+              <tr><th scope="row">平均资产利用率</th><td>61%<span class="asterisk" title="Operator metric">*</span> （基准：Aave 级账簿通常 30–50%）</td></tr>
+              <tr><th scope="row">首年收入</th><td>$56K+<span class="asterisk" title="Operator metric">*</span></td></tr>
+              <tr><th scope="row">工程团队</th><td>16<span class="asterisk" title="Operator metric">*</span> （属于较大的 Starknet 团队）</td></tr>
+              <tr><th scope="row">生态资助</th><td>180K STRK + $50K Harmony (~$230K+ total)<span class="asterisk" title="USD conversion approximate">*</span></td></tr>
+              <tr><th scope="row">协议集成</th><td>7 — Aave, Chainlink, Herodotus, ZKLend, Myswap, Jediswap, Chainstack</td></tr>
+              <tr><th scope="row">安全</th><td>CertiK 审计 — <a href="../assets/certik_report.pdf" target="_blank" rel="noopener noreferrer">report</a></td></tr>
+              <tr><th scope="row">标准</th><td>Authored proposed <a href="https://github.com/ethereum/EIPs/pull/5299" target="_blank" rel="noopener noreferrer">EIP-5299</a></td></tr>
+              <tr><th scope="row">Token</th><td>在 Uniswap（<a href="https://etherscan.io/token/0xF38774A034F5F533D7F9E2ba6b7f3a7542714fA9" target="_blank" rel="noopener noreferrer">Ethereum</a>）+ Ekubo（<a href="https://voyager.online/token/0x02e8f2e80fab8239b234c125ee1a68d522718e1d698c214ac85d1f48407349c9" target="_blank" rel="noopener noreferrer">Starknet</a>）上市</td></tr>
+              <tr><th scope="row">TVL</th><td>追踪于 <a href="https://defillama.com/protocol/hashstack" target="_blank" rel="noopener noreferrer">DefiLlama</a></td></tr>
+            </tbody>
+          </table>
+          <p class="exhibit-footnote"><span class="asterisk">*</span> 运营指标（内部）— 未经独立审计。</p>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="starknet-bet" aria-labelledby="starknet-heading">
+      <h2 id="starknet-heading">7. 平台押注：Starknet</h2>
+      <p>我于 2022 年 8 月将 Hashstack 迁至 Starknet，因 ZK 证明成本优势、Cairo 对清算逻辑的形式验证特性，以及生态资助支持。</p>
+      <p>技术论点得到验证 — 协议在 Starknet 上运行，CertiK 通过审计，利用率高于行业基准。Cairo 的形式验证对清算逻辑确有优势。挑战是 Hashstack 特有的：精干团队同时做完整 Cairo 迁移与产品迭代，跑道不足以把两件事都做好。</p>
+      <p>Source: <a href="https://hashstack.medium.com/announcing-hashstacks-switch-to-starknet-58287942574d" target="_blank" rel="noopener noreferrer">Starknet 迁移公告</a>.</p>
+
+      <figure class="exhibit" aria-labelledby="timeline-caption">
+        <figcaption id="timeline-caption" class="exhibit-label">决策时间线</figcaption>
+        <div class="exhibit-body">
+          <ol class="exhibit-timeline">
+            <li><span class="timeline-date">2020</span> 创立 Hashstack</li>
+            <li><span class="timeline-date">2022</span> 迁至 Starknet · Token 2049 · Authored proposed EIP-5299</li>
+            <li><span class="timeline-date">2023</span> V1 测试网（DIAL → kink 模型）· CertiK 审计 · 生态资助</li>
+            <li><span class="timeline-date">2024</span> Degen Mode · 运营高峰</li>
+            <li><span class="timeline-date">2025</span> Cairo 1.0 弃用 · Base 测试网（EVM 可移植性证明）</li>
+            <li><span class="timeline-date">2026</span> 迁移 ROI 为负 → 结构化关停</li>
+          </ol>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="wind-down" aria-labelledby="winddown-heading">
+      <h2 id="winddown-heading">8. 关停决策</h2>
+      <p><strong>触发：</strong>Cairo 1.0 弃用要求完整迁移或退出。</p>
+
+      <figure class="exhibit" aria-labelledby="winddown-caption">
+        <figcaption id="winddown-caption" class="exhibit-label">评估</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr>
+                <th scope="col">因素</th>
+                <th scope="col">继续留在 Starknet</th>
+                <th scope="col">迁至 Base/EVM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>工程成本</td><td>完整 Cairo 迁移</td><td>中等（Solidity 移植）</td></tr>
+              <tr><td>团队容量</td><td>精干团队分散在迁移 + 产品</td><td>相同约束，不同技术栈</td></tr>
+              <tr><td>上市时间</td><td>6–9 个月迁移</td><td>落后于既有协议</td></tr>
+              <tr><td>跑道现实</td><td>迁移成本超过剩余跑道</td><td>拥挤市场的后进入者</td></tr>
+              <tr><td>结论</td><td>资源约束，而非平台约束</td><td>窗口已关闭</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <p><strong>决策：</strong>结构化关停。用户资金已返还且仍可提取。协议网站/界面迁至 GitHub Pages，在需要期间以近乎零运营成本保持可用。</p>
+      <p>关停从零构建的协议，比启动更难。跑道无法同时支撑迁移与增长，我也不会假装可以而烧掉资本或用户信任。</p>
+    </section>
+
+    <section class="case-section" id="differently" aria-labelledby="differently-heading">
+      <h2 id="differently-heading">9. 若重来我会怎样</h2>
+      <p><strong>在重大迁移前筹集更多资金。</strong>Cairo 迁移技术上正确，但我们以适合产品迭代而非完整重写的团队与跑道迎战。我会预先锁定专项迁移资金。</p>
+      <p><strong>从第一天就交付 kink 模型。</strong>DIAL 是有价值的研发，但推迟了真正有效的利率模型。教训：在模拟中探索设计空间，而非在生产架构中。</p>
+      <p><strong>为并行轨道配置团队资源。</strong>Hashstack 的产品论点成立 — 利用率、用户与自主模型都有效。缺口是在精干团队上同时跑迁移、产品迭代与增长。若资源充足，结果可能不同。</p>
+    </section>
+
+    <section class="case-section" id="sources" aria-labelledby="sources-heading">
+      <h2 id="sources-heading">来源</h2>
+      <ul class="case-list">
+        <li><a href="https://docs.hashstack.finance" target="_blank" rel="noopener noreferrer">Hashstack Docs</a></li>
+        <li><a href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">Degen Mode</a></li>
+        <li><a href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">DIAL (Wayback)</a></li>
+        <li><a href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">Production IRM</a></li>
+        <li><a href="https://defillama.com/protocol/hashstack" target="_blank" rel="noopener noreferrer">DefiLlama</a></li>
+        <li><a href="https://hashstack.medium.com/announcing-hashstacks-switch-to-starknet-58287942574d" target="_blank" rel="noopener noreferrer">Starknet migration</a></li>
+        <li><a href="https://etherscan.io/token/0xF38774A034F5F533D7F9E2ba6b7f3a7542714fA9" target="_blank" rel="noopener noreferrer">HSTK · Ethereum (Etherscan)</a></li>
+        <li><a href="https://voyager.online/token/0x02e8f2e80fab8239b234c125ee1a68d522718e1d698c214ac85d1f48407349c9" target="_blank" rel="noopener noreferrer">HSTK · Starknet (Voyager)</a></li>
+        <li><a href="https://github.com/ethereum/EIPs/pull/5299" target="_blank" rel="noopener noreferrer">EIP-5299 (GitHub PR)</a></li>
+        <li><a href="https://ethereum-magicians.org/t/eip-5299-layer3-scaling-standard/9039" target="_blank" rel="noopener noreferrer">Ethereum Magicians</a></li>
+        <li><a href="../assets/certik_report.pdf" target="_blank" rel="noopener noreferrer">CertiK report</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    Vinay Kumar · 2026
+  </footer>
+</body>
+</html>

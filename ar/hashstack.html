@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>دراسة حالة Hashstack — Vinay Kumar</title>
+  <meta name="description" content="كيف بنيت إقراضًا ذاتيًا بضمان ناقص على Starknet — Degen Mode وDIAL وإغلاق منظم.">
+  <meta property="og:title" content="دراسة حالة Hashstack — Vinay Kumar">
+  <meta property="og:description" content="إقراض ذاتي بضمان ناقص — تصميم البروتوكول وDegen Mode وDIAL والإغلاق.">
+  <meta property="og:url" content="https://v9hstk.github.io/ar/hashstack.html">
+  <meta property="og:image" content="https://v9hstk.github.io/og.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ar_SA">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="دراسة حالة Hashstack — Vinay Kumar">
+  <meta name="twitter:description" content="إقراض ذاتي بضمان ناقص — تصميم البروتوكول وDegen Mode وDIAL والإغلاق.">
+  <meta name="twitter:image" content="https://v9hstk.github.io/og.png">
+  <link rel="alternate" hreflang="en" href="https://v9hstk.github.io/hashstack.html">
+  <link rel="alternate" hreflang="ko" href="https://v9hstk.github.io/ko/hashstack.html">
+  <link rel="alternate" hreflang="ja" href="https://v9hstk.github.io/ja/hashstack.html">
+  <link rel="alternate" hreflang="de" href="https://v9hstk.github.io/de/hashstack.html">
+  <link rel="alternate" hreflang="zh-Hans" href="https://v9hstk.github.io/zh/hashstack.html">
+  <link rel="alternate" hreflang="ar" href="https://v9hstk.github.io/ar/hashstack.html">
+  <link rel="alternate" hreflang="x-default" href="https://v9hstk.github.io/hashstack.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@360;400;500;600;700&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script>!function(){var s=sessionStorage.getItem("theme");document.documentElement.setAttribute("data-theme",s||"light")}();</script>
+  <script src="../js/theme.js" defer></script>
+  <script src="../js/lang.js" defer></script>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="back-link" href="index.html">العودة →</a>
+    <div class="header-actions">
+    <div class="lang-switch">
+      <label class="visually-hidden" for="lang-select">Language</label>
+      <select id="lang-select" class="lang-select" aria-label="Language">
+        <option value="en" lang="en">EN</option>
+        <option value="ko" lang="ko">KOR</option>
+        <option value="ja" lang="ja">JP</option>
+        <option value="de" lang="de">DE</option>
+        <option value="zh" lang="zh">ZH</option>
+        <option value="ar" lang="ar" selected>AR</option>
+      </select>
+    </div>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="تبديل الوضع الداكن">
+        <span class="icon-sun" aria-hidden="true">☀</span>
+        <span class="icon-moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="case-study">
+<header class="case-hero">
+      <h1>كيف بنيت إقراضًا ذاتيًا بضمان ناقص — ومتى اخترت إغلاقه</h1>
+      <p class="subtitle">Hashstack Finance · Founder &amp; Product Lead · 2020–2026</p>
+    </header>
+
+    <section class="case-section" id="executive-summary" aria-labelledby="exec-heading">
+      <h2 id="exec-heading">نظرة عامة</h2>
+      <p>أسّست Hashstack Finance، بروتوكول إقراض DeFi على Starknet L2 أتاح الاقتراض بضمان ناقص دون لجان ائتمان أو قوائم بيضاء أو حراسة مؤسسية. استخدم البروتوكول قيود العقود الذكية لإدارة المخاطر ذاتيًا — فئة اعتمد فيها الجميع على التقييم الائتماني البشري.</p>
+      <p>ابتكاران للمنتج — <strong>Degen Mode</strong> (تنفيذ برافعة بنقرة واحدة) و<strong>DIAL</strong> (خوارزمية معدل مخصصة) — أظهرا تفكير منتج أصيل في سوق مزدحم. قدت البروتوكول من التأسيس حتى إغلاق منظم في 2026. أُعيدت أموال المستخدمين وتبقى قابلة للسحب؛ نُقلت واجهة البروتوكول إلى GitHub Pages ليبقى السحب متاحًا بتكلفة تشغيل شبه صفرية.</p>
+    </section>
+
+    <section class="case-section" id="industry-context" aria-labelledby="industry-heading">
+      <h2 id="industry-heading">1. سياق الصناعة: إقراض DeFi في 2020</h2>
+      <p>الإقراض اللامركزي من أكبر قطاعات DeFi. يودع المستخدمون أصولًا مشفرة كضمان ويقترضون ويدفعون فائدة — كقرض بنكي لكن تنفّذه العقود الذكية بلا بنك.</p>
+      <p>البروتوكولات المهيمنة — Aave وCompound وMakerDAO — تتطلب كلها ضمانًا زائدًا. لاقتراض $75 يجب إيداع $100. يحمي ذلك البروتوكول لكنه يخلق مشكلة كفاءة رأس المال.</p>
+      <p>بحلول 2020 وصل هذا النموذج إلى $10B+ من TVL. عمل، لكنه حبس رأس مال هائل في مراكز ضمان غير منتجة.</p>
+
+      <figure class="exhibit" aria-labelledby="market-caption">
+        <figcaption id="market-caption" class="exhibit-label">الموقع في السوق</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">المجموعة</th><th scope="col">البروتوكولات</th><th scope="col">كفاءة رأس المال</th><th scope="col">نموذج المخاطر</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>محافظ</td><td>Aave, Compound, Maker</td><td>منخفض</td><td>ضمان زائد</td></tr>
+              <tr><td>وسط</td><td>TrueFi, Maple</td><td>متوسط</td><td>تقييم ائتماني</td></tr>
+              <tr><td><strong>Hashstack</strong></td><td><strong>Hashstack</strong></td><td><strong>مرتفع</strong></td><td><strong>إدارة خوارزمية</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="the-thesis" aria-labelledby="thesis-heading">
+      <h2 id="thesis-heading">2. الأطروحة: إقراض ذاتي بضمان ناقص</h2>
+      <p>حاولت بروتوكولات عدة الإقراض بضمان ناقص قبل Hashstack. الفرق كان في إدارة المخاطر.</p>
+
+      <figure class="exhibit" aria-labelledby="thesis-caption">
+        <figcaption id="thesis-caption" class="exhibit-label">مقاربات الإقراض بضمان ناقص</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">البروتوكول</th><th scope="col">النموذج</th><th scope="col">الحارس</th><th scope="col">المقترض</th><th scope="col">قيد رأس المال</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>TrueFi</td><td>تقييم ائتماني</td><td>لجنة ائتمان بشرية</td><td>مؤسسات فقط</td><td>لا شيء — سحب حر</td></tr>
+              <tr><td>Maple</td><td>تقييم ائتماني</td><td>مندوبو مجمع بشريون</td><td>مؤسسات فقط</td><td>لا شيء — سحب حر</td></tr>
+              <tr><td>Goldfinch</td><td>تقييم ائتماني</td><td>مدققون بشريون</td><td>أعمال واقعية</td><td>استخدام خارج السلسلة</td></tr>
+              <tr><td><strong>Hashstack</strong></td><td><strong>ذاتي</strong></td><td><strong>عقد ذكي</strong></td><td><strong>أي شخص (بلا إذن)</strong></td><td><strong>نشر داخل البروتوكول فقط</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <p>كانت أطروحتي أن الإقراض بضمان ناقص يمكن أن يعمل بلا حراسة بشرية إذا قُيّد رأس المال المقترض بقنوات نشر معتمدة داخل منظومة البروتوكول. فرض العقد الذكي الملاءة — بلا لجنة ائتمان أو قائمة بيضاء أو وصول للمؤسسات فقط.</p>
+      <p>هذه نفس مقايضة الضمان مقابل الوصول في كل إقراض. إجابة Hashstack: أقصى رافعة وأدنى سحب.</p>
+    </section>
+
+    <section class="case-section" id="product-evolution" aria-labelledby="evolution-heading">
+      <h2 id="evolution-heading">3. تطور المنتج: من V1 إلى V2</h2>
+      <p>أطلق البروتوكول نسختين، كل منهما بمعايرة مخاطر مختلفة.</p>
+
+      <figure class="exhibit" aria-labelledby="evolution-caption">
+        <figcaption id="evolution-caption" class="exhibit-label">V1 → V2 / Degen Mode</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">البعد</th><th scope="col">V1 (أولي)</th><th scope="col">V2 / Degen Mode (نهائي)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>أقصى رافعة</td><td>3× من الضمان</td><td>5× من الضمان</td></tr>
+              <tr><td>سحب رأس المال</td><td>حتى 70% من قيمة الضمان</td><td>صفر — مقيد بالكامل</td></tr>
+              <tr><td>مبلغ الاقتراض</td><td>متغير</td><td>ثابت $5,000</td></tr>
+              <tr><td>فلسفة المخاطر</td><td>محافظ — اختبار السوق</td><td>جريء — احتواء أشد ووصول أكبر</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <p>سمح نموذج V1 باقتراض حتى $300 مقابل ضمان $100، مع $70 قابلة للسحب و$230 كرأس مال تداول داخل المنصة.</p>
+      <p>رفع V2 الرافعة من 3× إلى 5× وأزال السحب بالكامل — رأس مال أكبر للنشر بلا مخرج يخلق مخاطر بلا قيمة للمستخدم. العرض فوق حد $1,000 خفّض الرافعة تلقائيًا (مثل إيداع $2,500 → 2.5× بدل 5×).</p>
+      <p><strong>البصيرة:</strong> تخفيف الرافعة وتشديد الاحتواء يمكن أن يحدثا معًا. القيد هو المنتج.</p>
+    </section>
+
+    <section class="case-section" id="degen-mode" aria-labelledby="degen-heading">
+      <h2 id="degen-heading">4. Degen Mode: عائد برافعة بنقرة واحدة</h2>
+
+      <h3>المشكلة</h3>
+      <p>العائد اليدوي برافعة في DeFi يتطلب اختيار المجمعات وحساب النسب والاقتراض والمبادلة وتوفير LP — كل خطوة بمخاطر الغاز والانزلاق والخطأ. معظم المستخدمين يفتقرون للخبرة أو الصبر.</p>
+
+      <h3>قرار المنتج</h3>
+      <p>جرّد Degen Mode التسلسل كله إلى نقرة: استراتيجيات مرتبة (عوائد، APR، عمق)، اختيار، Execute — والبروتوكول يتولى الباقي ذريًا.</p>
+
+      <h3>تدفق المستخدم</h3>
+      <ol class="case-list">
+        <li>توريد $1,000+ بأصل واحد</li>
+        <li>افتح تبويب Degen — استراتيجيات مع APR تقديري ومخاطر</li>
+        <li>اختر استراتيجية واضغط Execute</li>
+        <li>يقترض البروتوكول $5,000 تلقائيًا وينشرها في معاملة واحدة</li>
+        <li>تتبع النتائج في Your Borrow</li>
+      </ol>
+
+      <figure class="exhibit" aria-labelledby="degen-decisions-caption">
+        <figcaption id="degen-decisions-caption" class="exhibit-label">قرارات التصميم</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">القرار</th><th scope="col">الخيارات المدروسة</th><th scope="col">الاختيار</th><th scope="col">المبرر</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>الحد الأدنى للتوريد</td><td>$100 / $500 / $1,000</td><td>$1,000</td><td>دون ذلك تفوق مخاطر الرافعة الفائدة</td></tr>
+              <tr><td>مبلغ الاقتراض</td><td>متغير / Fixed</td><td>ثابت $5,000</td><td>يوحّد المخاطر؛ تسعير استراتيجيات متوقع</td></tr>
+              <tr><td>اختيار الاستراتيجية</td><td>ضبط المستخدم / انتقاء البروتوكول</td><td>انتقاء البروتوكول</td><td>يقلل الخطأ؛ البروتوكول يملك سطح المخاطر</td></tr>
+              <tr><td>قيد رأس المال</td><td>سحب جزئي / قفل كامل</td><td>قفل كامل</td><td>الملاءة تتطلب احتواء</td></tr>
+              <tr><td>توريد إضافي</td><td>يزيد الاقتراض / يخفض الرافعة</td><td>يخفض الرافعة</td><td>يقلل المخاطر ذاتيًا بلا تعليم للمستخدم</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <p>نفس نمط التجريد — طي التمويل متعدد الخطوات إلى نتيجة واحدة — ينطبق خارج DeFi.</p>
+      <p><a href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">وثائق Degen Mode ←</a></p>
+    </section>
+
+    <section class="case-section" id="interest-rate-design" aria-labelledby="irm-heading">
+      <h2 id="irm-heading">5. تصميم معدل الفائدة: ابنِ بطموح، وانشر ببساطة</h2>
+      <p>يستخدم Aave وCompound معدلًا عائمًا واحدًا لكل أصل من utilization لحظي. احتاج Hashstack فترات التزام (أسبوعان، شهر، ثلاثة أشهر) مع APR أعلى لفترات أطول — نموذج معدل مختلف جوهريًا.</p>
+
+      <h3>DIAL: نسخة البحث والتطوير</h3>
+      <p>صممت DIAL (Dynamic Interest Algorithm for Lending) بتسعير هيكل الأجل ومعدلات محدودة وعيّنة مكافحة تلاعب بـ keccak256 ومحاسبة متعددة الشرائح. استكشف فضاء تصميم نموذج معدل قائم على الالتزام.</p>
+      <p><strong>ما لم يصمد أمام الإنتاج:</strong> المعدلات غير الحتمية أضرت بالمتكاملين، وتحديثات المشرف كانت بطيئة عند ضغط السيولة، والعشوائية متعددة الشرائح رفعت تكلفة التدقيق فوق ما يبرره TVL.</p>
+
+      <h3>قرار الإنتاج</h3>
+      <p>لاختبار V1 (يوليو 2023) طوّرت النموذج إلى منحنى utilization متكسر — مع الإبقاء على بصائر DIAL الجوهرية وقطع التعقيد.</p>
+
+      <figure class="exhibit" aria-labelledby="irm-caption">
+        <figcaption id="irm-caption" class="exhibit-label">DIAL (R&amp;D) → Production Kink</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">البعد</th><th scope="col">DIAL (R&amp;D)</th><th scope="col">Production Kink</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>تحديثات المعدل</td><td>بتفعيل المشرف، دوري</td><td>مستمر، حتمي</td></tr>
+              <tr><td>استجابة الأزمة</td><td>بطيء (إيقاع المشرف)</td><td>فوري (منحدر حاد بعد kink)</td></tr>
+              <tr><td>قابلية التدقيق</td><td>أقل (حلال معقد)</td><td>أعلى (منحنى قياسي)</td></tr>
+              <tr><td>الاستخدام الأمثل</td><td>قائم على نطاق</td><td>90%</td></tr>
+            </tbody>
+          </table>
+          <p class="exhibit-note">المصادر: <a href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">DIAL (Wayback)</a> · <a href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">Production IRM</a> · <a href="https://hashstack.medium.com/hashstack-v1-public-testnet-is-here-d617a18f2d23" target="_blank" rel="noopener noreferrer">V1 testnet</a>.</p>
+        </div>
+      </figure>
+
+      <p><strong>ما بقي من DIAL:</strong> مفهوم علاوة الأجل، فلسفة المعدل المحدود، هوية تدفق العرض/الاقتراض، نية مكافحة التلاعب.</p>
+      <p><strong>ما أُزيل:</strong> عيّنة شبه عشوائية، حلال متعدد الشرائح، تحديثات المشرف، سقوف معدل صلبة.</p>
+      <p>معلمات الإنتاج: base 2% عند utilization 0%؛ 20% عند 90%؛ 100% عند الامتلاء.</p>
+    </section>
+
+    <section class="case-section" id="protocol-metrics" aria-labelledby="metrics-heading">
+      <h2 id="metrics-heading">6. مقاييس البروتوكول</h2>
+
+      <figure class="exhibit" aria-labelledby="metrics-caption">
+        <figcaption id="metrics-caption" class="exhibit-label">Hashstack بالأرقام</figcaption>
+        <div class="exhibit-body">
+          <table class="metrics-table exhibit-metrics">
+            <tbody>
+              <tr><th scope="row">رأس المال المجموع</th><td>$1M بذرة + تمويل خاص إضافي</td></tr>
+              <tr><th scope="row">مستخدمون على السلسلة</th><td>36,000<span class="asterisk" title="Operator metric">*</span></td></tr>
+              <tr><th scope="row">التكلفة لكل مستخدم</th><td>$55<span class="asterisk" title="Operator metric">*</span> (معيار: معظم بروتوكولات DeFi عند $200–500+)</td></tr>
+              <tr><th scope="row">متوسط استخدام الأصول</th><td>61%<span class="asterisk" title="Operator metric">*</span> (معيار: دفاتر فئة Aave عادة 30–50%)</td></tr>
+              <tr><th scope="row">إيراد السنة الأولى</th><td>$56K+<span class="asterisk" title="Operator metric">*</span></td></tr>
+              <tr><th scope="row">فريق الهندسة</th><td>16<span class="asterisk" title="Operator metric">*</span> (من الفرق الأكبر على Starknet)</td></tr>
+              <tr><th scope="row">منح المنظومة</th><td>180K STRK + $50K Harmony (~$230K+ total)<span class="asterisk" title="USD conversion approximate">*</span></td></tr>
+              <tr><th scope="row">تكاملات البروتوكول</th><td>7 — Aave, Chainlink, Herodotus, ZKLend, Myswap, Jediswap, Chainstack</td></tr>
+              <tr><th scope="row">الأمن</th><td>تدقيق CertiK — <a href="../assets/certik_report.pdf" target="_blank" rel="noopener noreferrer">report</a></td></tr>
+              <tr><th scope="row">المعايير</th><td>Authored proposed <a href="https://github.com/ethereum/EIPs/pull/5299" target="_blank" rel="noopener noreferrer">EIP-5299</a></td></tr>
+              <tr><th scope="row">Token</th><td>مدرج على Uniswap (<a href="https://etherscan.io/token/0xF38774A034F5F533D7F9E2ba6b7f3a7542714fA9" target="_blank" rel="noopener noreferrer">Ethereum</a>) + Ekubo (<a href="https://voyager.online/token/0x02e8f2e80fab8239b234c125ee1a68d522718e1d698c214ac85d1f48407349c9" target="_blank" rel="noopener noreferrer">Starknet</a>)</td></tr>
+              <tr><th scope="row">TVL</th><td>يُتتبع على <a href="https://defillama.com/protocol/hashstack" target="_blank" rel="noopener noreferrer">DefiLlama</a></td></tr>
+            </tbody>
+          </table>
+          <p class="exhibit-footnote"><span class="asterisk">*</span> مقاييس المشغّل (داخلية) — بلا تدقيق مستقل.</p>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="starknet-bet" aria-labelledby="starknet-heading">
+      <h2 id="starknet-heading">7. رهان المنصة: Starknet</h2>
+      <p>نقلت Hashstack إلى Starknet في أغسطس 2022 لمزايا تكلفة إثبات ZK وخصائص التحقق الشكلي في Cairo لمنطق التصفية ودعم منح المنظومة.</p>
+      <p>تحققت الأطروحة التقنية — عمل البروتوكول على Starknet واجتاز تدقيق CertiK وتجاوز الاستخدام معايير الصناعة. خصائص Cairo كانت ميزة حقيقية لمنطق التصفية. التحدي خاص بـ Hashstack: فريق نحيف يدير ترحيل Cairo كاملًا مع تكرار المنتج في آن، بمسار تمويل محدود للقيام بكليهما جيدًا.</p>
+      <p>Source: <a href="https://hashstack.medium.com/announcing-hashstacks-switch-to-starknet-58287942574d" target="_blank" rel="noopener noreferrer">إعلان ترحيل Starknet</a>.</p>
+
+      <figure class="exhibit" aria-labelledby="timeline-caption">
+        <figcaption id="timeline-caption" class="exhibit-label">الجدول الزمني للقرار</figcaption>
+        <div class="exhibit-body">
+          <ol class="exhibit-timeline">
+            <li><span class="timeline-date">2020</span> تأسيس Hashstack</li>
+            <li><span class="timeline-date">2022</span> الترحيل إلى Starknet · Token 2049 · Authored proposed EIP-5299</li>
+            <li><span class="timeline-date">2023</span> اختبار V1 (DIAL → نموذج kink) · تدقيق CertiK · منح المنظومة</li>
+            <li><span class="timeline-date">2024</span> Degen Mode · ذروة تشغيلية</li>
+            <li><span class="timeline-date">2025</span> إهلاك Cairo 1.0 · اختبار Base (إثبات قابلية EVM)</li>
+            <li><span class="timeline-date">2026</span> عائد ترحيل سلبي → إغلاق منظم</li>
+          </ol>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="wind-down" aria-labelledby="winddown-heading">
+      <h2 id="winddown-heading">8. قرار الإغلاق</h2>
+      <p><strong>المحفّز:</strong> إهلاك Cairo 1.0 تطلّب ترحيلًا كاملًا أو خروجًا.</p>
+
+      <figure class="exhibit" aria-labelledby="winddown-caption">
+        <figcaption id="winddown-caption" class="exhibit-label">التقييم</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr>
+                <th scope="col">العامل</th>
+                <th scope="col">البقاء على Starknet</th>
+                <th scope="col">الترحيل إلى Base/EVM</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>تكلفة الهندسة</td><td>ترحيل Cairo كامل</td><td>معتدل (نقل Solidity)</td></tr>
+              <tr><td>سعة الفريق</td><td>فريق نحيف موزع على الترحيل + المنتج</td><td>نفس القيد، مكدس مختلف</td></tr>
+              <tr><td>وقت الوصول للسوق</td><td>ترحيل 6–9 أشهر</td><td>خلف بروتوكولات راسخة</td></tr>
+              <tr><td>واقع مسار التمويل</td><td>تكلفة الترحيل تجاوزت المسار المتبقي</td><td>دخول متأخر في سوق مزدحم</td></tr>
+              <tr><td>الحكم</td><td>قيد موارد لا قيد منصة</td><td>النافذة أُغلقت</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <p><strong>القرار:</strong> إغلاق منظم. أُعيدت أموال المستخدمين وتبقى قابلة للسحب. نُقل موقع/واجهة البروتوكول إلى GitHub Pages ليبقى عاملًا ما دامت الحاجة بتكلفة شبه صفرية.</p>
+      <p>إغلاق بروتوكول بنيته من الصفر أصعب من إطلاقه. المسار لم يدعم الترحيل والنمو معًا، ولم أكن سأحرق رأس المال أو ثقة المستخدمين بادعاء العكس.</p>
+    </section>
+
+    <section class="case-section" id="differently" aria-labelledby="differently-heading">
+      <h2 id="differently-heading">9. ما كنت سأفعله بشكل مختلف</h2>
+      <p><strong>اجمع رأس مال أكبر قبل ترحيل كبير.</strong> ترحيل Cairo كان صحيحًا تقنيًا، لكننا واجهناه بفريق ومسار بحجم تكرار المنتج لا إعادة كتابة كاملة. سأؤمن رأس مال ترحيل مخصص مسبقًا.</p>
+      <p><strong>انشر نموذج kink من اليوم الأول.</strong> كان DIAL بحثًا قيمًا لكنه أخّر نموذج المعدل الذي عمل فعلًا. الدرس: استكشف فضاء التصميم في المحاكاة لا في هندسة الإنتاج.</p>
+      <p><strong>وفّر موارد للمسارات المتوازية.</strong> تحققت أطروحة منتج Hashstack — الاستخدام والمستخدمون والنموذج الذاتي عملت. الفجوة كانت تشغيل الترحيل وتكرار المنتج والنمو معًا على فريق نحيف. بموارد مناسبة ربما اختلفت النتيجة.</p>
+    </section>
+
+    <section class="case-section" id="sources" aria-labelledby="sources-heading">
+      <h2 id="sources-heading">المصادر</h2>
+      <ul class="case-list">
+        <li><a href="https://docs.hashstack.finance" target="_blank" rel="noopener noreferrer">Hashstack Docs</a></li>
+        <li><a href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">Degen Mode</a></li>
+        <li><a href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">DIAL (Wayback)</a></li>
+        <li><a href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">Production IRM</a></li>
+        <li><a href="https://defillama.com/protocol/hashstack" target="_blank" rel="noopener noreferrer">DefiLlama</a></li>
+        <li><a href="https://hashstack.medium.com/announcing-hashstacks-switch-to-starknet-58287942574d" target="_blank" rel="noopener noreferrer">Starknet migration</a></li>
+        <li><a href="https://etherscan.io/token/0xF38774A034F5F533D7F9E2ba6b7f3a7542714fA9" target="_blank" rel="noopener noreferrer">HSTK · Ethereum (Etherscan)</a></li>
+        <li><a href="https://voyager.online/token/0x02e8f2e80fab8239b234c125ee1a68d522718e1d698c214ac85d1f48407349c9" target="_blank" rel="noopener noreferrer">HSTK · Starknet (Voyager)</a></li>
+        <li><a href="https://github.com/ethereum/EIPs/pull/5299" target="_blank" rel="noopener noreferrer">EIP-5299 (GitHub PR)</a></li>
+        <li><a href="https://ethereum-magicians.org/t/eip-5299-layer3-scaling-standard/9039" target="_blank" rel="noopener noreferrer">Ethereum Magicians</a></li>
+        <li><a href="../assets/certik_report.pdf" target="_blank" rel="noopener noreferrer">CertiK report</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    Vinay Kumar · 2026
+  </footer>
+</body>
+</html>

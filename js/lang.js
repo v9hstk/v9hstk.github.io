@@ -1,7 +1,8 @@
 (function () {
   var PREF_KEY = "v9hstk-lang-pref";
   var AUTO_KEY = "v9hstk-lang-auto";
-  var PATHS = { en: "/", ko: "/ko/", ja: "/ja/", de: "/de/" };
+  var LOCALES = ["en", "ko", "ja", "de", "zh", "ar"];
+  var CASE_PAGES = ["hashstack", "parashar", "guardrail"];
 
   function detectSystemLocale() {
     var list = navigator.languages && navigator.languages.length
@@ -12,32 +13,56 @@
       if (code.indexOf("ko") === 0) return "ko";
       if (code.indexOf("ja") === 0) return "ja";
       if (code.indexOf("de") === 0) return "de";
+      if (code.indexOf("zh") === 0) return "zh";
+      if (code.indexOf("ar") === 0) return "ar";
     }
     return "en";
   }
 
   function currentLocaleFromPath() {
     var path = location.pathname || "/";
-    if (/\/ko(\/|$)/.test(path)) return "ko";
-    if (/\/ja(\/|$)/.test(path)) return "ja";
-    if (/\/de(\/|$)/.test(path)) return "de";
+    for (var i = 0; i < LOCALES.length; i++) {
+      var loc = LOCALES[i];
+      if (loc === "en") continue;
+      if (new RegExp("\\/" + loc + "(\\/|$)").test(path)) return loc;
+    }
     return "en";
   }
 
-  function isEnglishRoot() {
+  function pageSlugFromPath() {
     var path = location.pathname || "/";
-    return path === "/" || /\/index\.html$/.test(path);
+    for (var i = 0; i < CASE_PAGES.length; i++) {
+      var slug = CASE_PAGES[i];
+      if (new RegExp("\\/" + slug + "\\.html$").test(path)) return slug + ".html";
+    }
+    return "";
   }
 
-  /** One-time system-language redirect on English root only. */
+  /** Locale-aware path that keeps case-study page when switching language. */
+  function pathForLocale(locale) {
+    var slug = pageSlugFromPath();
+    if (locale === "en") {
+      return slug ? "/" + slug : "/";
+    }
+    return "/" + locale + "/" + (slug || "");
+  }
+
+  function isEnglishPublicPage() {
+    var path = location.pathname || "/";
+    if (path === "/" || path === "/index.html") return true;
+    return pageSlugFromPath() !== "";
+  }
+
+  /** One-time system-language redirect on English landing or case study. */
   function maybeAutoRedirect() {
     try {
-      if (!isEnglishRoot()) return;
+      if (currentLocaleFromPath() !== "en") return;
+      if (!isEnglishPublicPage()) return;
       if (localStorage.getItem(PREF_KEY) || localStorage.getItem(AUTO_KEY)) return;
       localStorage.setItem(AUTO_KEY, "1");
       var loc = detectSystemLocale();
-      if (loc !== "en" && PATHS[loc]) {
-        location.replace(PATHS[loc]);
+      if (loc !== "en") {
+        location.replace(pathForLocale(loc));
       }
     } catch (e) {
       /* private mode / blocked storage — skip auto */
@@ -53,13 +78,13 @@
 
     select.addEventListener("change", function () {
       var next = select.value;
-      if (!PATHS[next]) return;
+      if (LOCALES.indexOf(next) === -1) return;
       try {
         localStorage.setItem(PREF_KEY, next);
         localStorage.setItem(AUTO_KEY, "1");
       } catch (e) {}
       if (next === current) return;
-      location.href = PATHS[next];
+      location.href = pathForLocale(next);
     });
   }
 

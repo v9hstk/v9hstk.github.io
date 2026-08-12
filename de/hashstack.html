@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hashstack Fallstudie — Vinay Kumar</title>
+  <meta name="description" content="Wie ich autonomes unterbesichertes Lending auf Starknet baute — Degen Mode, DIAL und strukturierter Wind-down.">
+  <meta property="og:title" content="Hashstack Fallstudie — Vinay Kumar">
+  <meta property="og:description" content="Autonomes unterbesichertes Lending — Protokolldesign, Degen Mode, DIAL und Wind-down.">
+  <meta property="og:url" content="https://v9hstk.github.io/de/hashstack.html">
+  <meta property="og:image" content="https://v9hstk.github.io/og.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hashstack Fallstudie — Vinay Kumar">
+  <meta name="twitter:description" content="Autonomes unterbesichertes Lending — Protokolldesign, Degen Mode, DIAL und Wind-down.">
+  <meta name="twitter:image" content="https://v9hstk.github.io/og.png">
+  <link rel="alternate" hreflang="en" href="https://v9hstk.github.io/hashstack.html">
+  <link rel="alternate" hreflang="ko" href="https://v9hstk.github.io/ko/hashstack.html">
+  <link rel="alternate" hreflang="ja" href="https://v9hstk.github.io/ja/hashstack.html">
+  <link rel="alternate" hreflang="de" href="https://v9hstk.github.io/de/hashstack.html">
+  <link rel="alternate" hreflang="zh-Hans" href="https://v9hstk.github.io/zh/hashstack.html">
+  <link rel="alternate" hreflang="ar" href="https://v9hstk.github.io/ar/hashstack.html">
+  <link rel="alternate" hreflang="x-default" href="https://v9hstk.github.io/hashstack.html">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>V</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <script>!function(){var s=sessionStorage.getItem("theme");document.documentElement.setAttribute("data-theme",s||"light")}();</script>
+  <script src="../js/theme.js" defer></script>
+  <script src="../js/lang.js" defer></script>
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true"></div>
+  <header class="site-header">
+    <a class="back-link" href="index.html">← Zurück</a>
+    <div class="header-actions">
+    <div class="lang-switch">
+      <label class="visually-hidden" for="lang-select">Language</label>
+      <select id="lang-select" class="lang-select" aria-label="Language">
+        <option value="en" lang="en">EN</option>
+        <option value="ko" lang="ko">KOR</option>
+        <option value="ja" lang="ja">JP</option>
+        <option value="de" lang="de" selected>DE</option>
+        <option value="zh" lang="zh">ZH</option>
+        <option value="ar" lang="ar">AR</option>
+      </select>
+    </div>
+      <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Dunkelmodus umschalten">
+        <span class="icon-sun" aria-hidden="true">☀</span>
+        <span class="icon-moon" aria-hidden="true">☾</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="case-study">
+<header class="case-hero">
+      <h1>Wie ich autonomes unterbesichertes Lending gebaut habe — und wann ich die Abschaltung wählte</h1>
+      <p class="subtitle">Hashstack Finance · Founder &amp; Product Lead · 2020–2026</p>
+    </header>
+
+    <section class="case-section" id="executive-summary" aria-labelledby="exec-heading">
+      <h2 id="exec-heading">Überblick</h2>
+      <p>Ich gründete Hashstack Finance, ein DeFi-Lending-Protokoll auf Starknet L2, das unterbesichertes Borrowing ohne Kreditkomitees, Whitelists oder institutionelles Gatekeeping ermöglichte. Das Protokoll steuerte Risiko autonom über Smart-Contract-Constraints — eine Kategorie, in der alle anderen auf menschliche Kreditprüfung setzten.</p>
+      <p>Zwei Produktinnovationen — <strong>Degen Mode</strong> (One-Click-Hebelausführung) und <strong>DIAL</strong> (Custom-Zinsalgorithmus) — zeigten originales Produktdenken in einem vollen Markt. Ich führte das Protokoll von der Gründung bis zum strukturierten Wind-down 2026. Nutzerfonds wurden zurückgegeben und bleiben abziehbar; die Protokolloberfläche liegt auf GitHub Pages, damit Abhebungen mit nahezu null Betriebskosten verfügbar bleiben.</p>
+    </section>
+
+    <section class="case-section" id="industry-context" aria-labelledby="industry-heading">
+      <h2 id="industry-heading">1. Branchenkontext: DeFi-Lending 2020</h2>
+      <p>Dezentrales Lending ist einer der größten DeFi-Sektoren. Nutzer hinterlegen Krypto als Collateral, leihen dagegen und zahlen Zinsen — wie ein Bankkredit, aber ohne Bank per Smart Contract.</p>
+      <p>Die dominanten Protokolle — Aave, Compound, MakerDAO — verlangen Überbesicherung. Um $75 zu leihen, muss man $100 hinterlegen. Das schützt das Protokoll, schafft aber ein Kapitaleffizienzproblem.</p>
+      <p>Bis 2020 erreichte dieses Modelll $10B+ TVL. Es funktionierte, band aber enormes Kapital in unproduktiven Collateral-Positionen.</p>
+
+      <figure class="exhibit" aria-labelledby="market-caption">
+        <figcaption id="market-caption" class="exhibit-label">Marktposition</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">Cluster</th><th scope="col">Protokolle</th><th scope="col">Kapitaleffizienz</th><th scope="col">Risikomodell</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Konservativ</td><td>Aave, Compound, Maker</td><td>Niedrig</td><td>Überbesichert</td></tr>
+              <tr><td>Mitte</td><td>TrueFi, Maple</td><td>Mittel</td><td>Kreditgeprüft</td></tr>
+              <tr><td><strong>Hashstack</strong></td><td><strong>Hashstack</strong></td><td><strong>Hoch</strong></td><td><strong>Algorithmisch gesteuert</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="the-thesis" aria-labelledby="thesis-heading">
+      <h2 id="thesis-heading">2. These: Autonomes unterbesichertes Lending</h2>
+      <p>Mehrere Protokolle versuchten unterbesichertes Lending vor Hashstack. Der Unterschied lag im Risikomanagement.</p>
+
+      <figure class="exhibit" aria-labelledby="thesis-caption">
+        <figcaption id="thesis-caption" class="exhibit-label">Ansätze für unterbesichertes Lending</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">Protokoll</th><th scope="col">Modell</th><th scope="col">Gatekeeper</th><th scope="col">Kreditnehmer</th><th scope="col">Kapitalbeschränkung</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>TrueFi</td><td>Kreditgeprüft</td><td>Menschliches Kreditkomitee</td><td>Nur Institutionen</td><td>Keine — frei abziehbar</td></tr>
+              <tr><td>Maple</td><td>Kreditgeprüft</td><td>Menschliche Pool-Delegierte</td><td>Nur Institutionen</td><td>Keine — frei abziehbar</td></tr>
+              <tr><td>Goldfinch</td><td>Kreditgeprüft</td><td>Menschliche Auditoren</td><td>Realwirtschaftliche Unternehmen</td><td>Off-Chain-Nutzung</td></tr>
+              <tr><td><strong>Hashstack</strong></td><td><strong>Autonom</strong></td><td><strong>Smart Contract</strong></td><td><strong>Jeder (permissionless)</strong></td><td><strong>Nur On-Protokoll-Deployment</strong></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <p>Meine These: Unterbesichertes Lending funktioniert ohne menschliches Gatekeeping, wenn geliehenes Kapital auf genehmigte Deployment-Kanäle im integrierten Ökosystem beschränkt ist. Der Smart Contract erzwang Solvenz — kein Kreditkomitee, keine Whitelist, kein Institutions-only-Zugang.</p>
+      <p>Das ist derselbe Collateral-vs-Access-Trade-off allen Lending: Wie viel Freiheit gibt man dem Kreditnehmer bei Schutz des Lenders? Hashstacks Antwort: maximaler Hebel, minimale Abhebung.</p>
+    </section>
+
+    <section class="case-section" id="product-evolution" aria-labelledby="evolution-heading">
+      <h2 id="evolution-heading">3. Produktevolution: V1 zu V2</h2>
+      <p>Das Protokoll lieferte zwei Versionen mit unterschiedlicher Risikokalibrierung.</p>
+
+      <figure class="exhibit" aria-labelledby="evolution-caption">
+        <figcaption id="evolution-caption" class="exhibit-label">V1 → V2 / Degen Mode</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">Dimension</th><th scope="col">V1 (Initial)</th><th scope="col">V2 / Degen Mode (Final)</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Maximaler Hebel</td><td>3× Collateral</td><td>5× Collateral</td></tr>
+              <tr><td>Kapitalabhebung</td><td>Bis 70% des Collateral-Werts</td><td>Null — vollständig beschränkt</td></tr>
+              <tr><td>Kreditbetrag</td><td>Variabel</td><td>Fix $5,000</td></tr>
+              <tr><td>Risikophilosophie</td><td>Konservativ — Markt testen</td><td>Kühn — engere Eindämmung, mehr Zugang</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <p>Das V1-Modelll erlaubte bis $300 Kredit bei $100 Collateral, davon $70 abziehbar und $230 als In-Platform-Trading-Kapital.</p>
+      <p>V2 erhöhte den Hebel von 3× auf 5× und entfernte Abhebungen völlig — mehr Kapital zum Deployen, keine Escape-Hatch ohne Nutzerwert. Extra Supply über dem $1,000-Minimum senkte den Hebel automatisch (z. B. $2,500 Einlage → 2.5× statt 5×).</p>
+      <p><strong>Einsicht:</strong> Hebel lockern und Eindämmung straffen kann zusammengehen. Die Constraint ist das Produkt.</p>
+    </section>
+
+    <section class="case-section" id="degen-mode" aria-labelledby="degen-heading">
+      <h2 id="degen-heading">4. Degen Mode: One-Click gehebelter Yield</h2>
+
+      <h3>Das Problem</h3>
+      <p>Manueller gehebelter Yield in DeFi erfordert Poolwahl, Ratio-Berechnung, Borrow, Swap und LP — jeder Schritt mit Gas, Slippage und Fehlerrisiko. Den meisten Nutzern fehlen Expertise oder Geduld.</p>
+
+      <h3>Die Produktentscheidung</h3>
+      <p>Degen Mode abstrahierte die ganze Sequenz auf einen Klick: gerankte Strategien (Returns, APR, Tiefe), wählen, Execute — das Protokoll erledigt den Rest atomar.</p>
+
+      <h3>User-Flow</h3>
+      <ol class="case-list">
+        <li>$1,000+ in einem Asset liefern</li>
+        <li>Degen-Tab öffnen — Strategien mit geschätztem APR und Risiko</li>
+        <li>Strategie wählen, Execute klicken</li>
+        <li>Protokoll leiht $5,000 automatisch und deployt in einer Transaktion</li>
+        <li>Ergebnisse unter Your Borrow verfolgen</li>
+      </ol>
+
+      <figure class="exhibit" aria-labelledby="degen-decisions-caption">
+        <figcaption id="degen-decisions-caption" class="exhibit-label">Designentscheidungen</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">Entscheidung</th><th scope="col">Geprüfte Optionen</th><th scope="col">Wahl</th><th scope="col">Begründung</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Mindest-Supply</td><td>$100 / $500 / $1,000</td><td>$1,000</td><td>Darunter überwiegt Hebelrisiko den Nutzen</td></tr>
+              <tr><td>Kreditbetrag</td><td>Variabel / Fixed</td><td>Fix $5,000</td><td>Standardisiert Risiko; vorhersagbare Strategiepreise</td></tr>
+              <tr><td>Strategiewahl</td><td>Nutzerkonfiguriert / Protokoll-kuratiert</td><td>Protokoll-kuratiert</td><td>Weniger Fehler; Protokoll besitzt die Risikofläche</td></tr>
+              <tr><td>Kapitalbeschränkung</td><td>Teilabhebung / Vollsperre</td><td>Vollsperre</td><td>Solvenz braucht Eindämmung</td></tr>
+              <tr><td>Extra-Supply</td><td>Erhöht Borrow / Senkt Hebel</td><td>Senkt Hebel</td><td>Selbst-Derisk ohne Nutzerschulung</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <p>Dasselbe Abstraktionsmuster — Mehrschritt-Finance in ein Ergebnis — gilt weit über DeFi hinaus.</p>
+      <p><a href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">Degen-Mode-Dokumentation →</a></p>
+    </section>
+
+    <section class="case-section" id="interest-rate-design" aria-labelledby="irm-heading">
+      <h2 id="irm-heading">5. Zinsdesign: Ambitioniert bauen, einfach shippen</h2>
+      <p>Aave und Compound nutzen einen floating Rate pro Asset aus instantaner Utilization. Hashstack brauchte Commitment-Perioden (2 Wochen, 1 Monat, 3 Monate) mit höherem APR bei längeren Lockups — ein fundamental anderes Zinsmodell.</p>
+
+      <h3>DIAL: Die R&amp;D-Version</h3>
+      <p>Ich entwarf DIAL (Dynamic Interest Algorithm for Lending) mit Term-Structure-Pricing, begrenzten Rates, keccak256-basiertem Anti-Manipulation-Sampling und Multi-Tranche-Accounting. Es explorierte den gesamten Designraum eines Commitment-basierten Zinsmodells.</p>
+      <p><strong>Was Produktionskontakt nicht überlebte:</strong> nicht-deterministische Rates schadeten Integratoren, Admin-Updates waren bei Liquiditätsengpässen zu langsam, Multi-Tranche-Randomisierung trieb Auditkosten über das vom TVL gerechtfertigte Maß.</p>
+
+      <h3>Die Produktionsentscheidung</h3>
+      <p>Für das V1-Testnet (Juli 2023) entwickelte ich das Modelll zu einer kinked Utilization-Kurve — DIALs Kerninsights behalten, Komplexität schneiden.</p>
+
+      <figure class="exhibit" aria-labelledby="irm-caption">
+        <figcaption id="irm-caption" class="exhibit-label">DIAL (R&amp;D) → Production Kink</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr><th scope="col">Dimension</th><th scope="col">DIAL (R&amp;D)</th><th scope="col">Production Kink</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Zins-Updates</td><td>Admin-getriggert, periodisch</td><td>Kontinuierlich, deterministisch</td></tr>
+              <tr><td>Krisenreaktion</td><td>Langsam (Admin-Takt)</td><td>Sofort (steile Post-Kink-Steigung)</td></tr>
+              <tr><td>Auditierbarkeit</td><td>Niedriger (komplexer Solver)</td><td>Höher (Standardkurve)</td></tr>
+              <tr><td>Optimale Utilization</td><td>Band-basiert</td><td>90%</td></tr>
+            </tbody>
+          </table>
+          <p class="exhibit-note">Quellen: <a href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">DIAL (Wayback)</a> · <a href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">Production IRM</a> · <a href="https://hashstack.medium.com/hashstack-v1-public-testnet-is-here-d617a18f2d23" target="_blank" rel="noopener noreferrer">V1 testnet</a>.</p>
+        </div>
+      </figure>
+
+      <p><strong>Was von DIAL blieb:</strong> Term-Premium-Konzept, Bounded-Rate-Philosophie, Supply/Borrow-Cashflow-Identität, Anti-Manipulation-Intent.</p>
+      <p><strong>Was entfiel:</strong> Pseudozufalls-Sampling, Multi-Tranche-Solver, Admin-Updates, harte Rate-Caps.</p>
+      <p>Produktionsparameter: Base 2% bei 0% Utilization; 20% bei 90%; 100% bei voller Utilization.</p>
+    </section>
+
+    <section class="case-section" id="protocol-metrics" aria-labelledby="metrics-heading">
+      <h2 id="metrics-heading">6. Protokollmetriken</h2>
+
+      <figure class="exhibit" aria-labelledby="metrics-caption">
+        <figcaption id="metrics-caption" class="exhibit-label">Hashstack in Zahlen</figcaption>
+        <div class="exhibit-body">
+          <table class="metrics-table exhibit-metrics">
+            <tbody>
+              <tr><th scope="row">Kapital aufgenommen</th><td>$1M Seed + zusätzliches Private Funding</td></tr>
+              <tr><th scope="row">On-Chain-Nutzer</th><td>36,000<span class="asterisk" title="Operator metric">*</span></td></tr>
+              <tr><th scope="row">Kosten pro Nutzer</th><td>$55<span class="asterisk" title="Operator metric">*</span> (Benchmark: die meisten DeFi-Protokolle liegen bei $200–500+)</td></tr>
+              <tr><th scope="row">Durchschnittliche Asset-Utilization</th><td>61%<span class="asterisk" title="Operator metric">*</span> (Benchmark: Aave-Klasse typisch 30–50%)</td></tr>
+              <tr><th scope="row">Ertragsjahr-1</th><td>$56K+<span class="asterisk" title="Operator metric">*</span></td></tr>
+              <tr><th scope="row">Engineering-Team</th><td>16<span class="asterisk" title="Operator metric">*</span> (unter den größeren Starknet-Teams)</td></tr>
+              <tr><th scope="row">Ökosystem-Grants</th><td>180K STRK + $50K Harmony (~$230K+ total)<span class="asterisk" title="USD conversion approximate">*</span></td></tr>
+              <tr><th scope="row">Protokoll-Integrationen</th><td>7 — Aave, Chainlink, Herodotus, ZKLend, Myswap, Jediswap, Chainstack</td></tr>
+              <tr><th scope="row">Sicherheit</th><td>CertiK-auditiert — <a href="../assets/certik_report.pdf" target="_blank" rel="noopener noreferrer">report</a></td></tr>
+              <tr><th scope="row">Standards</th><td>Authored proposed <a href="https://github.com/ethereum/EIPs/pull/5299" target="_blank" rel="noopener noreferrer">EIP-5299</a></td></tr>
+              <tr><th scope="row">Token</th><td>Gelistet auf Uniswap (<a href="https://etherscan.io/token/0xF38774A034F5F533D7F9E2ba6b7f3a7542714fA9" target="_blank" rel="noopener noreferrer">Ethereum</a>) + Ekubo (<a href="https://voyager.online/token/0x02e8f2e80fab8239b234c125ee1a68d522718e1d698c214ac85d1f48407349c9" target="_blank" rel="noopener noreferrer">Starknet</a>)</td></tr>
+              <tr><th scope="row">TVL</th><td>Getrackt auf <a href="https://defillama.com/protocol/hashstack" target="_blank" rel="noopener noreferrer">DefiLlama</a></td></tr>
+            </tbody>
+          </table>
+          <p class="exhibit-footnote"><span class="asterisk">*</span> Operator-Metriken (intern) — nicht unabhängig auditiert.</p>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="starknet-bet" aria-labelledby="starknet-heading">
+      <h2 id="starknet-heading">7. Die Plattform-Wette: Starknet</h2>
+      <p>Ich migrierte Hashstack im August 2022 nach Starknet wegen ZK-Proof-Kostenvorteilen, Cairos Formal-Verification für Liquidationslogik und Ökosystem-Grants.</p>
+      <p>Die technische These validierte sich — das Protokoll lief auf Starknet, CertiK bestand, Utilization lag über Branchenbenchmarks. Cairos Formal-Verification war ein echter Vorteil für Liquidation. Die Herausforderung war Hashstack-spezifisch: ein schlankes Team managte volle Cairo-Migration und Produktiteration gleichzeitig — mit begrenzter Runway für beides.</p>
+      <p>Source: <a href="https://hashstack.medium.com/announcing-hashstacks-switch-to-starknet-58287942574d" target="_blank" rel="noopener noreferrer">Starknet-Migrationsankündigung</a>.</p>
+
+      <figure class="exhibit" aria-labelledby="timeline-caption">
+        <figcaption id="timeline-caption" class="exhibit-label">Entscheidungs-Timeline</figcaption>
+        <div class="exhibit-body">
+          <ol class="exhibit-timeline">
+            <li><span class="timeline-date">2020</span> Hashstack gegründet</li>
+            <li><span class="timeline-date">2022</span> Nach Starknet migriert · Token 2049 · Authored proposed EIP-5299</li>
+            <li><span class="timeline-date">2023</span> V1-Testnet (DIAL → Kink-Modelll) · CertiK-Audit · Ökosystem-Grants</li>
+            <li><span class="timeline-date">2024</span> Degen Mode · Operativer Peak</li>
+            <li><span class="timeline-date">2025</span> Cairo-1.0-Deprecation · Base-Testnet (EVM-Portabilitätsnachweis)</li>
+            <li><span class="timeline-date">2026</span> Negativer Migrations-ROI → Strukturierter Wind-down</li>
+          </ol>
+        </div>
+      </figure>
+    </section>
+
+    <section class="case-section" id="wind-down" aria-labelledby="winddown-heading">
+      <h2 id="winddown-heading">8. Die Wind-Down-Entscheidung</h2>
+      <p><strong>Trigger:</strong> Cairo-1.0-Deprecation erforderte volle Migration oder Exit.</p>
+
+      <figure class="exhibit" aria-labelledby="winddown-caption">
+        <figcaption id="winddown-caption" class="exhibit-label">Bewertung</figcaption>
+        <div class="exhibit-body">
+          <table class="exhibit-table">
+            <thead>
+              <tr>
+                <th scope="col">Faktor</th>
+                <th scope="col">Auf Starknet bleiben</th>
+                <th scope="col">Nach Base/EVM migrieren</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Engineering-Kosten</td><td>Volle Cairo-Migration</td><td>Moderat (Solidity-Port)</td></tr>
+              <tr><td>Teamkapazität</td><td>Schlankes Team über Migration + Produkt gestreckt</td><td>Gleiche Constraint, anderer Stack</td></tr>
+              <tr><td>Time-to-Market</td><td>6–9 Monate Migration</td><td>Hinter etablierten Protokollen</td></tr>
+              <tr><td>Runway-Realität</td><td>Migrationskosten überstiegen Rest-Runway</td><td>Späteinstieg in einen vollen Markt</td></tr>
+              <tr><td>Urteil</td><td>Ressourcen-, nicht Plattform-Constraint</td><td>Fenster geschlossen</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </figure>
+
+      <p><strong>Entscheidung:</strong> Strukturierter Wind-down. Nutzerfonds wurden zurückgegeben und bleiben abziehbar. Website/Interface liegt auf GitHub Pages und bleibt so lange nötig mit nahezu null Overhead funktional.</p>
+      <p>Ein von null gebautes Protokoll abzuschalten ist ein härterer Product Call als der Launch. Die Runway trug Migration und Wachstum nicht gleichzeitig — und ich würde Kapital oder Nutzervertrauen nicht verbrennen, indem ich das Gegenteil vortäusche.</p>
+    </section>
+
+    <section class="case-section" id="differently" aria-labelledby="differently-heading">
+      <h2 id="differently-heading">9. Was ich anders machen würde</h2>
+      <p><strong>Vor einer großen Migration mehr kapitalisieren.</strong> Cairo-Migration war technisch richtig, aber wir trafen sie mit Team/Runway für Produktiteration, nicht Full Rewrite. Ich würde dediziertes Migrationskapital vorab sichern.</p>
+      <p><strong>Kink-Modelll ab Tag eins shippen.</strong> DIAL war wertvolle R&amp;D, verzögerte aber das tatsächlich funktionierende Zinsmodell. Lehre: Designraum in Simulation explorieren, nicht in Produktionsarchitektur.</p>
+      <p><strong>Team für Paralleltracks ressourcen.</strong> Hashstacks Produktthese validierte sich — Utilization, Nutzer und autonomes Modelll funktionierten. Die Lücke: Migration, Iteration und Wachstum gleichzeitig auf schlankem Team. Mit richtiger Ressourcenlage hätte das Ergebnis anders sein können.</p>
+    </section>
+
+    <section class="case-section" id="sources" aria-labelledby="sources-heading">
+      <h2 id="sources-heading">Quellen</h2>
+      <ul class="case-list">
+        <li><a href="https://docs.hashstack.finance" target="_blank" rel="noopener noreferrer">Hashstack Docs</a></li>
+        <li><a href="https://docs.hashstack.finance/hub/degen-mode" target="_blank" rel="noopener noreferrer">Degen Mode</a></li>
+        <li><a href="https://web.archive.org/web/20240808032301/https://blog.hashstack.finance/deconstructing-hashstacks-dynamic-interest-algorithm-dial/" target="_blank" rel="noopener noreferrer">DIAL (Wayback)</a></li>
+        <li><a href="https://docs.hashstack.finance/risk/interest-rate-model" target="_blank" rel="noopener noreferrer">Production IRM</a></li>
+        <li><a href="https://defillama.com/protocol/hashstack" target="_blank" rel="noopener noreferrer">DefiLlama</a></li>
+        <li><a href="https://hashstack.medium.com/announcing-hashstacks-switch-to-starknet-58287942574d" target="_blank" rel="noopener noreferrer">Starknet migration</a></li>
+        <li><a href="https://etherscan.io/token/0xF38774A034F5F533D7F9E2ba6b7f3a7542714fA9" target="_blank" rel="noopener noreferrer">HSTK · Ethereum (Etherscan)</a></li>
+        <li><a href="https://voyager.online/token/0x02e8f2e80fab8239b234c125ee1a68d522718e1d698c214ac85d1f48407349c9" target="_blank" rel="noopener noreferrer">HSTK · Starknet (Voyager)</a></li>
+        <li><a href="https://github.com/ethereum/EIPs/pull/5299" target="_blank" rel="noopener noreferrer">EIP-5299 (GitHub PR)</a></li>
+        <li><a href="https://ethereum-magicians.org/t/eip-5299-layer3-scaling-standard/9039" target="_blank" rel="noopener noreferrer">Ethereum Magicians</a></li>
+        <li><a href="../assets/certik_report.pdf" target="_blank" rel="noopener noreferrer">CertiK report</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    Vinay Kumar · 2026
+  </footer>
+</body>
+</html>
