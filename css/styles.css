@@ -194,37 +194,52 @@ button:focus-visible {
 .lang-switch {
   display: inline-flex;
   align-items: center;
-  gap: 0.1rem;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  max-width: 11rem;
+  flex-shrink: 0;
 }
 
-.lang-switch a {
+.lang-select {
+  appearance: none;
+  -webkit-appearance: none;
+  font: inherit;
   font-size: 0.6875rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--ink-faint) !important;
-  text-decoration: none !important;
-  padding: 0.2rem 0.3rem;
-  border: 1px solid transparent;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: var(--ink);
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23888' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.35rem center;
+  background-size: 0.5rem 0.35rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.28rem 1.25rem 0.28rem 0.55rem;
+  max-width: 7.5rem;
+  cursor: pointer;
 }
 
-.lang-switch a:hover {
-  color: var(--ink) !important;
+.lang-select:hover,
+.lang-select:focus {
+  color: var(--ink);
+  border-color: var(--ink-faint);
+  outline: none;
 }
 
-.lang-switch a[aria-current="page"] {
-  color: var(--ink) !important;
-  border-color: var(--line);
+.lang-select:focus-visible {
+  outline: 2px solid var(--accent, #2c5282);
+  outline-offset: 2px;
 }
 
-.lang-switch span {
-  color: var(--ink-faint);
-  font-size: 0.6875rem;
-  opacity: 0.5;
-  user-select: none;
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .lang-case-note {
@@ -238,10 +253,6 @@ button:focus-visible {
 }
 
 @media (min-width: 720px) {
-  .lang-switch {
-    max-width: none;
-  }
-
   .lang-case-note {
     display: inline;
   }

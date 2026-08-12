@@ -26,13 +26,22 @@
   <link rel="stylesheet" href="css/styles.css">
   <script>!function(){var s=sessionStorage.getItem("theme");document.documentElement.setAttribute("data-theme",s||"light")}();</script>
   <script src="js/theme.js" defer></script>
+  <script src="js/lang.js" defer></script>
 </head>
 <body>
   <div class="atmosphere" aria-hidden="true"></div>
   <header class="site-header">
     <a class="back-link" href="index.html">← Back</a>
     <div class="header-actions">
-    <nav class="lang-switch" aria-label="Language"><a href="index.html" hreflang="en" lang="en" aria-current="page">EN</a><span aria-hidden="true">·</span><a href="ko/" hreflang="ko" lang="ko">KO</a><span aria-hidden="true">·</span><a href="ja/" hreflang="ja" lang="ja">JA</a><span aria-hidden="true">·</span><a href="de/" hreflang="de" lang="de">DE</a></nav>
+    <div class="lang-switch">
+      <label class="visually-hidden" for="lang-select">Language</label>
+      <select id="lang-select" class="lang-select" aria-label="Language">
+        <option value="en" lang="en" selected>EN</option>
+        <option value="ko" lang="ko">한국어</option>
+        <option value="ja" lang="ja">日本語</option>
+        <option value="de" lang="de">Deutsch</option>
+      </select>
+    </div>
       <span class="lang-case-note">Case studies EN for now</span>
       <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
         <span class="icon-sun" aria-hidden="true">☀</span>

@@ -25,8 +25,12 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,500;0,6..12,600;0,6..12,700;1,6..12,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
+  <script>
+  !function(){try{var P="v9hstk-lang-pref",A="v9hstk-lang-auto";if(localStorage.getItem(P)||localStorage.getItem(A))return;localStorage.setItem(A,"1");var list=navigator.languages&&navigator.languages.length?navigator.languages:[navigator.language||""];var loc="en";for(var i=0;i<list.length;i++){var c=String(list[i]||"").toLowerCase();if(c.indexOf("ko")===0){loc="ko";break}if(c.indexOf("ja")===0){loc="ja";break}if(c.indexOf("de")===0){loc="de";break}}if(loc!=="en")location.replace("/"+loc+"/")}catch(e){}}();
+  </script>
   <script>!function(){var s=sessionStorage.getItem("theme");document.documentElement.setAttribute("data-theme",s||"light")}();</script>
   <script src="js/theme.js" defer></script>
+  <script src="js/lang.js" defer></script>
 </head>
 <body>
   <div class="atmosphere" aria-hidden="true"></div>
@@ -39,7 +43,15 @@
       <a href="#resumes">Resumes</a>
     </nav>
     <div class="header-actions">
-    <nav class="lang-switch" aria-label="Language"><a href="index.html" hreflang="en" lang="en" aria-current="page">EN</a><span aria-hidden="true">·</span><a href="ko/" hreflang="ko" lang="ko">KO</a><span aria-hidden="true">·</span><a href="ja/" hreflang="ja" lang="ja">JA</a><span aria-hidden="true">·</span><a href="de/" hreflang="de" lang="de">DE</a></nav>
+    <div class="lang-switch">
+      <label class="visually-hidden" for="lang-select">Language</label>
+      <select id="lang-select" class="lang-select" aria-label="Language">
+        <option value="en" lang="en" selected>EN</option>
+        <option value="ko" lang="ko">한국어</option>
+        <option value="ja" lang="ja">日本語</option>
+        <option value="de" lang="de">Deutsch</option>
+      </select>
+    </div>
       <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
         <span class="icon-sun" aria-hidden="true">☀</span>
         <span class="icon-moon" aria-hidden="true">☾</span>
