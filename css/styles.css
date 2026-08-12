@@ -191,6 +191,62 @@ button:focus-visible {
   flex-shrink: 0;
 }
 
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.1rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 11rem;
+}
+
+.lang-switch a {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-faint) !important;
+  text-decoration: none !important;
+  padding: 0.2rem 0.3rem;
+  border: 1px solid transparent;
+}
+
+.lang-switch a:hover {
+  color: var(--ink) !important;
+}
+
+.lang-switch a[aria-current="page"] {
+  color: var(--ink) !important;
+  border-color: var(--line);
+}
+
+.lang-switch span {
+  color: var(--ink-faint);
+  font-size: 0.6875rem;
+  opacity: 0.5;
+  user-select: none;
+}
+
+.lang-case-note {
+  display: none;
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  white-space: nowrap;
+}
+
+@media (min-width: 720px) {
+  .lang-switch {
+    max-width: none;
+  }
+
+  .lang-case-note {
+    display: inline;
+  }
+}
+
 .btn-ghost {
   display: none;
   font-size: 0.8125rem;

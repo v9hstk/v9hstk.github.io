@@ -7,10 +7,11 @@ Personal verification hub and case study site for Vinay Kumar.
 ## Structure
 
 ```
-index.html          Landing — hero, video, proof links, case cards, resumes
-hashstack.html      Hashstack case study (Pass 1 published)
-parashar.html       Parashar case study (Pass 1 published)
-guardrail.html      Guardrail case study (live-infra, principal-only)
+index.html          Landing EN — hero, video, proof links, case cards, resumes
+ko/ ja/ de/         Locale landings (KO / JA / DE)
+hashstack.html      Hashstack case study (Pass 1 published; EN)
+parashar.html       Parashar case study (Pass 1 published; EN)
+guardrail.html      Guardrail case study (live-infra, principal-only; EN)
 css/styles.css      Shared styles (light default, dark toggle, exhibit components)
 js/theme.js         Theme toggle (sessionStorage + prefers-color-scheme)
 assets/             certik_report.pdf, whitepaper.pdf, resume PDFs
@@ -18,6 +19,22 @@ og.png              Open Graph image (light theme)
 ```
 
 No build step — GitHub Pages serves `main` from the repo root.
+
+
+## Languages (i18n MVP)
+
+Parallel static locale pages — no build step, no i18n framework.
+
+| Locale | Path |
+|--------|------|
+| English (default) | `/` (`index.html`) |
+| Korean | `/ko/` |
+| Japanese | `/ja/` |
+| German | `/de/` |
+
+Header language switcher (EN · KO · JA · DE) on the landing page and case studies. `hreflang` + `lang` set on each landing locale.
+
+**Not translated yet:** case study bodies (`hashstack.html`, `parashar.html`, `guardrail.html`) remain English; locale landings and case headers note “case studies EN for now.” Resume PDFs remain English.
 
 ## Case studies
 
