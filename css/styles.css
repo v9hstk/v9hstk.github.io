@@ -41,7 +41,7 @@
   --accent-fg: var(--signal-fg);
   --border: var(--line);
   --focus-ring: var(--focus);
-  --radius: 12px;
+  --radius: 6px;
   --shadow-sm: 0 12px 32px rgba(23, 23, 33, 0.08);
   --font-display: "Arcadia Display", "Arcadia Text", -apple-system, sans-serif;
   --font-body: "Arcadia Text", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -82,8 +82,8 @@ body {
   margin: 0;
   font-family: var(--font-body);
   font-size: 15px;
-  font-weight: 360;
-  line-height: 1.625;
+  font-weight: 400;
+  line-height: 1.55;
   color: var(--ink);
   background: var(--bg);
   -webkit-font-smoothing: antialiased;
@@ -176,7 +176,7 @@ button:focus-visible {
   white-space: nowrap;
   padding: 0.35rem 0.65rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius);
 }
 
 .nav-rail a:hover {
@@ -213,7 +213,7 @@ button:focus-visible {
   background-position: right 0.35rem center;
   background-size: 0.5rem 0.35rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius);
   padding: 0.28rem 1.25rem 0.28rem 0.55rem;
   max-width: 11rem;
   cursor: pointer;
@@ -281,7 +281,7 @@ button:focus-visible {
   align-items: center;
   justify-content: center;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius);
   background: transparent;
   color: var(--ink-soft);
   cursor: pointer;
@@ -347,7 +347,6 @@ main {
   .hero {
     gap: 3.5rem;
     align-items: end;
-    min-height: calc(100vh - 4.5rem);
     padding-top: clamp(3rem, 10vh, 6rem);
     padding-bottom: clamp(3rem, 8vh, 5rem);
   }
@@ -377,7 +376,7 @@ main {
   margin: 0 0 1.25rem;
   font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--ink-faint);
 }
@@ -385,8 +384,8 @@ main {
 .hero h1 {
   margin: 0 0 1.5rem;
   font-family: var(--font-display);
-  font-size: clamp(2.75rem, 8vw, 4.75rem);
-  font-weight: 480;
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 440;
   line-height: 1.02;
   letter-spacing: 0.01em;
   color: var(--ink);
@@ -435,7 +434,7 @@ main {
   color: #ffffff !important;
   background: #5266eb;
   border: none;
-  border-radius: 999px;
+  border-radius: var(--radius);
   text-decoration: none !important;
   transition: background 0.2s ease;
 }
@@ -543,7 +542,7 @@ main {
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem 0.75rem;
-  margin: 0 0 1.75rem;
+  margin: 0 0 2.5rem;
 }
 
 .social-chip {
@@ -553,7 +552,7 @@ main {
   min-height: 2.25rem;
   padding: 0.4rem 0.85rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: var(--radius);
   background: var(--card-bg);
   color: var(--ink) !important;
   font-size: 0.8125rem;
@@ -582,7 +581,7 @@ main {
 /* —— Bands —— */
 
 .band {
-  padding: clamp(2.75rem, 7vh, 4.5rem) 0;
+  padding: clamp(2.5rem, 6vh, 3.75rem) 0;
   border-bottom: 1px solid var(--line);
 }
 
@@ -594,7 +593,7 @@ main {
 .band-head h2 {
   margin: 0 0 0.5rem;
   font-family: var(--font-display);
-  font-size: clamp(1.85rem, 4vw, 2.5rem);
+  font-size: clamp(1.75rem, 3.5vw, 2.25rem);
   font-weight: 480;
   letter-spacing: 0.01em;
   line-height: 1.15;
@@ -639,7 +638,7 @@ main {
   grid-template-columns: auto 1fr auto;
   gap: 1rem 1.25rem;
   align-items: center;
-  padding: 1.25rem;
+  padding: 1rem 1.25rem;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--card-bg);
@@ -664,7 +663,7 @@ main {
 
 .case-body h3 {
   margin: 0 0 0.35rem;
-  font-size: clamp(1.05rem, 2.4vw, 1.35rem);
+  font-size: clamp(1rem, 2vw, 1.2rem);
   font-weight: 600;
   letter-spacing: -0.015em;
   color: var(--ink);
@@ -709,7 +708,7 @@ main {
 /* —— Ledger / proof —— */
 
 .ledger h3 {
-  margin: 2rem 0 0.75rem;
+  margin: 1.5rem 0 0.75rem;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.12em;
@@ -732,13 +731,13 @@ main {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.15rem 1rem;
-  padding: 0.9rem 0;
+  padding: 0.65rem 0;
   border-bottom: 1px solid var(--line);
 }
 
 @media (min-width: 640px) {
   .proof-list li {
-    grid-template-columns: minmax(9rem, 0.4fr) 1fr auto;
+    grid-template-columns: minmax(9rem, 14rem) 1fr auto;
     align-items: baseline;
   }
 }
@@ -793,7 +792,7 @@ main {
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1.35rem 1.25rem;
+  padding: 1.25rem;
   border: 1px solid var(--line);
   border-radius: 12px;
   background: color-mix(in srgb, var(--bg-elevated) 70%, transparent);
